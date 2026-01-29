@@ -1,0 +1,394 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { FaChevronDown, FaChartLine, FaShieldAlt, FaLightbulb, FaRobot, FaBriefcase, FaUniversity, FaUsers, FaBook, FaGlobe, FaTag, FaFileAlt, FaGraduationCap, FaHeadset, FaChalkboardTeacher, FaCertificate, FaComments, FaBookOpen, FaSortAlphaDown, FaCalculator } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const Navbar = ({ solid = false }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const solidMode = solid || isScrolled;
+  const navBg = solidMode ? 'bg-white shadow-md py-2' : 'bg-transparent py-4';
+  const textColor = solidMode ? 'text-gray-800' : 'text-white';
+  const logoColor = solidMode ? 'text-[#0e3b5e]' : 'text-white';
+  const loginBtnStyle = solidMode
+    ? 'border-gray-300 text-gray-800 hover:bg-gray-100'
+    : 'border-white text-white hover:bg-white/10';
+
+  const dropdownVariants = {
+    hidden: { opacity: 0, y: -10, height: 0 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      height: 'auto',
+      transition: { duration: 0.3, ease: "easeOut" }
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      height: 0,
+      transition: { duration: 0.2, ease: "easeIn" }
+    }
+  };
+
+  const menuLinkStyle = "flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-300 group";
+  const iconStyle = "bg-white/20 p-2 rounded-full text-white group-hover:bg-[#00cba9] group-hover:text-white transition-colors duration-300";
+
+  return (
+    <nav
+      className={`fixed top-0 w-full z-50 flex justify-between items-center px-8 transition-all duration-300 font-sans ${navBg}`}
+      onMouseLeave={() => setActiveDropdown(null)}
+    >
+      <div className="flex items-center gap-8">
+        <Link to="/" className={`text-2xl font-bold no-underline tracking-tight transition-colors duration-300 ${logoColor}`}>Bloom ERP</Link>
+        <ul className="hidden lg:flex gap-6 list-none m-0 p-0 h-full items-center">
+          <li className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor}`}>
+            <Link to="/features" className="flex items-center gap-1 text-inherit no-underline">
+              Features
+            </Link>
+          </li>
+          <li className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor}`}>
+            <Link to="/pricing" className="text-inherit no-underline">
+              Pricing
+            </Link>
+          </li>
+          <li
+            className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor} relative h-full py-4`}
+            onMouseEnter={() => setActiveDropdown('small-business')}
+          >
+            For small business <FaChevronDown size={10} />
+          </li>
+          <li
+            className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor} relative h-full py-4`}
+            onMouseEnter={() => setActiveDropdown('accountants')}
+          >
+            For accountants & bookkeepers <FaChevronDown size={10} />
+          </li>
+          <li
+            className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor} relative h-full py-4`}
+            onMouseEnter={() => setActiveDropdown('support')}
+          >
+            Support <FaChevronDown size={10} />
+          </li>
+        </ul>
+      </div>
+      <div className="flex gap-4">
+        <button className="px-6 py-2.5 rounded font-bold text-xs tracking-wider cursor-pointer border-none transition-all duration-200 bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg">
+          GET STARTED
+        </button>
+        <button className={`px-4 py-2 rounded font-semibold text-sm cursor-pointer transition-all duration-200 bg-transparent border ${loginBtnStyle}`}>
+          Log in
+        </button>
+      </div>
+
+      {/* Mega Menu Dropdown */}
+      <AnimatePresence>
+        {activeDropdown === 'small-business' && (
+          <motion.div
+            variants={dropdownVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute top-full left-0 w-full bg-gradient-to-b from-[#0e3b5e] to-[#0a2a43] shadow-2xl border-t border-white/10 overflow-hidden"
+            onMouseEnter={() => setActiveDropdown('small-business')}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00cba9]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#1c3bd8]/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+            <div className="max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 md:grid-cols-12 gap-12 text-white relative z-10">
+              {/* Column 1: Main Focus (4 cols) */}
+              <div className="md:col-span-4 flex flex-col justify-center">
+                <h3 className="text-3xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+                  Empowering Small Businesses
+                </h3>
+                <p className="text-blue-200 mb-8 leading-relaxed">
+                  Discover how Bloom ERP simplifies your financial world, giving you more time to focus on what you love.
+                </p>
+                <ul className="space-y-2">
+                  <li>
+                    <Link to="/small-business/accounting-software" className={menuLinkStyle}>
+                      <div className={iconStyle}><FaChartLine size={16} /></div>
+                      <span className="font-semibold text-lg">Accounting Software</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/small-business/bloom-by-industry" className={menuLinkStyle}>
+                      <div className={iconStyle}><FaGlobe size={16} /></div>
+                      <span className="font-semibold text-lg">Bloom by Industry</span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Column 2: Features (4 cols) */}
+              <div className="md:col-span-4 bg-white/5 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
+                <h4 className="text-sm font-bold uppercase tracking-wider mb-6 text-[#00cba9] flex items-center gap-2">
+                  <span className="w-8 h-[1px] bg-[#00cba9]"></span> Why Bloom ERP
+                </h4>
+                <ul className="space-y-4">
+                  <li>
+                    <Link to="/small-business/data-security" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaShieldAlt className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Data & Security</span>
+                        <span className="text-sm text-blue-200/70">Bank-grade encryption</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/small-business/smart-accounting" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaLightbulb className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Smart Accounting</span>
+                        <span className="text-sm text-blue-200/70">Automated workflows</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/small-business/pricing" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaTag className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Small Pricing Packages</span>
+                        <span className="text-sm text-blue-200/70">Affordable plans for growth</span>
+                      </div>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Column 3: Local & Support (4 cols) */}
+              <div className="md:col-span-4 pl-4">
+                <h4 className="text-sm font-bold uppercase tracking-wider mb-6 text-[#00cba9] flex items-center gap-2">
+                  <span className="w-8 h-[1px] bg-[#00cba9]"></span> For Sri Lanka
+                </h4>
+                <div className="grid grid-cols-1 gap-4">
+                  <Link to="/small-business/business-recovery" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/20">
+                    <FaUniversity className="text-[#00cba9]" />
+                    <span className="font-semibold">Business Recovery</span>
+                  </Link>
+                  <Link to="/support/onboarding" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/20">
+                    <FaUsers className="text-[#00cba9]" />
+                    <span className="font-semibold">Onboarding Support</span>
+                  </Link>
+
+                  <Link to="/resources/blog" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/20">
+                    <FaBook className="text-[#00cba9]" />
+                    <span className="font-semibold">Bloom Blog</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {activeDropdown === 'accountants' && (
+          <motion.div
+            variants={dropdownVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute top-full left-0 w-full bg-gradient-to-b from-[#0e3b5e] to-[#0a2a43] shadow-2xl border-t border-white/10 overflow-hidden"
+            onMouseEnter={() => setActiveDropdown('accountants')}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00cba9]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#1c3bd8]/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+            <div className="max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 md:grid-cols-12 gap-12 text-white relative z-10">
+              {/* Column 1: Main Focus (6 cols) */}
+              <div className="md:col-span-6 flex flex-col justify-center">
+                <h3 className="text-3xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+                  See what Bloom ERP can do for accountants and bookkeepers
+                </h3>
+                <ul className="space-y-4">
+                  <li>
+                    <Link to="/accountants/hq" className={menuLinkStyle}>
+                      <div className={iconStyle}><FaBriefcase size={16} /></div>
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-lg">Bloom ERP HQ</span>
+                        <span className="text-sm text-blue-200/70">Manage clients and staff</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/accountants/practice-manager" className={menuLinkStyle}>
+                      <div className={iconStyle}><FaUsers size={16} /></div>
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-lg">Bloom ERP Practice Manager</span>
+                        <span className="text-sm text-blue-200/70">Manage your practice efficiently</span>
+                      </div>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Column 2: Tools (6 cols) */}
+              <div className="md:col-span-6 bg-white/5 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
+                <h4 className="text-sm font-bold uppercase tracking-wider mb-6 text-[#00cba9] flex items-center gap-2">
+                  <span className="w-8 h-[1px] bg-[#00cba9]"></span> Practice Tools
+                </h4>
+                <ul className="space-y-4">
+                  <li>
+                    <Link to="/accountants/cashbook-ledger" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaBook className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Bloom ERP Cashbook, Bloom Ledger</span>
+                        <span className="text-sm text-blue-200/70">Starter plans for smaller clients</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/accountants/workpapers" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaFileAlt className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">New workpapers</span>
+                        <span className="text-sm text-blue-200/70">Faster, more accurate compliance</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/accountants/syft-analytics" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaChartLine className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Syft Analytics</span>
+                        <span className="text-sm text-blue-200/70">Advanced reporting & insights</span>
+                      </div>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        )}
+        {activeDropdown === 'support' && (
+          <motion.div
+            variants={dropdownVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute top-full left-0 w-full bg-gradient-to-b from-[#0e3b5e] to-[#0a2a43] shadow-2xl border-t border-white/10 overflow-hidden"
+            onMouseEnter={() => setActiveDropdown('support')}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00cba9]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#1c3bd8]/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+            <div className="max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 md:grid-cols-12 gap-12 text-white relative z-10">
+              {/* Column 1: Support & Learning (6 cols) */}
+              <div className="md:col-span-6 flex flex-col justify-center">
+                <h3 className="text-3xl font-extrabold mb-2 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
+                  Get support or learn how to use Bloom
+                </h3>
+                <p className="text-blue-200 mb-8 leading-relaxed">
+                  Support to set up or use Bloom
+                </p>
+                <ul className="space-y-4">
+                  <li>
+                    <Link to="/support/get-support" className={menuLinkStyle}>
+                      <div className={iconStyle}><FaHeadset size={16} /></div>
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-lg">Get support</span>
+                        <span className="text-sm text-blue-200/70">Expert help when you need it</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/support/training" className={menuLinkStyle}>
+                      <div className={iconStyle}><FaChalkboardTeacher size={16} /></div>
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-lg">Bloom product training</span>
+                        <span className="text-sm text-blue-200/70">Master the platform</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/support/certification" className={menuLinkStyle}>
+                      <div className={iconStyle}><FaCertificate size={16} /></div>
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-lg">Get Certified</span>
+                        <span className="text-sm text-blue-200/70">Prove your expertise</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/support/community" className={menuLinkStyle}>
+                      <div className={iconStyle}><FaComments size={16} /></div>
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-lg">Bloom Community</span>
+                        <span className="text-sm text-blue-200/70">Connect with other users</span>
+                      </div>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Column 2: Resources (6 cols) */}
+              <div className="md:col-span-6 bg-white/5 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
+                <h4 className="text-sm font-bold uppercase tracking-wider mb-6 text-[#00cba9] flex items-center gap-2">
+                  <span className="w-8 h-[1px] bg-[#00cba9]"></span> Small business resources
+                </h4>
+                <ul className="space-y-4">
+                  <li>
+                    <Link to="/resources/guides" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaBookOpen className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Guides</span>
+                        <span className="text-sm text-blue-200/70">Helpful tips and tricks</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/resources/glossary" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaSortAlphaDown className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Accounting glossary</span>
+                        <span className="text-sm text-blue-200/70">Terms explained simply</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/resources/templates" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaFileAlt className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Free templates</span>
+                        <span className="text-sm text-blue-200/70">Downloadable resources</span>
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/resources/calculators" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
+                      <FaCalculator className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
+                      <div>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Handy calculators</span>
+                        <span className="text-sm text-blue-200/70">Quick financial tools</span>
+                      </div>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
+
+export default Navbar;
