@@ -1,10 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import { FaSearch, FaUserTie, FaUserFriends, FaLock, FaComments, FaLightbulb, FaGraduationCap, FaVideo, FaHeadset, FaArrowRight } from 'react-icons/fa';
+import { FaSearch, FaUserTie, FaUserFriends, FaLock, FaComments, FaLightbulb, FaGraduationCap, FaVideo, FaHeadset, FaArrowRight, FaPhone, FaWhatsapp, FaEnvelope, FaTimes } from 'react-icons/fa';
 
 const BloomGetSupport = () => {
+  const navigate = useNavigate();
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
     <div className="font-sans overflow-x-hidden bg-[#f8fafc]">
       <Navbar solid={true} />
@@ -59,11 +63,12 @@ const BloomGetSupport = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
+            onClick={() => navigate('/support/onboarding')}
             className="group relative h-[500px] rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
           >
             <div className="absolute inset-0">
               <img
-                src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                 alt="Small Business"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -90,6 +95,7 @@ const BloomGetSupport = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
+            onClick={() => navigate('/accountants/hq')}
             className="group relative h-[500px] rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
           >
             <div className="absolute inset-0">
@@ -136,11 +142,11 @@ const BloomGetSupport = () => {
                 Log in to access your profile, learning progress and cases. Plus, access our full suite of learning resources securely.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="bg-[#00cba9] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#00b596] transition-all hover:scale-105 shadow-lg flex items-center gap-2">
+                <button onClick={() => navigate('/login')} className="bg-[#00cba9] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#00b596] transition-all hover:scale-105 shadow-lg flex items-center gap-2">
                   <FaLock className="text-sm" /> Log in
                 </button>
-                <button className="bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all">
-                  Try Bloom for free
+                <button onClick={() => navigate('/register')} className="bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all">
+                  Try Bloom ERP
                 </button>
               </div>
             </div>
@@ -188,9 +194,6 @@ const BloomGetSupport = () => {
                 <div>
                   <h3 className="text-2xl font-bold text-[#0e3b5e] mb-3">Ask other people using Bloom</h3>
                   <p className="text-gray-600 mb-6 leading-relaxed">Ask a question about using Bloom in one of our community discussion forums.</p>
-                  <a href="#" className="text-[#00cba9] font-bold text-lg hover:underline flex items-center gap-2">
-                    Start a discussion <FaArrowRight className="text-sm" />
-                  </a>
                 </div>
               </div>
             </div>
@@ -215,9 +218,6 @@ const BloomGetSupport = () => {
                 <div>
                   <h3 className="text-2xl font-bold text-[#0e3b5e] mb-3">Propose an idea</h3>
                   <p className="text-gray-600 mb-6 leading-relaxed">Propose or support ideas for improving Bloom and shape the future.</p>
-                  <a href="#" className="text-[#00cba9] font-bold text-lg hover:underline flex items-center gap-2">
-                    View product ideas <FaArrowRight className="text-sm" />
-                  </a>
                 </div>
               </div>
             </div>
@@ -250,9 +250,6 @@ const BloomGetSupport = () => {
               <div className="p-10">
                 <h3 className="text-2xl font-bold text-[#0e3b5e] mb-4">Courses and certification</h3>
                 <p className="text-gray-600 mb-8 text-lg">Learn everything Bloom can do by completing a course or certification.</p>
-                <button className="text-[#00cba9] font-bold text-lg hover:text-[#00b596] transition-colors flex items-center gap-2">
-                  View courses and certifications <FaArrowRight />
-                </button>
               </div>
             </motion.div>
 
@@ -276,9 +273,6 @@ const BloomGetSupport = () => {
               <div className="p-10">
                 <h3 className="text-2xl font-bold text-[#0e3b5e] mb-4">Webinars and events</h3>
                 <p className="text-gray-600 mb-8 text-lg">Register for live webinars or local in-person events to learn more about Bloom.</p>
-                <button className="text-[#00cba9] font-bold text-lg hover:text-[#00b596] transition-colors flex items-center gap-2">
-                  View webinars and events <FaArrowRight />
-                </button>
               </div>
             </motion.div>
           </div>
@@ -308,11 +302,87 @@ const BloomGetSupport = () => {
           <p className="text-blue-100 mb-10 max-w-lg z-10 text-xl leading-relaxed">
             Contact the Bloom support team and we’ll help you out with any questions or issues.
           </p>
-          <button className="bg-white text-[#0e3b5e] px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg z-10 transform hover:translate-y-[-4px]">
+          <button
+            onClick={() => setIsContactModalOpen(true)}
+            className="bg-white text-[#0e3b5e] px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg z-10 transform hover:translate-y-[-4px]"
+          >
             Contact Bloom support
           </button>
         </motion.div>
       </section>
+
+      {/* Contact Modal */}
+      <AnimatePresence>
+        {isContactModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl relative"
+            >
+              <button
+                onClick={() => setIsContactModalOpen(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <FaTimes size={24} />
+              </button>
+
+              <div className="w-16 h-16 bg-[#00cba9] rounded-2xl flex items-center justify-center text-3xl mb-6 mx-auto shadow-lg text-white">
+                <FaHeadset />
+              </div>
+
+              <h3 className="text-2xl font-bold text-[#0e3b5e] mb-2 text-center">Contact Support</h3>
+              <p className="text-gray-600 text-center mb-8">How would you like to connect with us?</p>
+
+              <div className="space-y-4">
+                <a
+                  href="tel:+94726700243"
+                  className="flex items-center gap-4 w-full p-4 rounded-xl border-2 border-gray-100 hover:border-[#00cba9] hover:bg-[#00cba9]/5 transition-all group"
+                >
+                  <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                    <FaPhone />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-bold text-[#0e3b5e]">Call Us</h4>
+                    <p className="text-sm text-gray-500">+94 72 670 0243</p>
+                  </div>
+                </a>
+
+                <a
+                  href="https://wa.me/94726700243"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 w-full p-4 rounded-xl border-2 border-gray-100 hover:border-[#25D366] hover:bg-[#25D366]/5 transition-all group"
+                >
+                  <div className="w-12 h-12 rounded-full bg-green-100 text-[#25D366] flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                    <FaWhatsapp />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-bold text-[#0e3b5e]">WhatsApp</h4>
+                    <p className="text-sm text-gray-500">Chat with us directly</p>
+                  </div>
+                </a>
+
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=info@bloomtech.lk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 w-full p-4 rounded-xl border-2 border-gray-100 hover:border-red-400 hover:bg-red-50 transition-all group"
+                >
+                  <div className="w-12 h-12 rounded-full bg-red-100 text-red-500 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                    <FaEnvelope />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-bold text-[#0e3b5e]">Email</h4>
+                    <p className="text-sm text-gray-500">info@bloomtech.lk</p>
+                  </div>
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>

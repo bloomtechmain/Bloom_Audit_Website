@@ -1,0 +1,90 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const userModel = require('../models/userModel');
+
+const register = async (req, res) => {
+  const { name, email, password, company_type, package_name, package_price } = req.body;
+
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Please provide all required fields' });
+  }
+
+  try {
+    const existingUser = await userModel.findUserByEmail(email);
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = await userModel.createUser(name, email, hashedPassword, company_type, package_name, package_price);
+
+    const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET || 'secret', {
+      expiresIn: '30d',
+    });
+
+    res.status(201).json({
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role,
+      company_type: newUser.company_type,
+      package_name: newUser.package_name,
+      package_status: newUser.package_status || 'pending',
+      token,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Please provide email and password' });
+  }
+
+  try {
+    const user = await userModel.findUserByEmail(email);
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || 'secret', {
+      expiresIn: '30d',
+    });
+
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      company_type: user.company_type,
+      package_name: user.package_name,
+      package_status: user.package_status,
+      token,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const getMe = async (req, res) => {
+    // req.user is already set by protect middleware
+    res.json(req.user);
+};
+
+module.exports = {
+  register,
+  login,
+  getMe
+};

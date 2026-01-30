@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -103,6 +104,8 @@ const FeatureCard = ({ feature, index }) => {
 };
 
 const Features = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="font-sans overflow-x-hidden">
       <Navbar solid />
@@ -153,6 +156,7 @@ const Features = () => {
           </motion.p>
 
           <motion.button
+            onClick={() => navigate('/register')}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -161,7 +165,7 @@ const Features = () => {
             whileTap={{ scale: 0.95 }}
             className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded-full text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] transition-all"
           >
-            Get one month free
+            Get Started
           </motion.button>
         </div>
 

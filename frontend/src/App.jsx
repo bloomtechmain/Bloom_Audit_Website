@@ -18,11 +18,21 @@ import BloomCashbookLedger from './pages/BloomCashbookLedger';
 import BloomWorkpapers from './pages/BloomWorkpapers';
 import BloomSyftAnalytics from './pages/BloomSyftAnalytics';
 import BloomGetSupport from './pages/BloomGetSupport';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import AdminDashboard from './pages/AdminDashboard';
+import MyPackage from './pages/MyPackage';
+import Community from './pages/Community';
+import Guides from './pages/Guides';
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/my-package" element={<MyPackage />} />
         <Route path="/" element={<Home />} />
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
@@ -41,6 +51,8 @@ function App() {
         <Route path="/accountants/workpapers" element={<BloomWorkpapers />} />
         <Route path="/accountants/syft-analytics" element={<BloomSyftAnalytics />} />
         <Route path="/support/get-support" element={<BloomGetSupport />} />
+        <Route path="/support/community" element={<Community />} />
+        <Route path="/resources/guides" element={<Guides />} />
       </Routes>
     </Router>
   );

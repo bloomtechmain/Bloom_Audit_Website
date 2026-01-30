@@ -25,16 +25,13 @@ const Footer = () => {
               <span className="text-2xl font-bold tracking-tight">Bloom ERP</span>
             </div>
 
-            <p className="text-gray-300 mb-2">Jalan Cempaka Wangi No 22</p>
-            <p className="text-gray-300 mb-6">Jakarta - Indonesia</p>
-
             <div className="flex items-center gap-3 mb-3 text-gray-300">
               <FaEnvelope className="text-[#00cba9]" />
-              <span>support@yourdomain.tld</span>
+              <span>info@bloomtech.lk</span>
             </div>
             <div className="flex items-center gap-3 mb-6 text-gray-300">
               <FaPhoneAlt className="text-[#00cba9]" />
-              <span>+6221.2002.2012</span>
+              <span>+94 72 670 0243</span>
             </div>
 
             <div className="flex gap-3">
@@ -87,7 +84,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
-          <p>Copyright © 2026 Bloom ERP, All rights reserved. Powered by MoxCreative.</p>
+          <p>Copyright © 2026 Bloom ERP, All rights reserved. Powered by Bloom Tech.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">Term of use</a>
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>

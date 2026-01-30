@@ -1,12 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const AccountantSection = () => {
+  const navigate = useNavigate();
   const steps = [
     {
       title: 'Consultations',
-      description: 'Inceptos etiam sodales massa enim habitant lobortis cursus scelerisque nisl mollis curae',
-      buttonText: 'CHAT NOW',
+      description: 'Schedule a one-on-one meeting to analyze your current financial status and requirements.',
+      buttonText: 'GET STARTED',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
@@ -15,7 +17,7 @@ const AccountantSection = () => {
     },
     {
       title: 'Choose Package',
-      description: 'Inceptos etiam sodales massa enim habitant lobortis cursus scelerisque nisl mollis curae',
+      description: 'Select the service package that perfectly aligns with your business size and goals.',
       buttonText: 'GET STARTED',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -25,8 +27,8 @@ const AccountantSection = () => {
     },
     {
       title: 'Get Your Services',
-      description: 'Inceptos etiam sodales massa enim habitant lobortis cursus scelerisque nisl mollis curae',
-      buttonText: 'READ TESTIMONIAL',
+      description: 'Sit back as our experts handle your accounting, audits, and compliance needs efficiently.',
+      buttonText: 'GET STARTED',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -55,7 +57,7 @@ const AccountantSection = () => {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-gray-500 text-lg max-w-2xl mx-auto"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+            Our streamlined process ensures you get the best financial services with minimal hassle.
           </motion.p>
         </div>
 
@@ -80,7 +82,9 @@ const AccountantSection = () => {
                 {step.description}
               </p>
 
-              <button className="mt-auto bg-[#26d4b5] hover:bg-[#1fbfa1] text-white font-bold py-3 px-8 rounded shadow transition-colors duration-300 text-sm tracking-wider uppercase">
+              <button
+                onClick={() => navigate('/register')}
+                className="mt-auto bg-[#26d4b5] hover:bg-[#1fbfa1] text-white font-bold py-3 px-8 rounded shadow transition-colors duration-300 text-sm tracking-wider uppercase">
                 {step.buttonText}
               </button>
             </motion.div>

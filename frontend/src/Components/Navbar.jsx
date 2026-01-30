@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaChevronDown, FaChartLine, FaShieldAlt, FaLightbulb, FaRobot, FaBriefcase, FaUniversity, FaUsers, FaBook, FaGlobe, FaTag, FaFileAlt, FaGraduationCap, FaHeadset, FaChalkboardTeacher, FaCertificate, FaComments, FaBookOpen, FaSortAlphaDown, FaCalculator } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaChevronDown, FaChartLine, FaShieldAlt, FaLightbulb, FaRobot, FaBriefcase, FaUniversity, FaUsers, FaBook, FaGlobe, FaTag, FaFileAlt, FaGraduationCap, FaHeadset, FaChalkboardTeacher, FaCertificate, FaComments, FaBookOpen, FaSortAlphaDown, FaCalculator, FaUserCircle, FaSignOutAlt, FaTachometerAlt, FaBoxOpen } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = ({ solid = false }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [user, setUser] = useState(null);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +22,33 @@ const Navbar = ({ solid = false }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Check for logged in user
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const response = await fetch('http://localhost:5000/api/auth/me', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (response.ok) {
+            const userData = await response.json();
+            setUser(userData);
+          }
+        } catch (error) {
+          console.error("Auth check failed", error);
+        }
+      }
+    };
+    checkAuth();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+    navigate('/login');
+  };
 
   const solidMode = solid || isScrolled;
   const navBg = solidMode ? 'bg-white shadow-md py-2' : 'bg-transparent py-4';
@@ -85,13 +115,65 @@ const Navbar = ({ solid = false }) => {
           </li>
         </ul>
       </div>
-      <div className="flex gap-4">
-        <button className="px-6 py-2.5 rounded font-bold text-xs tracking-wider cursor-pointer border-none transition-all duration-200 bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg">
-          GET STARTED
-        </button>
-        <button className={`px-4 py-2 rounded font-semibold text-sm cursor-pointer transition-all duration-200 bg-transparent border ${loginBtnStyle}`}>
-          Log in
-        </button>
+      <div className="flex gap-4 items-center">
+        {user ? (
+          <div className="relative">
+            <button
+              onClick={() => setShowProfileMenu(!showProfileMenu)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm transition-all duration-200 ${solidMode ? 'text-gray-800 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+            >
+              <FaUserCircle size={24} />
+              <span className="hidden md:inline">{user.name}</span>
+              <FaChevronDown size={12} />
+            </button>
+
+            <AnimatePresence>
+              {showProfileMenu && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 text-gray-800 border border-gray-100"
+                >
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <p className="text-sm font-semibold">{user.name}</p>
+                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                  </div>
+
+                  {user.role === 'admin' ? (
+                    <Link to="/admin" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-sm">
+                      <FaTachometerAlt className="text-blue-500" /> Admin Dashboard
+                    </Link>
+                  ) : (
+                    <Link to="/my-package" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-sm">
+                      <FaBoxOpen className="text-green-500" /> My Package
+                    </Link>
+                  )}
+
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-600 transition-colors text-sm border-t border-gray-100"
+                  >
+                    <FaSignOutAlt /> Sign Out
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ) : (
+          <>
+            <Link to="/register">
+              <button className="px-6 py-2.5 rounded font-bold text-xs tracking-wider cursor-pointer border-none transition-all duration-200 bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg">
+                GET STARTED
+              </button>
+            </Link>
+            <Link to="/login">
+              <button className={`px-4 py-2 rounded font-semibold text-sm cursor-pointer transition-all duration-200 bg-transparent border ${loginBtnStyle}`}>
+                Log in
+              </button>
+            </Link>
+          </>
+        )}
       </div>
 
       {/* Mega Menu Dropdown */}
@@ -309,24 +391,7 @@ const Navbar = ({ solid = false }) => {
                       </div>
                     </Link>
                   </li>
-                  <li>
-                    <Link to="/support/training" className={menuLinkStyle}>
-                      <div className={iconStyle}><FaChalkboardTeacher size={16} /></div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-lg">Bloom product training</span>
-                        <span className="text-sm text-blue-200/70">Master the platform</span>
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/support/certification" className={menuLinkStyle}>
-                      <div className={iconStyle}><FaCertificate size={16} /></div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-lg">Get Certified</span>
-                        <span className="text-sm text-blue-200/70">Prove your expertise</span>
-                      </div>
-                    </Link>
-                  </li>
+
                   <li>
                     <Link to="/support/community" className={menuLinkStyle}>
                       <div className={iconStyle}><FaComments size={16} /></div>
@@ -354,33 +419,7 @@ const Navbar = ({ solid = false }) => {
                       </div>
                     </Link>
                   </li>
-                  <li>
-                    <Link to="/resources/glossary" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
-                      <FaSortAlphaDown className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
-                      <div>
-                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Accounting glossary</span>
-                        <span className="text-sm text-blue-200/70">Terms explained simply</span>
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/resources/templates" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
-                      <FaFileAlt className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
-                      <div>
-                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Free templates</span>
-                        <span className="text-sm text-blue-200/70">Downloadable resources</span>
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/resources/calculators" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
-                      <FaCalculator className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
-                      <div>
-                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Handy calculators</span>
-                        <span className="text-sm text-blue-200/70">Quick financial tools</span>
-                      </div>
-                    </Link>
-                  </li>
+
                 </ul>
               </div>
             </div>

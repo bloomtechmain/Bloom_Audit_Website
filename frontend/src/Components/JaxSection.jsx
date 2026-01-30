@@ -29,22 +29,22 @@ const JaxSection = () => {
         </h2>
 
         <p className="text-lg text-gray-500 mb-10 leading-relaxed max-w-xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+          We provide comprehensive financial solutions tailored to your business needs. Our expert team ensures accuracy, compliance, and strategic growth for your company.
         </p>
 
         <ul className="flex flex-col gap-8 mb-8">
           {[
             {
               title: "Audit & Assurance",
-              desc: "Elementum facilisi ipsum eros elit odio ac ridiculus tincidunt egestas facilisis iaculis."
+              desc: "Ensure your financial statements are accurate and compliant with our rigorous audit processes."
             },
             {
               title: "Advisory",
-              desc: "Elementum facilisi ipsum eros elit odio ac ridiculus tincidunt egestas facilisis iaculis."
+              desc: "Get strategic insights and expert advice to guide your business decisions and growth."
             },
             {
-              title: "Managements",
-              desc: "Elementum facilisi ipsum eros elit odio ac ridiculus tincidunt egestas facilisis iaculis."
+              title: "Management Services",
+              desc: "Streamline your operations with our effective management solutions and financial oversight."
             }
           ].map((item, index) => (
             <motion.li
@@ -93,10 +93,12 @@ const JaxSection = () => {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute -bottom-10 -right-10 bg-white rounded-full w-48 h-48 flex flex-col justify-center items-center shadow-2xl z-20 border-4 border-white"
+            className="absolute -bottom-10 -right-10 bg-white rounded-full w-56 h-56 flex flex-col justify-center items-center shadow-2xl z-20 border-4 border-white"
           >
-            <span className="text-[#00cba9] text-6xl font-extrabold">15+</span>
-            <span className="text-gray-500 text-sm font-medium mt-1">Years of Experience</span>
+            <span className="text-[#0b2441] text-lg font-bold uppercase tracking-widest text-center px-4 leading-relaxed">
+              The best <br />
+              <span className="text-[#00cba9] text-2xl">of the best</span>
+            </span>
           </motion.div>
         </motion.div>
       </motion.div>

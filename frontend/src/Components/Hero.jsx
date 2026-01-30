@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { FaPlay, FaArrowRight, FaChartPie, FaFileInvoiceDollar, FaShieldAlt } from 'react-icons/fa';
 
 const Hero = () => {
+  const navigate = useNavigate();
   const floatAnimation = {
     animate: {
       y: [0, -20, 0],
@@ -67,8 +69,10 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <button className="px-8 py-4 bg-[#00cba9] text-white rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:bg-[#00b596] transition-all transform hover:-translate-y-1 flex items-center gap-2 group">
-                Get Started Free <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+              <button 
+                onClick={() => navigate('/register')}
+                className="px-8 py-4 bg-[#00cba9] text-white rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:bg-[#00b596] transition-all transform hover:-translate-y-1 flex items-center gap-2 group">
+                Get started <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
               </button>
 
               <button className="px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white rounded-xl font-bold text-lg hover:bg-white/10 transition-all flex items-center gap-3">

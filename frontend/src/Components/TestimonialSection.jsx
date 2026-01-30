@@ -4,22 +4,22 @@ import { motion } from 'framer-motion';
 const TestimonialSection = () => {
   const testimonials = [
     {
-      name: 'Lilly Mitchell',
-      role: 'Founder Makko',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.'
+      name: 'Mr. Ajith',
+      role: 'CEO at Oleema (pvt) ltd',
+      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&auto=format&fit=crop',
+      text: 'Bloom ERP transformed our accounting process. The insights provided were invaluable for our growth strategy.'
     },
     {
-      name: 'Cameron Mcdonald',
-      role: 'Business Manager MoxPay',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.'
+      name: 'Mr. Weerasinghe',
+      role: 'Owner of Weerasinghe Hardware',
+      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
+      text: 'The team is professional, knowledgeable, and always available to support us. Highly recommended!'
     },
     {
-      name: 'Brandon Reynolds',
-      role: 'CEO Lokamart',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.'
+      name: 'Mr Kosala Manoj',
+      role: 'Owner of Heaven bakers',
+      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop',
+      text: 'Efficient, accurate, and reliable. Bloom has been a game-changer for our financial management.'
     }
   ];
 
@@ -71,7 +71,7 @@ const TestimonialSection = () => {
             transition={{ delay: 0.2 }}
             className="max-w-2xl mx-auto text-lg opacity-90 leading-relaxed"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+            Hear from business owners who have transformed their financial management with Bloom.
           </motion.p>
         </div>
       </div>
