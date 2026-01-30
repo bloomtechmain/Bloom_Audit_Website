@@ -75,9 +75,7 @@ const Hero = () => {
               </Link>
             </div>
 
-            <div className="mt-12 flex items-center justify-center lg:justify-start gap-8 text-blue-200/60 text-sm font-semibold uppercase tracking-widest">
-              <span>Trusted by 500+ Companies</span>
-            </div>
+
           </motion.div>
 
           {/* Visual Content - Floating Dashboard */}
