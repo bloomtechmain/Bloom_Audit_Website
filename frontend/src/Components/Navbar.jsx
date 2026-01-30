@@ -162,15 +162,17 @@ const Navbar = ({ solid = false }) => {
           </div>
         ) : (
           <>
-            <Link to="/register">
-              <button className="px-6 py-2.5 rounded font-bold text-xs tracking-wider cursor-pointer border-none transition-all duration-200 bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg">
-                GET STARTED
-              </button>
+            <Link
+              to="/register"
+              className="px-6 py-2.5 rounded font-bold text-xs tracking-wider cursor-pointer border-none transition-all duration-200 bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg inline-block text-center no-underline"
+            >
+              Get started
             </Link>
-            <Link to="/login">
-              <button className={`px-4 py-2 rounded font-semibold text-sm cursor-pointer transition-all duration-200 bg-transparent border ${loginBtnStyle}`}>
-                Log in
-              </button>
+            <Link
+              to="/login"
+              className={`px-4 py-2 rounded font-semibold text-sm cursor-pointer transition-all duration-200 bg-transparent border inline-block text-center no-underline ${loginBtnStyle}`}
+            >
+              Log in
             </Link>
           </>
         )}

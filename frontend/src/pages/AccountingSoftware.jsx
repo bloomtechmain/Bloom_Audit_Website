@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 import { motion } from 'framer-motion'
@@ -55,12 +56,12 @@ const AccountingSoftware = () => {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="mt-10 flex flex-wrap items-center gap-6"
           >
-            <a href="/small-business/pricing" className="inline-flex items-center gap-3 bg-[#00cba9] hover:bg-[#00b596] text-white font-bold px-6 py-3 rounded-lg transition-all hover:-translate-y-0.5 shadow-[0_0_20px_rgba(0,203,169,0.4)]">
-              Get one month free <FaArrowRight />
-            </a>
-            <a href="/features" className="font-bold text-white underline hover:no-underline hover:text-[#00cba9] transition-colors">
-              See all Bloom features
-            </a>
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-3 bg-[#00cba9] hover:bg-[#00b596] text-white font-bold px-6 py-3 rounded-lg transition-all hover:-translate-y-0.5 shadow-[0_0_20px_rgba(0,203,169,0.4)]"
+            >
+              Get started <FaArrowRight />
+            </Link>
           </motion.div>
         </div>
 
@@ -162,26 +163,7 @@ const AccountingSoftware = () => {
               </motion.div>
             ))}
           </div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mt-12 rounded-2xl bg-[#c8f6ff] p-8 flex items-center justify-between"
-          >
-            <div className="flex items-center gap-4">
-              <motion.span
-                className="text-[#ff7d4d]"
-                animate={{ scale: [1, 1.15, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <FaStar />
-              </motion.span>
-              <span className="font-semibold text-[#0e3b5e]">
-                88% of customers agree Bloom ERP is easy to use
-              </span>
-            </div>
-            <a href="#" className="text-[#0e3b5e] font-bold underline">Read our reviews</a>
-          </motion.div>
+
         </div>
       </section>
 
@@ -213,7 +195,7 @@ const AccountingSoftware = () => {
                 </li>
               ))}
             </ul>
-            <a href="/features" className="mt-6 inline-block font-bold text-[#0e3b5e] underline">See all Bloom features</a>
+
           </div>
         </div>
       </section>
@@ -237,7 +219,7 @@ const AccountingSoftware = () => {
                 </li>
               ))}
             </ul>
-            <a href="#" className="mt-6 inline-block font-bold text-[#0e3b5e] underline">More about online accounting</a>
+
           </div>
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <motion.img
@@ -280,14 +262,22 @@ const AccountingSoftware = () => {
                   Save LKR {p.save.toLocaleString()} over 6 months
                 </div>
                 <p className="mt-6 text-gray-600">{p.desc}</p>
-                <a href="/small-business/pricing" className="mt-8 w-full inline-flex items-center justify-center bg-[#00cba9] hover:bg-[#00b596] text-white font-bold px-6 py-3 rounded-lg transition-all hover:-translate-y-0.5">
-                  Get one month free
-                </a>
-                <a href="/small-business/pricing" className="mt-4 block text-[#0e3b5e] font-bold underline text-center">
+                <Link
+                  to="/register"
+                  className="mt-8 w-full inline-flex items-center justify-center gap-2 bg-[#00cba9] hover:bg-[#00b596] text-white font-bold px-6 py-3 rounded-lg transition-all hover:-translate-y-0.5"
+                >
+                  Get started <FaArrowRight />
+                </Link>
+                <Link to="/small-business/pricing" className="mt-4 block text-[#0e3b5e] font-bold underline text-center">
                   Learn more
-                </a>
+                </Link>
               </motion.div>
             ))}
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 justify-center mt-16">
+            <Link to="/register" className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+              Get started
+            </Link>
           </div>
         </div>
       </section>

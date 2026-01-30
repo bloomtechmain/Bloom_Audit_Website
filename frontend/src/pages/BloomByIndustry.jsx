@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FaStore, FaHardHat, FaUtensils, FaBriefcase, FaHandHoldingHeart, FaIndustry, FaArrowRight, FaCheckCircle } from 'react-icons/fa';
 
 const industries = [
@@ -104,12 +105,9 @@ const BloomByIndustry = () => {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="flex flex-wrap gap-4"
           >
-            <a href="/small-business/pricing" className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-8 rounded-full transition-all shadow-[0_0_20px_rgba(0,203,169,0.4)] flex items-center gap-2">
-              Find your plan <FaArrowRight />
-            </a>
-            <a href="#industries" className="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold py-4 px-8 rounded-full transition-all backdrop-blur-md">
-              Explore industries
-            </a>
+            <Link to="/register" className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-8 rounded-full transition-all shadow-[0_0_20px_rgba(0,203,169,0.4)] flex items-center gap-2">
+              Get started <FaArrowRight />
+            </Link>
           </motion.div>
         </div>
 
@@ -274,12 +272,9 @@ const BloomByIndustry = () => {
             Join thousands of Sri Lankan businesses growing with Bloom ERP.
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="/small-business/pricing" className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
-              Get started for free
-            </a>
-            <a href="/contact" className="bg-white hover:bg-gray-50 text-[#0e3b5e] border-2 border-[#0e3b5e]/10 font-bold py-4 px-10 rounded-full text-lg transition-all hover:border-[#0e3b5e]/30">
-              Contact sales
-            </a>
+            <Link to="/register" className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+              Get started
+            </Link>
           </div>
         </div>
       </section>

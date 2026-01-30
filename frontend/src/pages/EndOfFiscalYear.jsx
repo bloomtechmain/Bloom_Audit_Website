@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { FaCalendarCheck, FaFileInvoiceDollar, FaChartPie, FaArrowRight, FaCheckCircle } from 'react-icons/fa';
@@ -39,14 +40,14 @@ const EndOfFiscalYear = () => {
             style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop")' }}
           ></div>
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#0e3b5e]/90 via-[#1c3bd8]/10 to-[#0e3b5e]/90"></div>
-          
+
           {/* Animated Orbs */}
-          <motion.div 
+          <motion.div
             animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
             transition={{ duration: 5, repeat: Infinity }}
             className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-yellow-400/20 rounded-full blur-[100px]"
           ></motion.div>
-          <motion.div 
+          <motion.div
             animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
             transition={{ duration: 7, repeat: Infinity, delay: 1 }}
             className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#00cba9]/20 rounded-full blur-[120px]"
@@ -72,9 +73,12 @@ const EndOfFiscalYear = () => {
               Wrap up your financial year seamlessly. From reconciliation to reporting, Bloom ERP guides you through a stress-free closing process.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="bg-[#00cba9] text-white font-bold py-4 px-10 rounded-full text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:-translate-y-1 transition-all">
-                Start Closing Process
-              </button>
+              <Link
+                to="/register"
+                className="bg-[#00cba9] text-white font-bold py-4 px-10 rounded-full text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:-translate-y-1 transition-all flex items-center gap-2"
+              >
+                Get started <FaArrowRight />
+              </Link>
             </div>
           </motion.div>
 
@@ -91,10 +95,10 @@ const EndOfFiscalYear = () => {
                   Priority
                 </span>
               </div>
-              
+
               <div className="space-y-6">
                 {['Reconcile Bank Accounts', 'Review Outstanding Invoices', 'Verify Expense Claims', 'Run Final Reports'].map((item, i) => (
-                  <motion.div 
+                  <motion.div
                     key={i}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -115,7 +119,7 @@ const EndOfFiscalYear = () => {
                   <span>0%</span>
                 </div>
                 <div className="w-full h-2 bg-white/10 rounded-full mt-2 overflow-hidden">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: "35%" }}
                     transition={{ duration: 1.5, delay: 1 }}
@@ -173,9 +177,9 @@ const EndOfFiscalYear = () => {
           <p className="text-xl text-blue-200 mb-10">
             Don't wait until the last minute. Start your year-end process today with Bloom ERP's guided tools.
           </p>
-          <button className="bg-white text-[#0e3b5e] font-bold py-4 px-12 rounded-full text-xl hover:bg-gray-100 transition-colors shadow-2xl">
-            Go to Year-End Dashboard
-          </button>
+          <Link to="/register" className="bg-white text-[#0e3b5e] font-bold py-4 px-12 rounded-full text-xl hover:bg-gray-100 transition-colors shadow-2xl flex items-center gap-2 inline-flex">
+            Get started <FaArrowRight />
+          </Link>
         </div>
       </section>
 

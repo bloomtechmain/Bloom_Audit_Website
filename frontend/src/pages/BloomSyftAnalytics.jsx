@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { FaChartLine, FaChartPie, FaGlobe, FaRocket, FaFileExport, FaBrain, FaArrowRight, FaLayerGroup } from 'react-icons/fa';
@@ -55,9 +56,9 @@ const BloomSyftAnalytics = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0e3b5e] pt-20">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-           <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#00cba9] rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob"></div>
-           <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-blue-600 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob animation-delay-2000"></div>
-           <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] bg-purple-600 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob animation-delay-4000"></div>
+          <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#00cba9] rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob"></div>
+          <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-blue-600 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] bg-purple-600 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -77,12 +78,9 @@ const BloomSyftAnalytics = () => {
               Go beyond the numbers. Create beautiful, interactive reports that your clients will actually understand and love.
             </motion.p>
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
-              <button className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:bg-[#00b596] transition-all hover:-translate-y-1 flex items-center gap-2">
-                Start Free Trial <FaArrowRight />
-              </button>
-              <button className="px-8 py-4 bg-transparent border-2 border-white/20 text-white font-bold rounded-xl hover:bg-white/10 transition-all backdrop-blur-sm">
-                Watch Demo
-              </button>
+              <Link to="/register" className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:bg-[#00b596] transition-all hover:-translate-y-1 flex items-center gap-2">
+                Get started <FaArrowRight />
+              </Link>
             </motion.div>
           </motion.div>
 
@@ -107,58 +105,58 @@ const BloomSyftAnalytics = () => {
               {/* Chart Area */}
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-black/20 p-4 rounded-xl">
-                   <div className="text-xs text-white/70 mb-2">Revenue Growth</div>
-                   <div className="h-32 flex items-end gap-2">
-                      {[40, 65, 50, 80, 75, 95].map((h, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ height: 0 }}
-                          animate={{ height: `${h}%` }}
-                          transition={{ duration: 1, delay: i * 0.1 }}
-                          className="w-full bg-gradient-to-t from-[#00cba9] to-blue-500 rounded-t-sm opacity-80"
-                        ></motion.div>
-                      ))}
-                   </div>
+                  <div className="text-xs text-white/70 mb-2">Revenue Growth</div>
+                  <div className="h-32 flex items-end gap-2">
+                    {[40, 65, 50, 80, 75, 95].map((h, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ height: 0 }}
+                        animate={{ height: `${h}%` }}
+                        transition={{ duration: 1, delay: i * 0.1 }}
+                        className="w-full bg-gradient-to-t from-[#00cba9] to-blue-500 rounded-t-sm opacity-80"
+                      ></motion.div>
+                    ))}
+                  </div>
                 </div>
                 <div className="bg-black/20 p-4 rounded-xl">
-                   <div className="text-xs text-white/70 mb-2">Expense Breakdown</div>
-                   <div className="h-32 relative flex items-center justify-center">
-                      <svg viewBox="0 0 100 100" className="w-full h-full rotate-[-90deg]">
-                        <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="10" fill="none" />
-                        <motion.circle 
-                          cx="50" cy="50" r="40" 
-                          stroke="#00cba9" 
-                          strokeWidth="10" 
-                          fill="none" 
-                          strokeDasharray="251.2"
-                          strokeDashoffset="251.2"
-                          animate={{ strokeDashoffset: 60 }}
-                          transition={{ duration: 2, delay: 0.5 }}
-                        />
-                      </svg>
-                      <div className="absolute text-white font-bold text-xl">76%</div>
-                   </div>
+                  <div className="text-xs text-white/70 mb-2">Expense Breakdown</div>
+                  <div className="h-32 relative flex items-center justify-center">
+                    <svg viewBox="0 0 100 100" className="w-full h-full rotate-[-90deg]">
+                      <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="10" fill="none" />
+                      <motion.circle
+                        cx="50" cy="50" r="40"
+                        stroke="#00cba9"
+                        strokeWidth="10"
+                        fill="none"
+                        strokeDasharray="251.2"
+                        strokeDashoffset="251.2"
+                        animate={{ strokeDashoffset: 60 }}
+                        transition={{ duration: 2, delay: 0.5 }}
+                      />
+                    </svg>
+                    <div className="absolute text-white font-bold text-xl">76%</div>
+                  </div>
                 </div>
               </div>
 
               {/* Stats Row */}
               <div className="mt-6 grid grid-cols-3 gap-4">
-                 {[
-                   { label: "Net Profit", val: "$124k", change: "+12%" },
-                   { label: "Gross Margin", val: "45%", change: "+5%" },
-                   { label: "Cash Flow", val: "$82k", change: "+8%" }
-                 ].map((stat, i) => (
-                   <div key={i} className="bg-black/20 p-3 rounded-lg">
-                     <div className="text-xs text-white/50">{stat.label}</div>
-                     <div className="text-lg font-bold text-white">{stat.val}</div>
-                     <div className="text-xs text-green-400">{stat.change}</div>
-                   </div>
-                 ))}
+                {[
+                  { label: "Net Profit", val: "$124k", change: "+12%" },
+                  { label: "Gross Margin", val: "45%", change: "+5%" },
+                  { label: "Cash Flow", val: "$82k", change: "+8%" }
+                ].map((stat, i) => (
+                  <div key={i} className="bg-black/20 p-3 rounded-lg">
+                    <div className="text-xs text-white/50">{stat.label}</div>
+                    <div className="text-lg font-bold text-white">{stat.val}</div>
+                    <div className="text-xs text-green-400">{stat.change}</div>
+                  </div>
+                ))}
               </div>
             </div>
-            
+
             {/* Floating Elements */}
-            <motion.div 
+            <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -top-10 -right-10 bg-white p-4 rounded-xl shadow-xl z-20"
@@ -219,7 +217,7 @@ const BloomSyftAnalytics = () => {
             </p>
             <ul className="space-y-4">
               {["170+ Currencies Supported", "Auto-Eliminations", "Fractional Ownership", "Cross-Border Tax Views"].map((item, i) => (
-                <motion.li 
+                <motion.li
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -235,30 +233,30 @@ const BloomSyftAnalytics = () => {
           </motion.div>
 
           <div className="relative">
-             <motion.img 
-               src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
-               alt="Global Analytics"
-               referrerPolicy="no-referrer"
-               className="rounded-2xl shadow-2xl border-4 border-white/10"
-               initial={{ opacity: 0, rotate: 5 }}
-               whileInView={{ opacity: 1, rotate: 3 }}
-               transition={{ duration: 0.8 }}
-             />
-             <motion.div 
-               initial={{ opacity: 0, scale: 0 }}
-               whileInView={{ opacity: 1, scale: 1 }}
-               transition={{ delay: 0.5, type: "spring" }}
-               className="absolute -bottom-8 -left-8 bg-white text-[#0e3b5e] p-6 rounded-xl shadow-2xl max-w-xs"
-             >
-               <div className="font-bold text-lg mb-2">Consolidated View</div>
-               <div className="h-2 bg-gray-200 rounded-full mb-2 overflow-hidden">
-                 <div className="h-full bg-[#00cba9] w-3/4"></div>
-               </div>
-               <div className="flex justify-between text-sm text-gray-500">
-                 <span>Group A</span>
-                 <span>75%</span>
-               </div>
-             </motion.div>
+            <motion.img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+              alt="Global Analytics"
+              referrerPolicy="no-referrer"
+              className="rounded-2xl shadow-2xl border-4 border-white/10"
+              initial={{ opacity: 0, rotate: 5 }}
+              whileInView={{ opacity: 1, rotate: 3 }}
+              transition={{ duration: 0.8 }}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, type: "spring" }}
+              className="absolute -bottom-8 -left-8 bg-white text-[#0e3b5e] p-6 rounded-xl shadow-2xl max-w-xs"
+            >
+              <div className="font-bold text-lg mb-2">Consolidated View</div>
+              <div className="h-2 bg-gray-200 rounded-full mb-2 overflow-hidden">
+                <div className="h-full bg-[#00cba9] w-3/4"></div>
+              </div>
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>Group A</span>
+                <span>75%</span>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -268,12 +266,9 @@ const BloomSyftAnalytics = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-extrabold text-white mb-8">Ready to visualize your success?</h2>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <button className="bg-white text-[#00cba9] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg">
-              Get Started for Free
-            </button>
-            <button className="bg-[#0e3b5e] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0a2a43] transition-colors shadow-lg">
-              Book a Personal Demo
-            </button>
+            <Link to="/register" className="bg-white text-[#00cba9] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg flex items-center gap-2">
+              Get started <FaArrowRight />
+            </Link>
           </div>
         </div>
       </section>

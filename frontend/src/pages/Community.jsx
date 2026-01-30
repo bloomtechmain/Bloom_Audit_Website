@@ -233,8 +233,8 @@ const Community = () => {
                     <span className="text-sm font-medium text-gray-600">Join the conversation</span>
                   </div>
                   <div className="flex gap-2">
-                    <Link to="/login" className="text-xs font-bold text-[#0e3b5e] hover:underline px-3 py-1.5">Login</Link>
-                    <Link to="/register" className="text-xs font-bold bg-[#0e3b5e] text-white px-3 py-1.5 rounded-md hover:bg-[#0b2d48] transition-colors">Sign Up</Link>
+                    <Link to="/login" className="text-xs font-bold text-[#0e3b5e] hover:underline px-3 py-1.5">Log in</Link>
+                    <Link to="/register" className="text-xs font-bold bg-[#0e3b5e] text-white px-3 py-1.5 rounded-md hover:bg-[#0b2d48] transition-colors">Get started</Link>
                   </div>
                 </div>
               )}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { FaRocket, FaHeadset, FaBook, FaVideo, FaCheckCircle, FaUserTie, FaArrowRight, FaPlay } from 'react-icons/fa';
@@ -62,7 +63,11 @@ const OnboardingSupport = () => {
             <p className="text-xl text-blue-100 mb-10 leading-relaxed">
               We don't just hand you the keys. We ride shotgun. From data migration to team training, our dedicated support ensures you lift off smoothly.
             </p>
-
+            <div className="flex flex-wrap gap-4">
+              <Link to="/register" className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-lg hover:bg-[#00b596] transition-all hover:-translate-y-1 flex items-center gap-2">
+                Get started <FaArrowRight />
+              </Link>
+            </div>
           </motion.div>
 
           <div className="relative flex items-center justify-center perspective-1000">
@@ -271,32 +276,21 @@ const OnboardingSupport = () => {
             </div>
           </motion.div>
 
-          <motion.form
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-3xl shadow-2xl"
+            className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-3xl shadow-2xl flex flex-col justify-center items-center text-center h-full min-h-[400px]"
           >
-            <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-bold text-blue-200 mb-2">Full Name</label>
-                <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#00cba9] transition-colors" placeholder="John Doe" />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-blue-200 mb-2">Email Address</label>
-                <input type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#00cba9] transition-colors" placeholder="john@company.com" />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-blue-200 mb-2">Message</label>
-                <textarea className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#00cba9] transition-colors h-32" placeholder="How can we help you?"></textarea>
-              </div>
-              <button className="w-full bg-[#00cba9] hover:bg-[#00b395] text-white font-bold py-4 rounded-xl transition-colors shadow-lg mt-4">
-                Send Message
-              </button>
-            </div>
-          </motion.form>
+            <h3 className="text-3xl font-bold mb-6">Ready to Get Started?</h3>
+            <p className="text-blue-200 mb-8 text-lg">
+              Join thousands of firms that have successfully onboarded with Bloom.
+            </p>
+            <Link to="/register" className="w-full bg-[#00cba9] hover:bg-[#00b395] text-white font-bold py-4 rounded-xl transition-colors shadow-lg flex items-center justify-center gap-2 text-xl">
+              Get started <FaArrowRight />
+            </Link>
+          </motion.div>
         </div>
       </section>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
@@ -48,12 +49,9 @@ const SmartAccounting = () => {
                      Stop drowning in data entry. Bloom ERP uses advanced machine learning to automate the boring stuff, so you can focus on strategy.
                   </p>
                   <div className="flex flex-wrap gap-4">
-                     <a href="/small-business/pricing" className="bg-[#00cba9] text-white font-bold py-4 px-10 rounded-full text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:-translate-y-1 transition-all">
-                        Start Automating
-                     </a>
-                     <a href="#how-it-works" className="border border-white/30 hover:bg-white/10 text-white font-bold py-4 px-10 rounded-full text-lg transition-all">
-                        See How It Works
-                     </a>
+                     <Link to="/register" className="bg-[#00cba9] text-white font-bold py-4 px-10 rounded-full text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:-translate-y-1 transition-all">
+                        Get started
+                     </Link>
                   </div>
                </motion.div>
 
@@ -189,9 +187,9 @@ const SmartAccounting = () => {
                <p className="text-xl text-gray-600 mb-10">
                   Join the thousands of businesses that have switched to automated accounting.
                </p>
-               <a href="/small-business/pricing" className="inline-flex items-center gap-3 bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-12 rounded-full text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
-                  See Smart Pricing <FaArrowRight />
-               </a>
+               <Link to="/register" className="inline-flex items-center gap-3 bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-12 rounded-full text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+                  Get started <FaArrowRight />
+               </Link>
             </div>
          </section >
 

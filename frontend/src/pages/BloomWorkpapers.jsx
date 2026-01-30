@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
@@ -42,9 +43,9 @@ const BloomWorkpapers = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0e3b5e] pt-20">
         <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" 
-            alt="Workpapers Background" 
+          <img
+            src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop"
+            alt="Workpapers Background"
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-20"
           />
@@ -68,12 +69,9 @@ const BloomWorkpapers = () => {
               Ditch the spreadsheets. Experience the speed and accuracy of fully integrated, cloud-based workpapers designed for modern accountants.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-lg hover:bg-[#00b596] transition-all hover:-translate-y-1">
-                Book a Demo
-              </button>
-              <button className="px-8 py-4 bg-transparent border-2 border-white/20 text-white font-bold rounded-xl hover:bg-white/10 transition-all">
-                View Sample
-              </button>
+              <Link to="/register" className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-lg hover:bg-[#00b596] transition-all hover:-translate-y-1 flex items-center gap-2">
+                Get started <FaArrowRight />
+              </Link>
             </div>
           </motion.div>
 
@@ -91,9 +89,9 @@ const BloomWorkpapers = () => {
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 3, delay: i * 0.5, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute w-full h-[500px] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden"
-                  style={{ 
-                    top: i * 40, 
-                    left: i * 20, 
+                  style={{
+                    top: i * 40,
+                    left: i * 20,
                     zIndex: 3 - i,
                     transform: `scale(${1 - i * 0.05})`
                   }}
@@ -162,62 +160,62 @@ const BloomWorkpapers = () => {
       <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-             <h2 className="text-4xl font-extrabold text-[#0e3b5e] mb-8 leading-tight">
-               Why switch to <br/> Bloom Workpapers?
-             </h2>
-             <div className="grid grid-cols-1 gap-8">
-               {features.map((feature, index) => (
-                 <motion.div 
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex gap-6"
-                 >
-                   <div className="w-16 h-16 shrink-0 bg-[#00cba9]/10 text-[#00cba9] rounded-2xl flex items-center justify-center text-2xl">
-                     {feature.icon}
-                   </div>
-                   <div>
-                     <h3 className="text-xl font-bold text-[#0e3b5e] mb-2">{feature.title}</h3>
-                     <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
-                   </div>
-                 </motion.div>
-               ))}
-             </div>
+            <h2 className="text-4xl font-extrabold text-[#0e3b5e] mb-8 leading-tight">
+              Why switch to <br /> Bloom Workpapers?
+            </h2>
+            <div className="grid grid-cols-1 gap-8">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex gap-6"
+                >
+                  <div className="w-16 h-16 shrink-0 bg-[#00cba9]/10 text-[#00cba9] rounded-2xl flex items-center justify-center text-2xl">
+                    {feature.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#0e3b5e] mb-2">{feature.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-          
-          <div className="relative">
-             <motion.div
-               animate={{ y: [0, -20, 0] }}
-               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-               className="bg-[#0e3b5e] p-12 rounded-3xl text-white relative overflow-hidden shadow-2xl"
-             >
-               <div className="absolute top-0 right-0 p-12 opacity-5 text-9xl">
-                 <FaRegClock />
-               </div>
-               <h3 className="text-3xl font-bold mb-6">Save 40% of your time per job</h3>
-               <p className="text-blue-200 text-lg mb-8">
-                 "Since moving to Bloom Workpapers, our firm has cut annual compliance time almost in half. The automation is incredible."
-               </p>
-               <div className="flex items-center gap-4">
-                 <div className="w-12 h-12 bg-white rounded-full"></div>
-                 <div>
-                   <div className="font-bold">David Chen</div>
-                   <div className="text-sm opacity-70">Partner, Chen & Associates</div>
-                 </div>
-               </div>
-             </motion.div>
 
-             {/* Floating Stats */}
-             <motion.div 
-               initial={{ opacity: 0, scale: 0.8 }}
-               whileInView={{ opacity: 1, scale: 1 }}
-               className="absolute -bottom-10 -right-10 bg-white p-6 rounded-2xl shadow-xl border-l-4 border-[#00cba9]"
-             >
-               <div className="text-4xl font-bold text-[#0e3b5e] mb-1">99.9%</div>
-               <div className="text-gray-500 text-sm">Accuracy Rate</div>
-             </motion.div>
+          <div className="relative">
+            <motion.div
+              animate={{ y: [0, -20, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="bg-[#0e3b5e] p-12 rounded-3xl text-white relative overflow-hidden shadow-2xl"
+            >
+              <div className="absolute top-0 right-0 p-12 opacity-5 text-9xl">
+                <FaRegClock />
+              </div>
+              <h3 className="text-3xl font-bold mb-6">Save 40% of your time per job</h3>
+              <p className="text-blue-200 text-lg mb-8">
+                "Since moving to Bloom Workpapers, our firm has cut annual compliance time almost in half. The automation is incredible."
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white rounded-full"></div>
+                <div>
+                  <div className="font-bold">David Chen</div>
+                  <div className="text-sm opacity-70">Partner, Chen & Associates</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Floating Stats */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              className="absolute -bottom-10 -right-10 bg-white p-6 rounded-2xl shadow-xl border-l-4 border-[#00cba9]"
+            >
+              <div className="text-4xl font-bold text-[#0e3b5e] mb-1">99.9%</div>
+              <div className="text-gray-500 text-sm">Accuracy Rate</div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -229,9 +227,9 @@ const BloomWorkpapers = () => {
           <p className="text-xl mb-10 font-medium opacity-90">
             Join thousands of accountants who are working smarter, not harder.
           </p>
-          <button className="bg-[#0e3b5e] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0a2a43] transition-colors shadow-lg flex items-center gap-3 mx-auto">
-            Get Started Free <FaArrowRight />
-          </button>
+          <Link to="/register" className="bg-[#0e3b5e] text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-[#0a2a43] transition-colors shadow-lg flex items-center gap-3 mx-auto w-fit">
+            Get started <FaArrowRight />
+          </Link>
         </div>
       </section>
 

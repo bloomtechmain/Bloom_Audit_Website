@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
@@ -263,9 +264,9 @@ const BloomBlog = () => {
                     <FaUserCircle className="text-gray-300 text-2xl" />
                     <span className="text-sm font-medium text-gray-700">{post.author}</span>
                   </div>
-                  <span className="text-[#00cba9] font-bold text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform cursor-pointer">
+                  <Link to="#" className="text-[#00cba9] font-bold text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform cursor-pointer">
                     Read <FaArrowRight size={12} />
-                  </span>
+                  </Link>
                 </div>
               </div>
             </motion.div>

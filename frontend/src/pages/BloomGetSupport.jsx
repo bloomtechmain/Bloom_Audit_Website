@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { FaSearch, FaUserTie, FaUserFriends, FaLock, FaComments, FaLightbulb, FaGraduationCap, FaVideo, FaHeadset, FaArrowRight, FaPhone, FaWhatsapp, FaEnvelope, FaTimes } from 'react-icons/fa';
 
 const BloomGetSupport = () => {
-  const navigate = useNavigate();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
@@ -63,9 +62,9 @@ const BloomGetSupport = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            onClick={() => navigate('/support/onboarding')}
             className="group relative h-[500px] rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
           >
+            <Link to="/support/onboarding" className="absolute inset-0 z-20" aria-label="Small Business Support" />
             <div className="absolute inset-0">
               <img
                 src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
@@ -95,9 +94,9 @@ const BloomGetSupport = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            onClick={() => navigate('/accountants/hq')}
             className="group relative h-[500px] rounded-3xl overflow-hidden shadow-2xl cursor-pointer"
           >
+            <Link to="/accountants/hq" className="absolute inset-0 z-20" aria-label="Accountant Support" />
             <div className="absolute inset-0">
               <img
                 src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
@@ -142,12 +141,12 @@ const BloomGetSupport = () => {
                 Log in to access your profile, learning progress and cases. Plus, access our full suite of learning resources securely.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button onClick={() => navigate('/login')} className="bg-[#00cba9] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#00b596] transition-all hover:scale-105 shadow-lg flex items-center gap-2">
+                <Link to="/login" className="bg-[#00cba9] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#00b596] transition-all hover:scale-105 shadow-lg flex items-center gap-2">
                   <FaLock className="text-sm" /> Log in
-                </button>
-                <button onClick={() => navigate('/register')} className="bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all">
-                  Try Bloom ERP
-                </button>
+                </Link>
+                <Link to="/register" className="bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all flex items-center gap-2">
+                  Get started <FaArrowRight />
+                </Link>
               </div>
             </div>
 

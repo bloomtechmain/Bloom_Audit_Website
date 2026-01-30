@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AccountantSection = () => {
-  const navigate = useNavigate();
   const steps = [
     {
       title: 'Consultations',
@@ -82,11 +81,11 @@ const AccountantSection = () => {
                 {step.description}
               </p>
 
-              <button
-                onClick={() => navigate('/register')}
-                className="mt-auto bg-[#26d4b5] hover:bg-[#1fbfa1] text-white font-bold py-3 px-8 rounded shadow transition-colors duration-300 text-sm tracking-wider uppercase">
+              <Link
+                to="/register"
+                className="mt-auto bg-[#26d4b5] hover:bg-[#1fbfa1] text-white font-bold py-3 px-8 rounded shadow transition-colors duration-300 text-sm tracking-wider uppercase inline-block">
                 {step.buttonText}
-              </button>
+              </Link>
             </motion.div>
           ))}
         </div>

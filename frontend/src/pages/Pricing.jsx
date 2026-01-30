@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
@@ -159,12 +160,12 @@ const Pricing = () => {
                     ))}
                   </div>
 
-                  <button className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 ${plan.recommended
+                  <Link to="/register" className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 block text-center ${plan.recommended
                     ? 'bg-gradient-to-r from-[#00cba9] to-[#00b596] text-white shadow-lg hover:shadow-[#00cba9]/40'
                     : 'bg-gray-50 text-[#0e3b5e] hover:bg-gray-100 border border-gray-200'
                     }`}>
                     {plan.buttonText}
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -214,7 +215,7 @@ const plans = [
     name: "Starter",
     price: 20000,
     description: "Essential tools for freelancers and solopreneurs.",
-    buttonText: "Start Free Trial",
+    buttonText: "Get started",
     headerColor: "bg-gradient-to-br from-blue-400 to-blue-600",
     backgroundImage: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     icon: <FaPaperPlane size={24} />,
@@ -237,7 +238,7 @@ const plans = [
     name: "Standard",
     price: 40000,
     description: "Perfect for growing small businesses.",
-    buttonText: "Start Free Trial",
+    buttonText: "Get started",
     recommended: true,
     headerColor: "bg-gradient-to-br from-[#00cba9] to-[#008f7a]",
     backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
@@ -259,7 +260,7 @@ const plans = [
     name: "Premium",
     price: 75000,
     description: "Advanced features for established companies.",
-    buttonText: "Start Free Trial",
+    buttonText: "Get started",
     headerColor: "bg-gradient-to-br from-purple-500 to-indigo-600",
     backgroundImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     icon: <FaGem size={24} />,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
@@ -83,12 +84,9 @@ const Guides = () => {
               Comprehensive guides, tutorials, and tips to help you get the most out of Bloom ERP. From setup to advanced auditing.
             </p>
             <div className="flex justify-center gap-4">
-              <button className="px-8 py-4 bg-[#00cba9] text-white rounded-xl font-bold hover:bg-[#00b596] transition-all shadow-lg hover:shadow-[#00cba9]/25 flex items-center gap-2">
-                Start Learning <FaArrowRight />
-              </button>
-              <button className="px-8 py-4 bg-white/10 text-white rounded-xl font-bold hover:bg-white/20 transition-all backdrop-blur-sm flex items-center gap-2">
-                <FaPlayCircle /> Watch Demo
-              </button>
+              <Link to="/register" className="px-8 py-4 bg-[#00cba9] text-white rounded-xl font-bold hover:bg-[#00b596] transition-all shadow-lg hover:shadow-[#00cba9]/25 flex items-center gap-2">
+                Get started <FaArrowRight />
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -116,11 +114,11 @@ const Guides = () => {
               >
                 <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 h-full relative z-10 overflow-hidden">
                   <div className={`absolute top-0 right-0 w-24 h-24 ${step.color} opacity-5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150`}></div>
-                  
+
                   <div className={`w-14 h-14 ${step.color} rounded-2xl flex items-center justify-center text-white text-2xl mb-6 shadow-md group-hover:scale-110 transition-transform`}>
                     {step.icon}
                   </div>
-                  
+
                   <h3 className="text-xl font-bold text-[#0e3b5e] mb-4 group-hover:text-[#00cba9] transition-colors">
                     {step.title}
                   </h3>
@@ -128,7 +126,7 @@ const Guides = () => {
                     {step.description}
                   </p>
                 </div>
-                
+
                 {/* Connector Line (Desktop) */}
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-[2px] bg-gray-200 z-0"></div>
@@ -174,9 +172,9 @@ const Guides = () => {
               className="relative"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-[#0e3b5e] to-[#00cba9] rounded-3xl blur-2xl opacity-20 transform rotate-3"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
-                alt="Dashboard" 
+              <img
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Dashboard"
                 className="relative rounded-3xl shadow-2xl border-4 border-white"
               />
             </motion.div>
@@ -192,9 +190,9 @@ const Guides = () => {
               className="relative order-2 lg:order-1"
             >
               <div className="absolute inset-0 bg-gradient-to-bl from-purple-600 to-blue-600 rounded-3xl blur-2xl opacity-20 transform -rotate-3"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
-                alt="Analytics" 
+              <img
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                alt="Analytics"
                 className="relative rounded-3xl shadow-2xl border-4 border-white"
               />
             </motion.div>
@@ -255,9 +253,9 @@ const Guides = () => {
             Join thousands of businesses streamlining their operations today.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-10 py-4 bg-[#0e3b5e] text-white rounded-xl font-bold text-lg hover:bg-[#0b2d48] transition-all shadow-xl">
-              Get Started for Free
-            </button>
+            <Link to="/register" className="px-10 py-4 bg-[#0e3b5e] text-white rounded-xl font-bold text-lg hover:bg-[#0b2d48] transition-all shadow-xl block text-center">
+              Get started
+            </Link>
           </div>
         </div>
       </section>

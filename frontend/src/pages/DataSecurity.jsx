@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
@@ -93,17 +94,9 @@ const DataSecurity = () => {
                   Sleep soundly knowing your business intelligence is protected by industry-leading protocols.
                </motion.p>
 
-               <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                  className="flex flex-col sm:flex-row gap-6"
-               >
-                  <button className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded-full text-lg shadow-[0_0_20px_rgba(0,203,169,0.3)] hover:shadow-[0_0_30px_rgba(0,203,169,0.5)] transition-all transform hover:-translate-y-1">
-                     Read our Whitepaper
-                  </button>
-               </motion.div>
+
+
+
             </div>
 
             {/* 3D Hero Visual */}
@@ -264,9 +257,9 @@ const DataSecurity = () => {
                <p className="text-xl text-blue-200 mb-10 max-w-2xl mx-auto">
                   Don't risk your business data with spreadsheets or offline software. Move to the secure cloud today.
                </p>
-               <a href="/small-business/pricing" className="inline-block bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-12 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
-                  Secure your business
-               </a>
+               <Link to="/register" className="inline-flex items-center gap-2 bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-12 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+                  Get started <FaArrowRight />
+               </Link>
             </div>
          </section>
 

@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaChartLine, FaShieldAlt, FaHandHoldingUsd, FaLightbulb, FaArrowRight } from 'react-icons/fa';
+import { FaChartLine, FaShieldAlt, FaHandHoldingUsd, FaLightbulb, FaArrowRight, FaHistory, FaServer, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
@@ -62,12 +63,9 @@ const BusinessRecovery = () => {
               Don't just survive the downturn. Master it. Bloom ERP gives you the real-time financial clarity to pivot faster than the market changes.
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-[#00cba9] text-white rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(0,203,169,0.3)] hover:shadow-[0_0_30px_rgba(0,203,169,0.5)] hover:bg-[#00b596] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
-                Start Recovery <FaArrowRight />
-              </button>
-              <button className="px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white rounded-xl font-bold text-lg hover:bg-white/10 transition-all">
-                Watch Demo
-              </button>
+              <Link to="/register" className="px-8 py-4 bg-[#00cba9] text-white rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(0,203,169,0.3)] hover:shadow-[0_0_30px_rgba(0,203,169,0.5)] hover:bg-[#00b596] transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                Get started <FaArrowRight />
+              </Link>
             </motion.div>
           </motion.div>
 
@@ -355,9 +353,9 @@ const BusinessRecovery = () => {
       <section className="py-20 bg-gradient-to-r from-[#00cba9] to-[#00b596] text-white text-center">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">Ready to Write Your Comeback Story?</h2>
-          <button className="px-10 py-4 bg-white text-[#00cba9] rounded-full font-bold text-xl shadow-2xl hover:bg-gray-100 transition-all transform hover:scale-105">
-            Get Your Free Recovery Consultation
-          </button>
+          <Link to="/register" className="px-10 py-4 bg-white text-[#00cba9] rounded-full font-bold text-xl shadow-2xl hover:bg-gray-100 transition-all transform hover:scale-105 flex items-center gap-2 inline-flex">
+            Get started <FaArrowRight />
+          </Link>
         </div>
       </section>
 

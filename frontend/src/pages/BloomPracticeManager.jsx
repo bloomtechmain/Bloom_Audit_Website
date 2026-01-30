@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { FaTasks, FaClock, FaFileInvoiceDollar, FaUserTie, FaCheckDouble, FaArrowRight, FaMagic, FaQuoteLeft, FaPlug, FaChartBar, FaEnvelopeOpenText, FaCalendarCheck, FaQuestionCircle, FaChevronDown, FaChevronUp } from 'react-icons/fa';
@@ -166,12 +167,9 @@ const BloomPracticeManager = () => {
                 The all-in-one operating system designed to streamline workflows, boost team productivity, and delight your clients.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-lg hover:bg-[#00b596] transition-all hover:-translate-y-1 flex items-center gap-2">
-                  Start Free Trial <FaArrowRight />
-                </button>
-                <button className="px-8 py-4 bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all backdrop-blur-md">
-                  Watch Demo
-                </button>
+                <Link to="/register" className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-lg hover:bg-[#00b596] transition-all hover:-translate-y-1 flex items-center gap-2">
+                  Get started <FaArrowRight />
+                </Link>
               </div>
             </motion.div>
           </motion.div>
@@ -299,9 +297,9 @@ const BloomPracticeManager = () => {
                   </li>
                 ))}
               </ul>
-              <button className="text-[#00cba9] font-bold text-lg flex items-center gap-2 hover:gap-4 transition-all">
+              <Link to="/features" className="text-[#00cba9] font-bold text-lg flex items-center gap-2 hover:gap-4 transition-all">
                 Explore Features <FaArrowRight />
-              </button>
+              </Link>
             </motion.div>
           </div>
           <div className="lg:w-1/2 relative">
@@ -453,9 +451,9 @@ const BloomPracticeManager = () => {
             Join thousands of accountants who have transformed their practice with Bloom ERP.
           </p>
           <div className="flex justify-center gap-6">
-            <button className="px-10 py-4 bg-[#00cba9] text-white font-bold rounded-full shadow-lg hover:bg-[#00b596] transition-all transform hover:scale-105">
-              Get Started Now
-            </button>
+            <Link to="/register" className="px-10 py-4 bg-[#00cba9] text-white font-bold rounded-full shadow-lg hover:bg-[#00b596] transition-all transform hover:scale-105 flex items-center gap-2">
+              Get started <FaArrowRight />
+            </Link>
           </div>
         </div>
       </section>

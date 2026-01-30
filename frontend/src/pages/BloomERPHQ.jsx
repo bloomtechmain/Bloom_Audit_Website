@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { FaUsers, FaChartPie, FaCheckCircle, FaRocket, FaShieldAlt, FaCogs, FaArrowRight, FaClock, FaBook } from 'react-icons/fa';
@@ -106,12 +107,9 @@ const BloomERPHQ = () => {
             transition={{ delay: 0.6 }}
             className="flex flex-col md:flex-row gap-6 justify-center"
           >
-            <button className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-full text-lg shadow-[0_0_20px_rgba(0,203,169,0.5)] hover:bg-[#00b596] hover:scale-105 transition-all flex items-center justify-center gap-2">
-              <FaRocket /> Start Free Trial
-            </button>
-            <button className="px-8 py-4 bg-transparent border-2 border-white/30 text-white font-bold rounded-full text-lg hover:bg-white/10 transition-all">
-              Watch Demo
-            </button>
+            <Link to="/register" className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-full text-lg shadow-[0_0_20px_rgba(0,203,169,0.5)] hover:bg-[#00b596] hover:scale-105 transition-all flex items-center justify-center gap-2">
+              <FaRocket /> Get started
+            </Link>
           </motion.div>
         </div>
 
@@ -301,9 +299,9 @@ const BloomERPHQ = () => {
               <span className="text-[#00cba9] font-bold tracking-widest uppercase text-sm">Knowledge Hub</span>
               <h2 className="text-4xl font-extrabold text-[#0e3b5e] mt-2">Latest Insights for Accountants</h2>
             </div>
-            <button className="flex items-center gap-2 text-[#0e3b5e] font-bold hover:text-[#00cba9] transition-colors group">
+            <Link to="/blog" className="flex items-center gap-2 text-[#0e3b5e] font-bold hover:text-[#00cba9] transition-colors group">
               View All Articles <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -315,8 +313,9 @@ const BloomERPHQ = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all group cursor-pointer"
+                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all group cursor-pointer relative"
               >
+                <Link to="/blog" className="absolute inset-0 z-10" aria-label={`Read ${article.title}`} />
                 <div className="h-48 overflow-hidden relative">
                   <img
                     src={article.image}
@@ -340,7 +339,7 @@ const BloomERPHQ = () => {
                     {article.title}
                   </h3>
                   <div className="flex items-center gap-2 text-[#00cba9] font-bold text-sm mt-4">
-                    Read Article <FaArrowRight size={12} />
+                    <FaArrowRight size={12} />
                   </div>
                 </div>
               </motion.div>
@@ -359,9 +358,9 @@ const BloomERPHQ = () => {
           <p className="text-xl text-[#0e3b5e] mb-10 font-medium max-w-2xl mx-auto">
             Join the network of forward-thinking accountants using Bloom ERP HQ.
           </p>
-          <button className="px-10 py-5 bg-[#0e3b5e] text-white text-xl font-bold rounded-full shadow-2xl hover:bg-[#0a2a43] transition-all hover:-translate-y-1">
-            Get Started for Free
-          </button>
+          <Link to="/register" className="px-10 py-5 bg-[#0e3b5e] text-white text-xl font-bold rounded-full shadow-2xl hover:bg-[#0a2a43] transition-all hover:-translate-y-1 flex items-center justify-center gap-3 w-fit mx-auto">
+            Get started <FaArrowRight />
+          </Link>
         </div>
       </section>
 

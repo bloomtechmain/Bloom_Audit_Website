@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube, FaInstagram, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 
 const Footer = () => {
@@ -35,10 +36,10 @@ const Footer = () => {
             </div>
 
             <div className="flex gap-3">
-              <a href="#" className="bg-white text-[#0e3b5e] p-2 rounded hover:bg-[#00cba9] hover:text-white transition-colors"><FaFacebookF /></a>
-              <a href="#" className="bg-white text-[#0e3b5e] p-2 rounded hover:bg-[#00cba9] hover:text-white transition-colors"><FaInstagram /></a>
-              <a href="#" className="bg-white text-[#0e3b5e] p-2 rounded hover:bg-[#00cba9] hover:text-white transition-colors"><FaTwitter /></a>
-              <a href="#" className="bg-white text-[#0e3b5e] p-2 rounded hover:bg-[#00cba9] hover:text-white transition-colors"><FaYoutube /></a>
+              <Link to="#" className="bg-white text-[#0e3b5e] p-2 rounded hover:bg-[#00cba9] hover:text-white transition-colors"><FaFacebookF /></Link>
+              <Link to="#" className="bg-white text-[#0e3b5e] p-2 rounded hover:bg-[#00cba9] hover:text-white transition-colors"><FaInstagram /></Link>
+              <Link to="#" className="bg-white text-[#0e3b5e] p-2 rounded hover:bg-[#00cba9] hover:text-white transition-colors"><FaTwitter /></Link>
+              <Link to="#" className="bg-white text-[#0e3b5e] p-2 rounded hover:bg-[#00cba9] hover:text-white transition-colors"><FaYoutube /></Link>
             </div>
           </div>
 
@@ -46,12 +47,12 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-xl mb-6">Services</h4>
             <ul className="space-y-4 text-gray-300">
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Consulting</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Tax Management</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Audit & Assurance</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Mergers & Acquisitions</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Risk & Financial Advisory</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Analytics</a></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Consulting</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Tax Management</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Audit & Assurance</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Mergers & Acquisitions</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Risk & Financial Advisory</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Analytics</Link></li>
             </ul>
           </div>
 
@@ -59,10 +60,10 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-xl mb-6">Support</h4>
             <ul className="space-y-4 text-gray-300">
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Help Center</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Ticket Support</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Contact Us</a></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Help Center</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Ticket Support</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">FAQ</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -70,11 +71,11 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-xl mb-6">Company</h4>
             <ul className="space-y-4 text-gray-300">
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">About us</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Leadership</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">News & Articles</a></li>
-              <li><a href="#" className="hover:text-[#00cba9] transition-colors">Legal Notices</a></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">About us</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Leadership</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Careers</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">News & Articles</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Legal Notices</Link></li>
             </ul>
           </div>
         </div>
@@ -86,9 +87,9 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
           <p>Copyright © 2026 Bloom ERP, All rights reserved. Powered by Bloom Tech.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors">Term of use</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+            <Link to="#" className="hover:text-white transition-colors">Term of use</Link>
+            <Link to="#" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="#" className="hover:text-white transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </motion.div>

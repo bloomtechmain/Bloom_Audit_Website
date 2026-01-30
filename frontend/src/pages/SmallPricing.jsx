@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
-import { FaCheck, FaTimes, FaRocket, FaGem, FaSeedling, FaStore, FaChartPie, FaTags } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaCheck, FaTimes, FaRocket, FaGem, FaSeedling, FaStore, FaChartPie, FaTags, FaArrowRight } from 'react-icons/fa';
 
 const SmallPricing = () => {
     const [isYearly, setIsYearly] = useState(false);
@@ -121,9 +122,9 @@ const SmallPricing = () => {
                                     ))}
                                 </div>
 
-                                <button className={`w-full py-3 rounded-xl font-bold transition-all ${plan.popular ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40' : 'bg-gray-100 text-[#0e3b5e] hover:bg-gray-200'}`}>
-                                    {plan.cta}
-                                </button>
+                                <Link to="/register" className={`w-full py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 ${plan.popular ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40' : 'bg-gray-100 text-[#0e3b5e] hover:bg-gray-200'}`}>
+                                    {plan.cta} <FaArrowRight />
+                                </Link>
                             </div>
                         </motion.div>
                     ))}
@@ -167,7 +168,7 @@ const smallBizPlans = [
         price: 5000,
         icon: <FaSeedling className="text-2xl" />,
         headerBg: "bg-gradient-to-r from-green-400 to-teal-500",
-        cta: "Start Free",
+        cta: "Get started",
         features: [
             "Up to 5 invoices/mo",
             "Expense tracking",
@@ -188,7 +189,7 @@ const smallBizPlans = [
         popular: true,
         icon: <FaStore className="text-2xl" />,
         headerBg: "bg-gradient-to-r from-[#00cba9] to-blue-500",
-        cta: "Start 14-Day Trial",
+        cta: "Get started",
         features: [
             "Unlimited invoices",
             "Automated bank feeds",
@@ -209,7 +210,7 @@ const smallBizPlans = [
         price: 35000,
         icon: <FaChartPie className="text-2xl" />,
         headerBg: "bg-gradient-to-r from-blue-600 to-indigo-600",
-        cta: "Contact Sales",
+        cta: "Get started",
         features: [
             "Everything in Growth",
             "Multi-currency",

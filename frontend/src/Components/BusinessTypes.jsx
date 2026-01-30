@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const BusinessTypes = () => {
-  const navigate = useNavigate();
   return (
     <div className="relative w-full h-[600px] flex items-center overflow-hidden">
       {/* Background Image */}
@@ -36,11 +35,11 @@ const BusinessTypes = () => {
             Focus on growing your business while we handle the complexities of your financial data. Our automated tools save you time and ensure precision.
           </p>
 
-          <button
-            onClick={() => navigate('/register')}
-            className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded shadow-lg transition-all duration-300 transform hover:-translate-y-1 text-sm tracking-wider uppercase">
+          <Link
+            to="/register"
+            className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded shadow-lg transition-all duration-300 transform hover:-translate-y-1 text-sm tracking-wider uppercase inline-block">
             GET STARTED
-          </button>
+          </Link>
         </motion.div>
       </div>
     </div>

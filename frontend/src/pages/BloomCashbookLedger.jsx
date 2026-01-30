@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
@@ -55,12 +56,9 @@ const BloomCashbookLedger = () => {
               Not every client needs a full ERP. Manage your cash-based clients and year-end compliance jobs efficiently with Bloom Cashbook and Ledger.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-lg hover:bg-[#00b596] transition-all hover:-translate-y-1">
-                Start Free Trial
-              </button>
-              <button className="px-8 py-4 bg-transparent border-2 border-white/20 text-white font-bold rounded-xl hover:bg-white/10 transition-all">
-                Compare Plans
-              </button>
+              <Link to="/register" className="px-8 py-4 bg-[#00cba9] text-white font-bold rounded-xl shadow-lg hover:bg-[#00b596] transition-all hover:-translate-y-1">
+                Get started
+              </Link>
             </div>
           </motion.div>
 
@@ -326,9 +324,9 @@ const BloomCashbookLedger = () => {
           <p className="text-xl text-[#0e3b5e]/80 mb-10 font-medium">
             Join the practice management revolution. Simple, powerful, and affordable.
           </p>
-          <button className="px-12 py-5 bg-[#0e3b5e] text-white font-bold rounded-full shadow-2xl hover:scale-105 transition-transform flex items-center gap-3 mx-auto">
-            Get Partner Program Info <FaArrowRight />
-          </button>
+          <Link to="/register" className="px-12 py-5 bg-[#0e3b5e] text-white font-bold rounded-full shadow-2xl hover:scale-105 transition-transform flex items-center gap-3 mx-auto inline-flex">
+            Get started <FaArrowRight />
+          </Link>
         </div>
       </section>
 
