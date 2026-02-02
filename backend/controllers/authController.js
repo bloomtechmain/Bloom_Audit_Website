@@ -79,12 +79,68 @@ const login = async (req, res) => {
 };
 
 const getMe = async (req, res) => {
-    // req.user is already set by protect middleware
-    res.json(req.user);
+  // req.user is already set by protect middleware
+  res.json(req.user);
+};
+
+const googleLogin = async (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ message: 'No token provided' });
+  }
+
+  try {
+    const googleRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (!googleRes.ok) {
+      return res.status(400).json({ message: 'Invalid Google Token' });
+    }
+
+    const { email, name } = await googleRes.json();
+
+    if (!email) {
+      return res.status(400).json({ message: 'Google account has no email' });
+    }
+
+    let user = await userModel.findUserByEmail(email);
+
+    if (!user) {
+      // Return specific response to prompt registration on frontend
+      return res.status(200).json({
+        isNewUser: true,
+        email,
+        name,
+        token, // Google access token to verify again during registration
+        message: 'User not found. Please complete registration.'
+      });
+    }
+
+    const jwtToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || 'secret', {
+      expiresIn: '30d',
+    });
+
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      company_type: user.company_type,
+      package_name: user.package_name,
+      package_status: user.package_status || 'pending',
+      token: jwtToken,
+    });
+  } catch (error) {
+    console.error('Google Login Error:', error);
+    res.status(500).json({ message: 'Server error during Google Login' });
+  }
 };
 
 module.exports = {
   register,
   login,
-  getMe
+  getMe,
+  googleLogin
 };

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
+import { FaGoogle } from 'react-icons/fa';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
@@ -8,6 +10,57 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/google-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: tokenResponse.access_token }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          if (data.isNewUser) {
+            // Redirect to registration with Google data
+            navigate('/register', {
+              state: {
+                isGoogleRegistration: true,
+                googleData: {
+                  email: data.email,
+                  name: data.name,
+                  token: data.token
+                }
+              }
+            });
+            return;
+          }
+
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data));
+
+          if (data.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/');
+          }
+        } else {
+          setError(data.message || 'Google Login Failed');
+        }
+      } catch (err) {
+        console.error(err);
+        setError('Network error during Google Login');
+      }
+    },
+    onError: () => {
+      console.log('Login Failed');
+      setError('Google Login Failed');
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -133,6 +186,28 @@ const Login = () => {
               Sign in
             </button>
           </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <button
+                type="button"
+                onClick={() => googleLogin()}
+                className="w-full flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00cba9] transition-all"
+              >
+                <FaGoogle className="mr-2 text-red-500" />
+                Sign in with Google
+              </button>
+            </div>
+          </div>
 
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">

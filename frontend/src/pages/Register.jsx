@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { smallBizPlans, plans } from '../config/pricingData';
 import { motion } from 'framer-motion';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { FaCheck, FaTimes, FaGoogle } from 'react-icons/fa';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const Register = () => {
   const [step, setStep] = useState(1);
@@ -17,7 +18,69 @@ const Register = () => {
     selectedPackage: null,
   });
   const [error, setError] = useState('');
+  const [isGoogleRegistration, setIsGoogleRegistration] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.isGoogleRegistration) {
+      setIsGoogleRegistration(true);
+      setFormData(prev => ({
+        ...prev,
+        name: location.state.googleData.name,
+        email: location.state.googleData.email,
+        password: 'GoogleUser', // Placeholder
+        confirmPassword: 'GoogleUser' // Placeholder
+      }));
+    }
+  }, [location.state]);
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/google-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: tokenResponse.access_token }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          if (data.isNewUser) {
+            setIsGoogleRegistration(true);
+            setFormData(prev => ({
+              ...prev,
+              name: data.name,
+              email: data.email,
+              password: 'GoogleUser',
+              confirmPassword: 'GoogleUser'
+            }));
+          } else {
+            // Existing user - log them in directly
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data));
+            if (data.role === 'admin') {
+              navigate('/admin');
+            } else {
+              navigate('/');
+            }
+          }
+        } else {
+          setError(data.message || 'Google Login Failed');
+        }
+      } catch (err) {
+        console.error(err);
+        setError('Network error during Google Login');
+      }
+    },
+    onError: () => {
+      console.log('Login Failed');
+      setError('Google Login Failed');
+    },
+  });
 
   const handleChange = (e) => {
     setFormData({
@@ -125,24 +188,74 @@ const Register = () => {
           </div>
 
           <div className="space-y-6">
+            {!isGoogleRegistration && (
+              <div className="mb-6">
+                <button
+                  type="button"
+                  onClick={() => googleLogin()}
+                  className="w-full flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00cba9] transition-all"
+                >
+                  <FaGoogle className="mr-2 text-red-500" />
+                  Sign up with Google
+                </button>
+                <div className="relative mt-6">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-300"></div>
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">Or register with email</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isGoogleRegistration && (
+              <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4 text-sm">
+                <strong>Google Account Verified!</strong> Please complete your registration details below.
+              </div>
+            )}
+
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-              <input id="name" name="name" type="text" required className="block w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00cba9] focus:border-transparent transition-all" placeholder="Enter your full name" value={formData.name} onChange={handleChange} />
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                className="block w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00cba9] focus:border-transparent transition-all"
+                placeholder="Enter your full name"
+                value={formData.name}
+                onChange={handleChange}
+                disabled={isGoogleRegistration}
+              />
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email address</label>
-              <input id="email" name="email" type="email" autoComplete="email" required className="block w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00cba9] focus:border-transparent transition-all" placeholder="Enter your email" value={formData.email} onChange={handleChange} />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="block w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00cba9] focus:border-transparent transition-all"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+                disabled={isGoogleRegistration}
+              />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input id="password" name="password" type="password" required className="block w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00cba9] focus:border-transparent transition-all" placeholder="Password" value={formData.password} onChange={handleChange} />
+            {!isGoogleRegistration && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                  <input id="password" name="password" type="password" required className="block w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00cba9] focus:border-transparent transition-all" placeholder="Password" value={formData.password} onChange={handleChange} />
+                </div>
+                <div>
+                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm</label>
+                  <input id="confirmPassword" name="confirmPassword" type="password" required className="block w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00cba9] focus:border-transparent transition-all" placeholder="Confirm" value={formData.confirmPassword} onChange={handleChange} />
+                </div>
               </div>
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm</label>
-                <input id="confirmPassword" name="confirmPassword" type="password" required className="block w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00cba9] focus:border-transparent transition-all" placeholder="Confirm" value={formData.confirmPassword} onChange={handleChange} />
-              </div>
-            </div>
+            )}
 
             <div className="pt-4 border-t border-gray-100">
               <h3 className="text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide">Select Business Type</h3>
@@ -166,7 +279,7 @@ const Register = () => {
               </div>
             </div>
 
-            {(!formData.name || !formData.email || !formData.password || !formData.confirmPassword) && (
+            {(!formData.name || !formData.email || (!isGoogleRegistration && (!formData.password || !formData.confirmPassword))) && (
               <p className="text-center text-xs text-gray-400 mt-2">Please fill all fields to proceed</p>
             )}
           </div>
