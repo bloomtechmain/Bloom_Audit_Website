@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaTachometerAlt, FaUsers, FaCog, FaSignOutAlt, FaChartPie } from 'react-icons/fa';
+import { FaTachometerAlt, FaCog, FaSignOutAlt, FaChartPie } from 'react-icons/fa';
 
 const AdminSidebar = () => {
   const location = useLocation();
@@ -13,7 +13,6 @@ const AdminSidebar = () => {
 
   const menuItems = [
     { path: '/admin', name: 'Dashboard', icon: <FaTachometerAlt /> },
-    { path: '#', name: 'Users', icon: <FaUsers /> },
   ];
 
   return (
@@ -31,11 +30,10 @@ const AdminSidebar = () => {
             <Link
               key={index}
               to={item.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                isActive 
-                  ? 'bg-[#00cba9] text-white shadow-lg' 
-                  : 'text-blue-100 hover:bg-white/10 hover:text-white'
-              }`}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${isActive
+                ? 'bg-[#00cba9] text-white shadow-lg'
+                : 'text-blue-100 hover:bg-white/10 hover:text-white'
+                }`}
             >
               <span className="text-lg">{item.icon}</span>
               <span className="font-medium">{item.name}</span>
