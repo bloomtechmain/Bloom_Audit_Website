@@ -4,13 +4,87 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
 import { FaCheck, FaTimes, FaStar, FaPaperPlane, FaRocket, FaGem } from 'react-icons/fa';
+import { plans } from '../config/pricingData';
+import EnterpriseInquiryModal from '../Components/EnterpriseInquiryModal';
+import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  // Upgrade Modal State
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const [selectedUpgradePlan, setSelectedUpgradePlan] = useState(null);
+  const [isSubmittingUpgrade, setIsSubmittingUpgrade] = useState(false);
+
+  React.useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handlePlanClick = (plan) => {
+    if (!user) {
+      // Logic handled by Link to register if not logged in
+      return;
+    }
+
+    if (plan.name === "Enterprise") {
+      setIsModalOpen(true);
+    } else {
+      setSelectedUpgradePlan(plan.name);
+      setIsUpgradeModalOpen(true);
+    }
+  };
+
+  const handleUpgradeConfirm = async () => {
+    if (!selectedUpgradePlan || !user) return;
+
+    setIsSubmittingUpgrade(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:5000/api/upgrades/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          userId: user.id,
+          userName: user.name,
+          userEmail: user.email,
+          currentPlan: user.package_name || 'None',
+          requestedPlan: selectedUpgradePlan
+        })
+      });
+
+      if (response.ok) {
+        alert('Upgrade request submitted successfully!');
+        setIsUpgradeModalOpen(false);
+      } else {
+        alert('Failed to submit request.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error submitting request.');
+    } finally {
+      setIsSubmittingUpgrade(false);
+    }
+  };
 
   return (
     <div className="font-sans overflow-x-hidden">
       <Navbar />
+      <EnterpriseInquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} user={user} />
+      <UpgradeConfirmationModal
+        isOpen={isUpgradeModalOpen}
+        onClose={() => setIsUpgradeModalOpen(false)}
+        onConfirm={handleUpgradeConfirm}
+        planName={selectedUpgradePlan}
+        isSubmitting={isSubmittingUpgrade}
+      />
 
       {/* Hero Section */}
       <div className="relative min-h-[80vh] flex flex-col items-center justify-center text-center px-4 pt-20 overflow-hidden bg-[#0e3b5e]">
@@ -81,7 +155,7 @@ const Pricing = () => {
               />
             </div>
             <span className={`text-lg font-bold transition-colors ${isYearly ? 'text-white' : 'text-blue-200'}`}>
-              Yearly <span className="text-[#0e3b5e] text-xs font-bold bg-[#00cba9] px-2 py-1 rounded-full ml-1">-20%</span>
+              Yearly
             </span>
           </motion.div>
         </div>
@@ -90,17 +164,17 @@ const Pricing = () => {
       {/* Pricing Cards Section */}
       <div className="bg-gradient-to-b from-gray-50 to-white py-24 px-4 md:px-8 lg:px-12 -mt-20 relative z-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+          <div className="flex flex-wrap justify-center gap-8 items-start">
             {plans.map((plan, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2, duration: 0.6 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
                 whileHover={{ y: -20 }}
-                className={`rounded-3xl overflow-hidden shadow-2xl flex flex-col relative transition-all duration-300 ${plan.recommended
-                  ? 'bg-white ring-4 ring-[#00cba9]/30 transform md:-translate-y-8 z-10'
+                className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-2rem)] xl:w-[calc(20%-2rem)] min-w-[300px] rounded-3xl overflow-hidden shadow-2xl flex flex-col relative transition-all duration-300 ${plan.recommended
+                  ? 'bg-white ring-4 ring-[#00cba9]/30 transform md:-translate-y-4 z-10'
                   : 'bg-white border border-gray-100'
                   }`}
               >
@@ -129,19 +203,19 @@ const Pricing = () => {
                   </div>
                 )}
 
-                <div className="p-8 flex-grow">
+                <div className="p-8 flex-grow flex flex-col">
                   <h3 className="text-2xl font-bold text-[#0e3b5e] mb-2 text-center">{plan.name}</h3>
-                  <p className="text-gray-500 text-sm text-center mb-6 h-10">{plan.description}</p>
+                  <p className="text-gray-500 text-sm text-center mb-6 h-10">{plan.tagline}</p>
 
                   <div className="flex justify-center items-baseline mb-8 pb-8 border-b border-gray-100">
-                    <span className="text-sm font-semibold text-gray-400 mr-1 self-start mt-2">LKR</span>
-                    <span className="text-5xl font-extrabold text-[#0e3b5e]">
-                      {isYearly ? (plan.price * 12 * 0.8).toLocaleString() : plan.price.toLocaleString()}
+                    {!plan.displayPrice && <span className="text-sm font-semibold text-gray-400 mr-1 self-start mt-2">LKR</span>}
+                    <span className="text-4xl font-extrabold text-[#0e3b5e]">
+                      {plan.displayPrice ? plan.displayPrice : (isYearly ? (plan.price * 12 * 0.8).toLocaleString() : plan.price.toLocaleString())}
                     </span>
-                    <span className="text-gray-400 ml-2 font-medium">/{isYearly ? 'year' : 'mo'}</span>
+                    {!plan.displayPrice && <span className="text-gray-400 ml-2 font-medium">/{isYearly ? 'year' : 'mo'}</span>}
                   </div>
 
-                  <div className="space-y-4 mb-8">
+                  <div className="space-y-4 mb-8 flex-grow">
                     {plan.features.map((feature, i) => (
                       <div key={i} className="flex items-start">
                         <div className="bg-[#e5f9f6] p-1 rounded-full mr-3 flex-shrink-0 mt-0.5">
@@ -160,12 +234,37 @@ const Pricing = () => {
                     ))}
                   </div>
 
-                  <Link to="/register" className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 block text-center ${plan.recommended
-                    ? 'bg-gradient-to-r from-[#00cba9] to-[#00b596] text-white shadow-lg hover:shadow-[#00cba9]/40'
-                    : 'bg-gray-50 text-[#0e3b5e] hover:bg-gray-100 border border-gray-200'
-                    }`}>
-                    {plan.buttonText}
-                  </Link>
+                  {plan.name === "Enterprise" ? (
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 block text-center mt-auto ${plan.recommended
+                        ? 'bg-gradient-to-r from-[#00cba9] to-[#00b596] text-white shadow-lg hover:shadow-[#00cba9]/40'
+                        : 'bg-white text-[#0e3b5e] hover:bg-gray-50 border border-gray-200'
+                        }`}
+                    >
+                      {user ? 'Upgrade Plan' : plan.cta}
+                    </button>
+                  ) : user ? (
+                    <button
+                      onClick={() => handlePlanClick(plan)}
+                      disabled={user.package_name === plan.name}
+                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 transform block text-center mt-auto ${user.package_name === plan.name
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+                        : `hover:scale-105 ${plan.recommended
+                          ? 'bg-gradient-to-r from-[#00cba9] to-[#00b596] text-white shadow-lg hover:shadow-[#00cba9]/40'
+                          : 'bg-white text-[#0e3b5e] hover:bg-gray-50 border border-gray-200'}`
+                        }`}
+                    >
+                      {user.package_name === plan.name ? 'Current Plan' : 'Upgrade Plan'}
+                    </button>
+                  ) : (
+                    <Link to="/register" className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 block text-center mt-auto ${plan.recommended
+                      ? 'bg-gradient-to-r from-[#00cba9] to-[#00b596] text-white shadow-lg hover:shadow-[#00cba9]/40'
+                      : 'bg-white text-[#0e3b5e] hover:bg-gray-50 border border-gray-200'
+                      }`}>
+                      {plan.cta}
+                    </Link>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -209,70 +308,5 @@ const Pricing = () => {
     </div>
   );
 };
-
-const plans = [
-  {
-    name: "Starter",
-    price: 20000,
-    description: "Essential tools for freelancers and solopreneurs.",
-    buttonText: "Get started",
-    headerColor: "bg-gradient-to-br from-blue-400 to-blue-600",
-    backgroundImage: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-    icon: <FaPaperPlane size={24} />,
-    features: [
-      "Send invoices and quotes",
-      "Enter bills",
-      "Reconcile bank transactions",
-      "Capture bills with Hubdoc",
-      "Basic reports"
-    ],
-    unavailable: [
-      "Bulk reconcile transactions",
-      "Multi-currency",
-      "Project tracking",
-      "Advanced Analytics",
-      "Payroll"
-    ]
-  },
-  {
-    name: "Standard",
-    price: 40000,
-    description: "Perfect for growing small businesses.",
-    buttonText: "Get started",
-    recommended: true,
-    headerColor: "bg-gradient-to-br from-[#00cba9] to-[#008f7a]",
-    backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-    icon: <FaRocket size={24} />,
-    features: [
-      "Everything in Starter",
-      "Bulk reconcile transactions",
-      "Manage multiple currencies",
-      "Short-term cash flow",
-      "Business snapshot"
-    ],
-    unavailable: [
-      "Project tracking",
-      "Advanced Analytics",
-      "Payroll"
-    ]
-  },
-  {
-    name: "Premium",
-    price: 75000,
-    description: "Advanced features for established companies.",
-    buttonText: "Get started",
-    headerColor: "bg-gradient-to-br from-purple-500 to-indigo-600",
-    backgroundImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-    icon: <FaGem size={24} />,
-    features: [
-      "Everything in Standard",
-      "Project tracking",
-      "Advanced Analytics",
-      "Payroll for 5 employees",
-      "Expense claims",
-      "Priority support"
-    ]
-  }
-];
 
 export default Pricing;

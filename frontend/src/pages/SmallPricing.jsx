@@ -4,13 +4,86 @@ import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaCheck, FaTimes, FaRocket, FaGem, FaSeedling, FaStore, FaChartPie, FaTags, FaArrowRight } from 'react-icons/fa';
+import { smallBizPlans } from '../config/pricingData';
+import EnterpriseInquiryModal from '../Components/EnterpriseInquiryModal';
+import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
 
 const SmallPricing = () => {
     const [isYearly, setIsYearly] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [user, setUser] = useState(null);
+
+    // Upgrade Modal State
+    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const [selectedUpgradePlan, setSelectedUpgradePlan] = useState(null);
+    const [isSubmittingUpgrade, setIsSubmittingUpgrade] = useState(false);
+
+    React.useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
+
+    const handlePlanClick = (plan) => {
+        if (!user) {
+            return;
+        }
+
+        if (plan.name === "Enterprise") {
+            setIsModalOpen(true);
+        } else {
+            setSelectedUpgradePlan(plan.name);
+            setIsUpgradeModalOpen(true);
+        }
+    };
+
+    const handleUpgradeConfirm = async () => {
+        if (!selectedUpgradePlan || !user) return;
+
+        setIsSubmittingUpgrade(true);
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('http://localhost:5000/api/upgrades/request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    userId: user.id,
+                    userName: user.name,
+                    userEmail: user.email,
+                    currentPlan: user.package_name || 'None',
+                    requestedPlan: selectedUpgradePlan
+                })
+            });
+
+            if (response.ok) {
+                alert('Upgrade request submitted successfully!');
+                setIsUpgradeModalOpen(false);
+            } else {
+                alert('Failed to submit request.');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error submitting request.');
+        } finally {
+            setIsSubmittingUpgrade(false);
+        }
+    };
 
     return (
         <div className="font-sans overflow-x-hidden bg-gray-50">
             <Navbar solid />
+            <EnterpriseInquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} user={user} />
+            <UpgradeConfirmationModal
+                isOpen={isUpgradeModalOpen}
+                onClose={() => setIsUpgradeModalOpen(false)}
+                onConfirm={handleUpgradeConfirm}
+                planName={selectedUpgradePlan}
+                isSubmitting={isSubmittingUpgrade}
+            />
 
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 px-4 text-center overflow-hidden bg-[#0e3b5e] text-white rounded-b-[3rem]">
@@ -69,7 +142,7 @@ const SmallPricing = () => {
                             />
                         </div>
                         <span className={`text-lg font-bold transition-colors ${isYearly ? 'text-white' : 'text-blue-300'}`}>
-                            Yearly <span className="text-xs bg-white text-[#0e3b5e] px-2 py-0.5 rounded-full ml-1">Save 20%</span>
+                            Yearly
                         </span>
                     </div>
                 </div>
@@ -77,7 +150,7 @@ const SmallPricing = () => {
 
             {/* Pricing Cards */}
             <section className="py-20 px-4 -mt-20 relative z-20">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-8 items-start">
                     {smallBizPlans.map((plan, index) => (
                         <motion.div
                             key={index}
@@ -86,7 +159,7 @@ const SmallPricing = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -10 }}
-                            className={`bg-white rounded-3xl overflow-hidden shadow-xl border flex flex-col ${plan.popular ? 'border-[#00cba9] ring-4 ring-[#00cba9]/20 transform md:-translate-y-4' : 'border-gray-100'}`}
+                            className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-2rem)] xl:w-[calc(20%-2rem)] min-w-[300px] bg-white rounded-3xl overflow-hidden shadow-xl border flex flex-col ${plan.popular ? 'border-[#00cba9] ring-4 ring-[#00cba9]/20 transform md:-translate-y-4' : 'border-gray-100'}`}
                         >
                             <div className={`p-6 ${plan.headerBg} text-white relative overflow-hidden`}>
                                 <div className="absolute inset-0 bg-black/10"></div>
@@ -99,32 +172,82 @@ const SmallPricing = () => {
                                         {plan.icon}
                                     </div>
                                 </div>
+                                {plan.popular && (
+                                    <div className="absolute top-0 right-0 bg-yellow-400 text-[#0e3b5e] text-[10px] font-extrabold px-3 py-1 rounded-bl-xl uppercase tracking-widest shadow-sm z-20">
+                                        Most Popular
+                                    </div>
+                                )}
                             </div>
 
-                            <div className="p-8 flex-grow flex flex-col">
-                                <div className="mb-6">
-                                    <span className="text-4xl font-extrabold text-[#0e3b5e]">LKR {isYearly ? (plan.price * 12 * 0.8).toLocaleString() : plan.price.toLocaleString()}</span>
-                                    <span className="text-gray-500 font-medium">/{isYearly ? 'year' : 'mo'}</span>
+                            <div className="p-6 flex-grow flex flex-col">
+                                <div className="mb-6 pb-6 border-b border-gray-100">
+                                    <div className="flex items-baseline">
+                                        {!plan.displayPrice && <span className="text-sm font-semibold text-gray-400 mr-1">LKR</span>}
+                                        <span className="text-4xl font-extrabold text-[#0e3b5e]">
+                                            {plan.displayPrice ? plan.displayPrice : (isYearly ? (plan.price * 12 * 0.8).toLocaleString() : plan.price.toLocaleString())}
+                                        </span>
+                                        {!plan.displayPrice && <span className="text-gray-400 ml-1 font-medium text-sm">/{isYearly ? 'yr' : 'mo'}</span>}
+                                    </div>
+                                    {isYearly && !plan.displayPrice && (
+                                        <div className="mt-2 text-xs text-[#00cba9] font-bold flex items-center gap-1">
+                                            <FaTags /> Save {(plan.price * 12 * 0.2).toLocaleString()} LKR/yr
+                                        </div>
+                                    )}
+                                    <div className="mt-4 text-xs text-gray-500 font-medium bg-gray-50 p-2 rounded-lg inline-block">
+                                        {plan.features[0]} {/* Usually User Count */}
+                                    </div>
                                 </div>
 
-                                <div className="space-y-4 mb-8 flex-grow">
-                                    {plan.features.map((feature, i) => (
-                                        <div key={i} className="flex items-start gap-3">
-                                            <FaCheck className="text-[#00cba9] mt-1 flex-shrink-0" />
+                                <div className="space-y-3 mb-8 flex-grow">
+                                    {plan.features.slice(1).map((feature, i) => ( // Skip first feature as it's shown above
+                                        <div key={i} className="flex items-start">
+                                            <div className="bg-[#e5f9f6] p-1 rounded-full mr-3 flex-shrink-0 mt-0.5">
+                                                <FaCheck className="text-[#00cba9]" size={10} />
+                                            </div>
                                             <span className="text-gray-600 text-sm font-medium">{feature}</span>
                                         </div>
                                     ))}
                                     {plan.unavailable?.map((feature, i) => (
-                                        <div key={i} className="flex items-start gap-3 opacity-40">
-                                            <FaTimes className="text-gray-400 mt-1 flex-shrink-0" />
-                                            <span className="text-gray-400 text-sm">{feature}</span>
+                                        <div key={i} className="flex items-start opacity-40">
+                                            <div className="bg-gray-100 p-1 rounded-full mr-3 flex-shrink-0 mt-0.5">
+                                                <FaTimes className="text-gray-400" size={10} />
+                                            </div>
+                                            <span className="text-gray-500 text-sm">{feature}</span>
                                         </div>
                                     ))}
                                 </div>
 
-                                <Link to="/register" className={`w-full py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 ${plan.popular ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40' : 'bg-gray-100 text-[#0e3b5e] hover:bg-gray-200'}`}>
-                                    {plan.cta} <FaArrowRight />
-                                </Link>
+                                {plan.name === "Enterprise" ? (
+                                    <button
+                                        onClick={() => setIsModalOpen(true)}
+                                        className={`w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 mt-auto ${plan.popular
+                                            ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40'
+                                            : 'bg-[#0e3b5e] text-white hover:bg-[#1c4b7e] shadow-lg'
+                                            }`}
+                                    >
+                                        {user ? 'Upgrade Plan' : plan.cta} <FaArrowRight />
+                                    </button>
+                                ) : user ? (
+                                    <button
+                                        onClick={() => handlePlanClick(plan)}
+                                        className={`w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 mt-auto ${plan.popular
+                                            ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40'
+                                            : 'bg-[#0e3b5e] text-white hover:bg-[#1c4b7e] shadow-lg'
+                                            }`}
+                                    >
+                                        Upgrade Plan <FaArrowRight />
+                                    </button>
+                                ) : (
+                                    <Link
+                                        to="/register"
+                                        className={`w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 mt-auto ${plan.popular
+                                            ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40'
+                                            : 'bg-[#0e3b5e] text-white hover:bg-[#1c4b7e] shadow-lg'
+                                            }`}
+                                    >
+                                        {plan.cta} <FaArrowRight />
+                                    </Link>
+                                )}
                             </div>
                         </motion.div>
                     ))}
@@ -160,66 +283,5 @@ const SmallPricing = () => {
         </div>
     );
 };
-
-const smallBizPlans = [
-    {
-        name: "Micro",
-        tagline: "For side hustles",
-        price: 5000,
-        icon: <FaSeedling className="text-2xl" />,
-        headerBg: "bg-gradient-to-r from-green-400 to-teal-500",
-        cta: "Get started",
-        features: [
-            "Up to 5 invoices/mo",
-            "Expense tracking",
-            "Bank reconciliation (Manual)",
-            "1 User"
-        ],
-        unavailable: [
-            "Automated bank feeds",
-            "GST/VAT reports",
-            "Inventory management",
-            "Payroll"
-        ]
-    },
-    {
-        name: "Growth",
-        tagline: "Most popular choice",
-        price: 15000,
-        popular: true,
-        icon: <FaStore className="text-2xl" />,
-        headerBg: "bg-gradient-to-r from-[#00cba9] to-blue-500",
-        cta: "Get started",
-        features: [
-            "Unlimited invoices",
-            "Automated bank feeds",
-            "GST/VAT reports",
-            "3 Users",
-            "Inventory (Basic)",
-            "Mobile App Access"
-        ],
-        unavailable: [
-            "Payroll",
-            "Advanced Analytics",
-            "Multi-currency"
-        ]
-    },
-    {
-        name: "Pro",
-        tagline: "Serious business",
-        price: 35000,
-        icon: <FaChartPie className="text-2xl" />,
-        headerBg: "bg-gradient-to-r from-blue-600 to-indigo-600",
-        cta: "Get started",
-        features: [
-            "Everything in Growth",
-            "Multi-currency",
-            "Payroll for 5 staff",
-            "Advanced Analytics",
-            "Project Management",
-            "Priority Support"
-        ]
-    }
-];
 
 export default SmallPricing;

@@ -4,10 +4,14 @@ const http = require('http');
 const { Server } = require("socket.io");
 require('dotenv').config();
 const { createUsersTable } = require('./models/userModel');
+const { createInquiriesTable } = require('./models/inquiryModel');
+const { createUpgradeRequestsTable } = require('./models/upgradeRequestModel');
 const { createMessagesTable, saveMessage, getMessages } = require('./models/chatModel');
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
+const inquiryRoutes = require('./routes/inquiryRoutes');
+const upgradeRoutes = require('./routes/upgradeRoutes');
 const seedAdmin = require('./seedAdmin');
 
 const app = express();
@@ -28,6 +32,8 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/inquiries', inquiryRoutes);
+app.use('/api/upgrades', upgradeRoutes);
 
 app.get('/', (req, res) => {
   res.send('BloomSwiftPOS Backend is running');
@@ -60,6 +66,8 @@ io.on('connection', (socket) => {
 // Initialize DB Table and Admin User
 const init = async () => {
   await createUsersTable();
+  await createInquiriesTable();
+  await createUpgradeRequestsTable();
   await createMessagesTable();
   await seedAdmin();
 };

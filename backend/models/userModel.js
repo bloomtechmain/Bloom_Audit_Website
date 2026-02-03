@@ -94,13 +94,27 @@ const updateUserPackage = async (userId, packageName, packagePrice) => {
   return rows[0];
 };
 
+const updateUserPackageByAdmin = async (userId, packageName, packagePrice) => {
+  const queryText = 'UPDATE users SET package_name = $1, package_price = $2, package_status = $3 WHERE id = $4 RETURNING *';
+  const { rows } = await db.query(queryText, [packageName, packagePrice, 'confirmed', userId]);
+  return rows[0];
+};
+
+const countPendingUsers = async () => {
+  const queryText = "SELECT COUNT(*) FROM users WHERE package_status = 'pending'";
+  const { rows } = await db.query(queryText);
+  return parseInt(rows[0].count);
+};
+
 module.exports = {
   createUsersTable,
   createUser,
   findUserByEmail,
   getAllUsers,
+  deleteUser,
+  updateUserDetails,
   updateUserPackageStatus,
   updateUserPackage,
-  deleteUser,
-  updateUserDetails
+  updateUserPackageByAdmin,
+  countPendingUsers
 };
