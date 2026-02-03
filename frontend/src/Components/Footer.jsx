@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube, FaInstagram, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
+import logo from '../assets/bloomlogo.png';
 
 const Footer = () => {
   return (
@@ -17,12 +18,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Column 1: Logo & Contact */}
           <div>
-            <div className="flex items-center gap-2 mb-6">
-              <div className="bg-[#00cba9] p-2 rounded">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
+            <div className="mb-6 flex items-center gap-3">
+              <img src={logo} alt="Bloom ERP" className="h-12 w-auto object-contain bg-white rounded-lg p-2" />
               <span className="text-2xl font-bold tracking-tight">Bloom ERP</span>
             </div>
 
@@ -43,39 +40,41 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2: Services */}
+          {/* Column 2: Small Business */}
           <div>
-            <h4 className="font-bold text-xl mb-6">Services</h4>
+            <h4 className="font-bold text-xl mb-6">Small Business</h4>
             <ul className="space-y-4 text-gray-300">
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Consulting</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Tax Management</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Audit & Assurance</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Mergers & Acquisitions</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Risk & Financial Advisory</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Analytics</Link></li>
+              <li><Link to="/small-business/accounting-software" className="hover:text-[#00cba9] transition-colors">Accounting Software</Link></li>
+              <li><Link to="/small-business/smart-accounting" className="hover:text-[#00cba9] transition-colors">Smart Accounting</Link></li>
+              <li><Link to="/small-business/bloom-by-industry" className="hover:text-[#00cba9] transition-colors">Industry Solutions</Link></li>
+              <li><Link to="/small-business/business-recovery" className="hover:text-[#00cba9] transition-colors">Business Recovery</Link></li>
+              <li><Link to="/small-business/data-security" className="hover:text-[#00cba9] transition-colors">Data Security</Link></li>
+              <li><Link to="/pricing" className="hover:text-[#00cba9] transition-colors">Pricing Plans</Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Support */}
+          {/* Column 3: For Accountants */}
           <div>
-            <h4 className="font-bold text-xl mb-6">Support</h4>
+            <h4 className="font-bold text-xl mb-6">For Accountants</h4>
             <ul className="space-y-4 text-gray-300">
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Help Center</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Ticket Support</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">FAQ</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Contact Us</Link></li>
+              <li><Link to="/accountants/hq" className="hover:text-[#00cba9] transition-colors">Bloom ERP HQ</Link></li>
+              <li><Link to="/accountants/practice-manager" className="hover:text-[#00cba9] transition-colors">Practice Manager</Link></li>
+              <li><Link to="/accountants/workpapers" className="hover:text-[#00cba9] transition-colors">Workpapers</Link></li>
+              <li><Link to="/accountants/cashbook-ledger" className="hover:text-[#00cba9] transition-colors">Cashbook & Ledger</Link></li>
+              <li><Link to="/accountants/syft-analytics" className="hover:text-[#00cba9] transition-colors">Syft Analytics</Link></li>
             </ul>
           </div>
 
-          {/* Column 4: Company */}
+          {/* Column 4: Support & Resources */}
           <div>
-            <h4 className="font-bold text-xl mb-6">Company</h4>
+            <h4 className="font-bold text-xl mb-6">Support & Resources</h4>
             <ul className="space-y-4 text-gray-300">
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">About us</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Leadership</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Careers</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">News & Articles</Link></li>
-              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Legal Notices</Link></li>
+              <li><Link to="/support/get-support" className="hover:text-[#00cba9] transition-colors">Help Center</Link></li>
+              <li><Link to="/support/onboarding" className="hover:text-[#00cba9] transition-colors">Onboarding Support</Link></li>
+              <li><Link to="/support/community" className="hover:text-[#00cba9] transition-colors">Community</Link></li>
+              <li><Link to="/resources/blog" className="hover:text-[#00cba9] transition-colors">Blog</Link></li>
+              <li><Link to="/resources/guides" className="hover:text-[#00cba9] transition-colors">Guides</Link></li>
+              <li><Link to="/support/end-of-fiscal-year" className="hover:text-[#00cba9] transition-colors">End of Fiscal Year</Link></li>
             </ul>
           </div>
         </div>

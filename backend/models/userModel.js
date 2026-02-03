@@ -34,6 +34,9 @@ const createUsersTable = async () => {
     await checkColumn('package_name', "VARCHAR(50)");
     await checkColumn('package_price', "VARCHAR(50)");
     await checkColumn('package_status', "VARCHAR(20) DEFAULT 'pending'");
+    await checkColumn('package_start_date', "TIMESTAMP");
+    await checkColumn('package_end_date', "TIMESTAMP");
+    await checkColumn('expiry_warning_sent', "BOOLEAN DEFAULT FALSE");
 
     console.log('User schema verified');
   } catch (error) {
@@ -94,9 +97,25 @@ const updateUserPackage = async (userId, packageName, packagePrice) => {
   return rows[0];
 };
 
-const updateUserPackageByAdmin = async (userId, packageName, packagePrice) => {
-  const queryText = 'UPDATE users SET package_name = $1, package_price = $2, package_status = $3 WHERE id = $4 RETURNING *';
-  const { rows } = await db.query(queryText, [packageName, packagePrice, 'confirmed', userId]);
+const updateUserPackageByAdmin = async (userId, packageName, packagePrice, startDate, endDate) => {
+  const queryText = `
+    UPDATE users 
+    SET package_name = $1, package_price = $2, package_status = $3, package_start_date = $4, package_end_date = $5, expiry_warning_sent = FALSE 
+    WHERE id = $6 
+    RETURNING *
+  `;
+  const { rows } = await db.query(queryText, [packageName, packagePrice, 'confirmed', startDate, endDate, userId]);
+  return rows[0];
+};
+
+const confirmUserPackage = async (userId, startDate, endDate) => {
+  const queryText = `
+    UPDATE users 
+    SET package_status = 'confirmed', package_start_date = $1, package_end_date = $2, expiry_warning_sent = FALSE
+    WHERE id = $3
+    RETURNING *
+  `;
+  const { rows } = await db.query(queryText, [startDate, endDate, userId]);
   return rows[0];
 };
 
@@ -104,6 +123,42 @@ const countPendingUsers = async () => {
   const queryText = "SELECT COUNT(*) FROM users WHERE package_status = 'pending'";
   const { rows } = await db.query(queryText);
   return parseInt(rows[0].count);
+};
+
+const getExpiringUsers = async () => {
+  // Get users whose package expires in 3 days (between 72 and 48 hours from now to be safe, or just < 3 days and not sent)
+  // Simple logic: end_date < NOW + 3 days AND end_date > NOW AND warning_sent = false
+  const queryText = `
+    SELECT * FROM users 
+    WHERE package_end_date < (NOW() + INTERVAL '3 days') 
+    AND package_end_date > NOW() 
+    AND package_status = 'confirmed' 
+    AND expiry_warning_sent = FALSE
+  `;
+  const { rows } = await db.query(queryText);
+  return rows;
+};
+
+const getExpiredUsers = async () => {
+  const queryText = `
+    SELECT * FROM users 
+    WHERE package_end_date < NOW() 
+    AND package_status = 'confirmed'
+  `;
+  const { rows } = await db.query(queryText);
+  return rows;
+};
+
+const markUserExpired = async (userId) => {
+  const queryText = "UPDATE users SET package_status = 'expired' WHERE id = $1 RETURNING *";
+  const { rows } = await db.query(queryText, [userId]);
+  return rows[0];
+};
+
+const markWarningSent = async (userId) => {
+  const queryText = "UPDATE users SET expiry_warning_sent = TRUE WHERE id = $1 RETURNING *";
+  const { rows } = await db.query(queryText, [userId]);
+  return rows[0];
 };
 
 module.exports = {
@@ -116,5 +171,10 @@ module.exports = {
   updateUserPackageStatus,
   updateUserPackage,
   updateUserPackageByAdmin,
-  countPendingUsers
+  confirmUserPackage,
+  countPendingUsers,
+  getExpiringUsers,
+  getExpiredUsers,
+  markUserExpired,
+  markWarningSent
 };

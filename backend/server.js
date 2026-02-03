@@ -13,6 +13,7 @@ const userRoutes = require('./routes/userRoutes');
 const inquiryRoutes = require('./routes/inquiryRoutes');
 const upgradeRoutes = require('./routes/upgradeRoutes');
 const seedAdmin = require('./seedAdmin');
+const { initCronJobs } = require('./cron/packageCron');
 
 const app = express();
 const server = http.createServer(app);
@@ -70,6 +71,7 @@ const init = async () => {
   await createUpgradeRequestsTable();
   await createMessagesTable();
   await seedAdmin();
+  initCronJobs();
 };
 init();
 

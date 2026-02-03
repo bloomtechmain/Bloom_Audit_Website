@@ -6,6 +6,7 @@ import { smallBizPlans, plans } from '../config/pricingData';
 import { motion } from 'framer-motion';
 import { FaCheck, FaTimes, FaGoogle } from 'react-icons/fa';
 import { useGoogleLogin } from '@react-oauth/google';
+import logo from '../assets/bloomlogo.png';
 
 const Register = () => {
   const [step, setStep] = useState(1);
@@ -147,7 +148,10 @@ const Register = () => {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
         <div className="relative z-10">
-          <Link to="/" className="text-3xl font-bold tracking-tight text-white">Bloom ERP</Link>
+          <Link to="/" className="flex items-center gap-3 no-underline text-white">
+            <img src={logo} alt="Bloom ERP" className="h-12 w-auto object-contain bg-white rounded-lg p-2" />
+            <span className="text-3xl font-bold tracking-tight">Bloom ERP</span>
+          </Link>
           <div className="mt-20">
             <h1 className="text-5xl font-extrabold leading-tight mb-6">
               Start your <br />

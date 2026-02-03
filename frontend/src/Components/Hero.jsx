@@ -28,7 +28,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-screen flex items-center justify-center overflow-hidden bg-[#0e3b5e] pt-20">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0e3b5e] pt-20 pb-10 lg:pb-0">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
         {/* Background Image */}
@@ -79,7 +79,7 @@ const Hero = () => {
           </motion.div>
 
           {/* Visual Content - Floating Dashboard */}
-          <div className="lg:w-1/2 relative h-[500px] w-full flex items-center justify-center perspective-1000">
+          <div className="lg:w-1/2 relative h-[450px] lg:h-[500px] w-full flex items-center justify-center perspective-1000 mt-10 lg:mt-0">
             {/* Main Dashboard Card */}
             <motion.div
               initial={{ opacity: 0, rotateY: 15, rotateX: 5, scale: 0.9 }}
@@ -135,7 +135,7 @@ const Hero = () => {
             <motion.div
               variants={floatAnimation}
               animate="animate"
-              className="absolute -right-4 top-20 bg-white p-4 rounded-2xl shadow-xl z-20 max-w-[180px]"
+              className="absolute right-0 lg:-right-4 top-10 lg:top-20 bg-white p-4 rounded-2xl shadow-xl z-20 max-w-[160px] lg:max-w-[180px]"
             >
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 bg-orange-100 text-orange-500 rounded-lg">
@@ -155,7 +155,7 @@ const Hero = () => {
             <motion.div
               variants={floatAnimationDelayed}
               animate="animate"
-              className="absolute -left-8 bottom-32 bg-[#00cba9] p-4 rounded-2xl shadow-xl z-20 text-white"
+              className="absolute left-0 lg:-left-8 bottom-10 lg:bottom-32 bg-[#00cba9] p-4 rounded-2xl shadow-xl z-20 text-white max-w-[160px] lg:max-w-none"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white/20 rounded-lg">

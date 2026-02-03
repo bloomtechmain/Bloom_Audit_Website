@@ -20,8 +20,11 @@ const SmallPricing = () => {
 
     React.useEffect(() => {
         const storedUser = localStorage.getItem('user');
-        if (storedUser) {
+        const token = localStorage.getItem('token');
+        if (storedUser && token) {
             setUser(JSON.parse(storedUser));
+        } else {
+            setUser(null);
         }
     }, []);
 
@@ -106,6 +109,32 @@ const SmallPricing = () => {
                 </div>
 
                 <div className="relative z-10 max-w-4xl mx-auto">
+                    {user && user.package_name && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mb-8 mx-auto bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl max-w-md w-full text-left relative overflow-hidden shadow-lg"
+                        >
+                            <div className="absolute top-0 right-0 p-3 opacity-20">
+                                <FaGem className="text-5xl text-white" />
+                            </div>
+                            <div className="relative z-10">
+                                <p className="text-xs uppercase tracking-wider text-blue-200 font-bold mb-1">Your Current Plan</p>
+                                <div className="flex items-center gap-3 mb-2">
+                                    <h2 className="text-2xl font-bold text-white">{user.package_name}</h2>
+                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide ${user.package_status === 'active' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-black'}`}>
+                                        {user.package_status}
+                                    </span>
+                                </div>
+                                {user.package_end_date && (
+                                    <p className="text-xs text-blue-100 flex items-center gap-1">
+                                        Expires: <span className="font-mono bg-white/10 px-1 rounded">{new Date(user.package_end_date).toLocaleDateString()}</span>
+                                    </p>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -132,12 +161,11 @@ const SmallPricing = () => {
                         <span className={`text-lg font-bold transition-colors ${!isYearly ? 'text-white' : 'text-blue-300'}`}>Monthly</span>
                         <div
                             onClick={() => setIsYearly(!isYearly)}
-                            className="w-16 h-8 bg-[#00cba9] rounded-full p-1 cursor-pointer flex items-center transition-colors duration-300 relative"
+                            className={`w-16 h-8 bg-[#00cba9] rounded-full p-1 cursor-pointer flex items-center shadow-inner transition-colors duration-300 ${isYearly ? 'justify-end' : 'justify-start'}`}
                         >
                             <motion.div
                                 layout
-                                className="bg-white w-6 h-6 rounded-full shadow-lg absolute"
-                                animate={{ left: isYearly ? "calc(100% - 28px)" : "4px" }}
+                                className="bg-white w-6 h-6 rounded-full shadow-lg"
                                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
                             />
                         </div>
@@ -225,7 +253,7 @@ const SmallPricing = () => {
                                             : 'bg-[#0e3b5e] text-white hover:bg-[#1c4b7e] shadow-lg'
                                             }`}
                                     >
-                                        {user ? 'Upgrade Plan' : plan.cta} <FaArrowRight />
+                                        {user ? 'Select Plan' : plan.cta} <FaArrowRight />
                                     </button>
                                 ) : user ? (
                                     <button
@@ -235,7 +263,7 @@ const SmallPricing = () => {
                                             : 'bg-[#0e3b5e] text-white hover:bg-[#1c4b7e] shadow-lg'
                                             }`}
                                     >
-                                        Upgrade Plan <FaArrowRight />
+                                        Select Plan <FaArrowRight />
                                     </button>
                                 ) : (
                                     <Link

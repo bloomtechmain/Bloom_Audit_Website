@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaChevronDown, FaChartLine, FaShieldAlt, FaLightbulb, FaRobot, FaBriefcase, FaUniversity, FaUsers, FaBook, FaGlobe, FaTag, FaFileAlt, FaGraduationCap, FaHeadset, FaChalkboardTeacher, FaCertificate, FaComments, FaBookOpen, FaSortAlphaDown, FaCalculator, FaUserCircle, FaSignOutAlt, FaTachometerAlt, FaBoxOpen } from 'react-icons/fa';
+import { FaChevronDown, FaChartLine, FaShieldAlt, FaLightbulb, FaRobot, FaBriefcase, FaUniversity, FaUsers, FaBook, FaGlobe, FaTag, FaFileAlt, FaGraduationCap, FaHeadset, FaChalkboardTeacher, FaCertificate, FaComments, FaBookOpen, FaSortAlphaDown, FaCalculator, FaUserCircle, FaSignOutAlt, FaTachometerAlt, FaBoxOpen, FaBars, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../assets/bloomlogo.png';
 
 const Navbar = ({ solid = false }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeMobileDropdown, setActiveMobileDropdown] = useState(null);
   const [user, setUser] = useState(null);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const navigate = useNavigate();
@@ -46,6 +49,7 @@ const Navbar = ({ solid = false }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
     navigate('/login');
   };
@@ -83,7 +87,10 @@ const Navbar = ({ solid = false }) => {
       onMouseLeave={() => setActiveDropdown(null)}
     >
       <div className="flex items-center gap-8">
-        <Link to="/" className={`text-2xl font-bold no-underline tracking-tight transition-colors duration-300 ${logoColor}`}>Bloom ERP</Link>
+        <Link to="/" className="flex items-center gap-2 no-underline">
+          <img src={logo} alt="Bloom ERP" className="h-12 w-auto object-contain" />
+          <span className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${logoColor}`}>Bloom ERP</span>
+        </Link>
         <ul className="hidden lg:flex gap-6 list-none m-0 p-0 h-full items-center">
           <li className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor}`}>
             <Link to="/features" className="flex items-center gap-1 text-inherit no-underline">
@@ -116,66 +123,77 @@ const Navbar = ({ solid = false }) => {
         </ul>
       </div>
       <div className="flex gap-4 items-center">
-        {user ? (
-          <div className="relative">
-            <button
-              onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm transition-all duration-200 ${solidMode ? 'text-gray-800 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
-            >
-              <FaUserCircle size={24} />
-              <span className="hidden md:inline">{user.name}</span>
-              <FaChevronDown size={12} />
-            </button>
+        {/* Mobile Toggle */}
+        <button
+          className={`lg:hidden p-2 rounded-lg transition-colors ${solidMode ? 'text-[#0e3b5e] hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+        </button>
 
-            <AnimatePresence>
-              {showProfileMenu && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 text-gray-800 border border-gray-100"
-                >
-                  <div className="px-4 py-3 border-b border-gray-100">
-                    <p className="text-sm font-semibold">{user.name}</p>
-                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                  </div>
+        {/* Desktop Auth/User Actions */}
+        <div className="hidden lg:flex gap-4 items-center">
+          {user ? (
+            <div className="relative">
+              <button
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm transition-all duration-200 ${solidMode ? 'text-gray-800 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+              >
+                <FaUserCircle size={24} />
+                <span className="hidden md:inline">{user.name}</span>
+                <FaChevronDown size={12} />
+              </button>
 
-                  {user.role === 'admin' ? (
-                    <Link to="/admin" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-sm">
-                      <FaTachometerAlt className="text-blue-500" /> Admin Dashboard
-                    </Link>
-                  ) : (
-                    <Link to="/my-package" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-sm">
-                      <FaBoxOpen className="text-green-500" /> My Package
-                    </Link>
-                  )}
-
-                  <button
-                    onClick={handleLogout}
-                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-600 transition-colors text-sm border-t border-gray-100"
+              <AnimatePresence>
+                {showProfileMenu && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 text-gray-800 border border-gray-100"
                   >
-                    <FaSignOutAlt /> Sign Out
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ) : (
-          <>
-            <Link
-              to="/register"
-              className="px-6 py-2.5 rounded font-bold text-xs tracking-wider cursor-pointer border-none transition-all duration-200 bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg inline-block text-center no-underline"
-            >
-              Get started
-            </Link>
-            <Link
-              to="/login"
-              className={`px-4 py-2 rounded font-semibold text-sm cursor-pointer transition-all duration-200 bg-transparent border inline-block text-center no-underline ${loginBtnStyle}`}
-            >
-              Log in
-            </Link>
-          </>
-        )}
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm font-semibold">{user.name}</p>
+                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                    </div>
+
+                    {user.role === 'admin' ? (
+                      <Link to="/admin" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-sm">
+                        <FaTachometerAlt className="text-blue-500" /> Admin Dashboard
+                      </Link>
+                    ) : (
+                      <Link to="/my-package" className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-sm">
+                        <FaBoxOpen className="text-green-500" /> My Package
+                      </Link>
+                    )}
+
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-600 transition-colors text-sm border-t border-gray-100"
+                    >
+                      <FaSignOutAlt /> Sign Out
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <>
+              <Link
+                to="/register"
+                className="px-6 py-2.5 rounded font-bold text-xs tracking-wider cursor-pointer border-none transition-all duration-200 bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg inline-block text-center no-underline"
+              >
+                Get started
+              </Link>
+              <Link
+                to="/login"
+                className={`px-4 py-2 rounded font-semibold text-sm cursor-pointer transition-all duration-200 bg-transparent border inline-block text-center no-underline ${loginBtnStyle}`}
+              >
+                Log in
+              </Link>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Mega Menu Dropdown */}
@@ -424,6 +442,137 @@ const Navbar = ({ solid = false }) => {
 
                 </ul>
               </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'tween', duration: 0.3 }}
+            className="fixed inset-0 bg-[#0e3b5e] z-[60] flex flex-col overflow-y-auto"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-white/10">
+              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 no-underline">
+                <img src={logo} alt="Bloom ERP" className="h-10 w-auto bg-white rounded-lg p-1" />
+                <span className="text-xl font-bold text-white">Bloom ERP</span>
+              </Link>
+              <button onClick={() => setMobileMenuOpen(false)} className="text-white p-2">
+                <FaTimes size={24} />
+              </button>
+            </div>
+
+            {/* Links */}
+            <div className="p-6 flex flex-col gap-6 text-white">
+              <Link to="/features" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium no-underline text-white">Features</Link>
+              <Link to="/pricing" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium no-underline text-white">Pricing</Link>
+
+              {/* Accordion for Small Business */}
+              <div>
+                <button
+                  onClick={() => setActiveMobileDropdown(activeMobileDropdown === 'small' ? null : 'small')}
+                  className="flex items-center justify-between w-full text-lg font-medium bg-transparent border-none text-white p-0"
+                >
+                  For Small Business <FaChevronDown className={`transition-transform ${activeMobileDropdown === 'small' ? 'rotate-180' : ''}`} size={14} />
+                </button>
+                <AnimatePresence>
+                  {activeMobileDropdown === 'small' && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden pl-4 flex flex-col gap-4 mt-4 border-l-2 border-[#00cba9]/30"
+                    >
+                      <Link to="/small-business/accounting-software" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Accounting Software</Link>
+                      <Link to="/small-business/smart-accounting" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Smart Accounting</Link>
+                      <Link to="/small-business/bloom-by-industry" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Industry Solutions</Link>
+                      <Link to="/small-business/data-security" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Data Security</Link>
+                      <Link to="/small-business/pricing" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Pricing Packages</Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Accordion for Accountants */}
+              <div>
+                <button
+                  onClick={() => setActiveMobileDropdown(activeMobileDropdown === 'accountants' ? null : 'accountants')}
+                  className="flex items-center justify-between w-full text-lg font-medium bg-transparent border-none text-white p-0"
+                >
+                  For Accountants <FaChevronDown className={`transition-transform ${activeMobileDropdown === 'accountants' ? 'rotate-180' : ''}`} size={14} />
+                </button>
+                <AnimatePresence>
+                  {activeMobileDropdown === 'accountants' && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden pl-4 flex flex-col gap-4 mt-4 border-l-2 border-[#00cba9]/30"
+                    >
+                      <Link to="/accountants/hq" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Bloom ERP HQ</Link>
+                      <Link to="/accountants/practice-manager" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Practice Manager</Link>
+                      <Link to="/accountants/workpapers" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Workpapers</Link>
+                      <Link to="/accountants/cashbook-ledger" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Cashbook & Ledger</Link>
+                      <Link to="/accountants/syft-analytics" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Syft Analytics</Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Accordion for Support */}
+              <div>
+                <button
+                  onClick={() => setActiveMobileDropdown(activeMobileDropdown === 'support' ? null : 'support')}
+                  className="flex items-center justify-between w-full text-lg font-medium bg-transparent border-none text-white p-0"
+                >
+                  Support <FaChevronDown className={`transition-transform ${activeMobileDropdown === 'support' ? 'rotate-180' : ''}`} size={14} />
+                </button>
+                <AnimatePresence>
+                  {activeMobileDropdown === 'support' && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden pl-4 flex flex-col gap-4 mt-4 border-l-2 border-[#00cba9]/30"
+                    >
+                      <Link to="/support/get-support" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Get Support</Link>
+                      <Link to="/support/community" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Community</Link>
+                      <Link to="/resources/guides" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Guides</Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Footer Actions */}
+            <div className="p-6 mt-auto border-t border-white/10">
+              {user ? (
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-3 text-white mb-2">
+                    <FaUserCircle size={32} />
+                    <div>
+                      <p className="font-bold">{user.name}</p>
+                      <p className="text-xs text-blue-200">{user.email}</p>
+                    </div>
+                  </div>
+                  {user.role === 'admin' ? (
+                    <Link to="/admin" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 bg-blue-600 rounded-lg text-white font-bold text-center no-underline">Admin Dashboard</Link>
+                  ) : (
+                    <Link to="/my-package" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 bg-green-600 rounded-lg text-white font-bold text-center no-underline">My Package</Link>
+                  )}
+                  <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }} className="w-full py-3 border border-red-500 text-red-400 rounded-lg font-bold bg-transparent">Sign Out</button>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  <Link to="/register" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 bg-[#00cba9] text-white rounded-lg font-bold text-center no-underline">Get Started</Link>
+                  <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 border border-white text-white rounded-lg font-bold text-center no-underline">Log In</Link>
+                </div>
+              )}
             </div>
           </motion.div>
         )}

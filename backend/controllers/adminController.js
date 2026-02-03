@@ -19,7 +19,11 @@ const confirmPackage = async (req, res) => {
   }
 
   try {
-    const updatedUser = await userModel.updateUserPackageStatus(userId, 'confirmed');
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setDate(startDate.getDate() + 30); // Default to 30 days expiration
+
+    const updatedUser = await userModel.confirmUserPackage(userId, startDate, endDate);
     res.json(updatedUser);
   } catch (error) {
     console.error(error);

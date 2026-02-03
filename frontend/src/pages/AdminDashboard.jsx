@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AdminSidebar from '../Components/AdminSidebar';
 import AdminUpgradeRequests from '../Components/AdminUpgradeRequests';
-import { FaUserCircle, FaCheck, FaClock, FaUsers, FaExclamationCircle, FaChartLine } from 'react-icons/fa';
+import { FaUserCircle, FaCheck, FaClock, FaUsers, FaExclamationCircle, FaChartLine, FaBars } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const AdminDashboard = () => {
@@ -10,6 +10,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [dashboardStats, setDashboardStats] = useState({ pendingUsers: 0, pendingUpgrades: 0 });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
   const [editingUser, setEditingUser] = useState(null);
@@ -159,15 +160,21 @@ const AdminDashboard = () => {
 
   return (
     <div className="flex h-screen bg-gray-50 font-sans">
-      <AdminSidebar />
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main Content Area */}
-      <div className="flex-1 ml-64 overflow-y-auto">
+      <div className="flex-1 lg:ml-64 ml-0 overflow-y-auto">
         {/* Top Header */}
-        <div className="bg-white shadow-sm py-4 px-8 flex justify-between items-center sticky top-0 z-30">
+        <div className="bg-white shadow-sm py-4 px-4 md:px-8 flex justify-between items-center sticky top-0 z-30">
           <div className="flex items-center gap-4">
-            <h2 className="text-xl font-bold text-gray-800">Overview</h2>
-            <div className="flex bg-gray-100 rounded-lg p-1 ml-6">
+            <button
+              className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <FaBars size={24} />
+            </button>
+            <h2 className="text-xl font-bold text-gray-800 hidden md:block">Overview</h2>
+            <div className="flex bg-gray-100 rounded-lg p-1 ml-0 md:ml-6">
               <button
                 onClick={() => setActiveTab('users')}
                 className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all flex items-center gap-2 ${activeTab === 'users' ? 'bg-white text-[#0e3b5e] shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}

@@ -11,7 +11,7 @@ const protect = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
 
       // Add user to request (excluding password)
-      const queryText = 'SELECT id, name, email, role, company_type, package_name, package_price, package_status FROM users WHERE id = $1';
+      const queryText = 'SELECT id, name, email, role, company_type, package_name, package_price, package_status, package_start_date, package_end_date FROM users WHERE id = $1';
       const { rows } = await db.query(queryText, [decoded.id]);
 
       if (rows.length === 0) {
