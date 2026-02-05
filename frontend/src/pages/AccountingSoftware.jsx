@@ -233,54 +233,7 @@ const AccountingSoftware = () => {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 lg:px-20 py-24 bg-gradient-to-b from-[#c8f6ff] to-white">
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-[#0e3b5e]">Plans to suit your business</h3>
-          <p className="text-[#0e3b5e]/80 mt-2">All pricing plans cover the essentials with room to grow.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-            {[
-              { name: 'Early', usual: 15000, price: 10000, save: 5000, desc: 'Track cash flow with the essentials.' },
-              { name: 'Growing', usual: 25000, price: 20000, save: 5000, desc: 'Automate tasks and access dashboards.' },
-              { name: 'Established', usual: 45000, price: 35000, save: 10000, desc: 'Advanced tools and analytics.' },
-            ].map((p, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-white rounded-2xl shadow-xl p-8 border border-[#a7e9f3] transition-transform"
-              >
-                <div className="text-[#0e3b5e] font-bold">{p.name}</div>
-                <div className="text-gray-500 mt-1">Usually LKR {p.usual.toLocaleString()}</div>
-                <div className="mt-4 text-[#0e3b5e]">
-                  <span className="text-5xl font-extrabold">LKR {p.price.toLocaleString()}</span>
-                  <span className="ml-2 text-gray-500 font-medium">per month</span>
-                </div>
-                <div className="mt-3 inline-block bg-[#00cba9]/15 text-[#0e3b5e] font-semibold px-3 py-1 rounded-lg">
-                  Save LKR {p.save.toLocaleString()} over 6 months
-                </div>
-                <p className="mt-6 text-gray-600">{p.desc}</p>
-                <Link
-                  to="/register"
-                  className="mt-8 w-full inline-flex items-center justify-center gap-2 bg-[#00cba9] hover:bg-[#00b596] text-white font-bold px-6 py-3 rounded-lg transition-all hover:-translate-y-0.5"
-                >
-                  Get started <FaArrowRight />
-                </Link>
-                <Link to="/small-business/pricing" className="mt-4 block text-[#0e3b5e] font-bold underline text-center">
-                  Learn more
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-          <div className="flex flex-col md:flex-row gap-4 justify-center mt-16">
-            <Link to="/register" className="bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
-              Get started
-            </Link>
-          </div>
-        </div>
-      </section>
+
       <Footer />
     </div>
   )
