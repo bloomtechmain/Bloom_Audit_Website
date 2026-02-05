@@ -258,12 +258,15 @@ const SmallPricing = () => {
                                 ) : user ? (
                                     <button
                                         onClick={() => handlePlanClick(plan)}
-                                        className={`w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 mt-auto ${plan.popular
-                                            ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40'
-                                            : 'bg-[#0e3b5e] text-white hover:bg-[#1c4b7e] shadow-lg'
+                                        disabled={user.package_name === plan.name}
+                                        className={`w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 mt-auto ${user.package_name === plan.name
+                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+                                            : plan.popular
+                                                ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40'
+                                                : 'bg-[#0e3b5e] text-white hover:bg-[#1c4b7e] shadow-lg'
                                             }`}
                                     >
-                                        Select Plan <FaArrowRight />
+                                        {user.package_name === plan.name ? 'Current Plan' : 'Select Plan'} {user.package_name !== plan.name && <FaArrowRight />}
                                     </button>
                                 ) : (
                                     <Link

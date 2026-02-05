@@ -109,4 +109,4 @@ export const plans = [
     }
 ];
 
-export const smallBizPlans = plans;
+export const smallBizPlans = plans.filter(plan => ['Basic', 'Starter', 'Standard'].includes(plan.name));
