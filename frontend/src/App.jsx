@@ -18,6 +18,7 @@ import BloomCashbookLedger from './pages/BloomCashbookLedger';
 import BloomWorkpapers from './pages/BloomWorkpapers';
 import BloomSyftAnalytics from './pages/BloomSyftAnalytics';
 import BloomGetSupport from './pages/BloomGetSupport';
+import CyberSecurityManagement from './pages/CyberSecurityManagement';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
@@ -38,6 +39,7 @@ function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/small-business/accounting-software" element={<AccountingSoftware />} />
         <Route path="/small-business/bloom-by-industry" element={<BloomByIndustry />} />
+        <Route path="/cyber-security" element={<CyberSecurityManagement />} />
         <Route path="/small-business/data-security" element={<DataSecurity />} />
         <Route path="/small-business/pricing" element={<SmallPricing />} />
         <Route path="/small-business/smart-accounting" element={<SmartAccounting />} />

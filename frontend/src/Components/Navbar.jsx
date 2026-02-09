@@ -114,6 +114,11 @@ const Navbar = ({ solid = false }) => {
           >
             For accountants & bookkeepers <FaChevronDown size={10} />
           </li>
+          <li className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor}`}>
+            <Link to="/cyber-security" className="text-inherit no-underline">
+              Cyber Security Management
+            </Link>
+          </li>
           <li
             className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor} relative h-full py-4`}
             onMouseEnter={() => setActiveDropdown('support')}
@@ -521,6 +526,7 @@ const Navbar = ({ solid = false }) => {
 
               {/* Accordion for Support */}
               <div>
+                <Link to="/cyber-security" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium no-underline text-white block mb-6">Cyber Security Management</Link>
                 <button
                   onClick={() => setActiveMobileDropdown(activeMobileDropdown === 'support' ? null : 'support')}
                   className="flex items-center justify-between w-full text-lg font-medium bg-transparent border-none text-white p-0"
