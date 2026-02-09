@@ -153,7 +153,9 @@ const MyPackage = () => {
                       <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Business Category</label>
                       <div className="text-xl text-gray-700 mt-1 capitalize flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                        {user.company_type?.replace('_', ' ')}
+                        {['Premium', 'Enterprise'].includes(user.package_name)
+                          ? 'Enterprise'
+                          : user.company_type?.replace('_', ' ')}
                       </div>
                     </div>
                   </div>
@@ -166,7 +168,7 @@ const MyPackage = () => {
                     <p className="text-gray-600 text-sm">Unlock more features and capabilities by upgrading your plan today.</p>
 
                     <button
-                      onClick={() => setIsEditing(true)}
+                      onClick={() => navigate('/pricing')}
                       className="mt-4 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-bold hover:shadow-lg hover:scale-105 transition-all w-full"
                     >
                       Change Plan

@@ -121,14 +121,6 @@ const Login = () => {
         </div>
 
         <div className="relative z-10">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0e3b5e] bg-gray-300"></div>
-              ))}
-            </div>
-            <p className="text-sm font-medium">Trusted by 500+ Accountants</p>
-          </div>
           <p className="text-xs text-blue-300">© 2024 Bloom Audit. All rights reserved.</p>
         </div>
       </div>

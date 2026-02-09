@@ -164,14 +164,6 @@ const Register = () => {
         </div>
 
         <div className="relative z-10">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className="w-10 h-10 rounded-full border-2 border-[#00cba9] bg-gray-300"></div>
-              ))}
-            </div>
-            <p className="text-sm font-medium">Join 2,000+ businesses</p>
-          </div>
           <p className="text-xs text-green-100">© 2024 Bloom Audit. All rights reserved.</p>
         </div>
       </div>

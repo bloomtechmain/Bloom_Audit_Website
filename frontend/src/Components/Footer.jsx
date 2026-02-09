@@ -15,7 +15,7 @@ const Footer = () => {
         className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12"
       >
         {/* Top Section: Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Column 1: Logo & Contact */}
           <div>
             <div className="mb-6 flex items-center gap-3">
@@ -40,7 +40,17 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2: Small Business */}
+          {/* Column 2: Our Services */}
+          <div>
+            <h4 className="font-bold text-xl mb-6">Our Services</h4>
+            <ul className="space-y-4 text-gray-300">
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Audit & Reporting</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Strategic Advisory</Link></li>
+              <li><Link to="#" className="hover:text-[#00cba9] transition-colors">Management Services</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: Small Business */}
           <div>
             <h4 className="font-bold text-xl mb-6">Small Business</h4>
             <ul className="space-y-4 text-gray-300">
@@ -53,7 +63,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: For Accountants */}
+          {/* Column 4: For Accountants */}
           <div>
             <h4 className="font-bold text-xl mb-6">For Accountants</h4>
             <ul className="space-y-4 text-gray-300">
@@ -65,7 +75,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 4: Support & Resources */}
+          {/* Column 5: Support & Resources */}
           <div>
             <h4 className="font-bold text-xl mb-6">Support & Resources</h4>
             <ul className="space-y-4 text-gray-300">
