@@ -4,7 +4,7 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
 import { FaCheck, FaTimes, FaStar, FaPaperPlane, FaRocket, FaGem } from 'react-icons/fa';
-import { plans } from '../config/pricingData';
+import { plans, addOns } from '../config/pricingData';
 import EnterpriseInquiryModal from '../Components/EnterpriseInquiryModal';
 import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
 
@@ -186,6 +186,15 @@ const Pricing = () => {
               Yearly
             </span>
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="text-sm md:text-base text-[#00cba9] font-bold mt-[-30px] mb-12"
+          >
+            If you pay for the yearly subscription you pay 10% less through the whole price range
+          </motion.p>
         </div>
       </div>
 
@@ -225,7 +234,15 @@ const Pricing = () => {
                   </div>
                 </div>
 
-                {plan.recommended && (
+                {/* Current Plan Badge */}
+                {user && user.package_name === plan.name && (
+                  <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg uppercase tracking-wider z-20">
+                    Current Plan
+                  </div>
+                )}
+
+                {/* Best Value Badge (only if not current plan) */}
+                {!user?.package_name?.includes(plan.name) && plan.recommended && (
                   <div className="absolute top-4 right-4 bg-[#00cba9] text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg uppercase tracking-wider animate-pulse">
                     Best Value
                   </div>
@@ -235,12 +252,33 @@ const Pricing = () => {
                   <h3 className="text-2xl font-bold text-[#0e3b5e] mb-2 text-center">{plan.name}</h3>
                   <p className="text-gray-500 text-sm text-center mb-6 h-10">{plan.tagline}</p>
 
-                  <div className="flex justify-center items-baseline mb-8 pb-8 border-b border-gray-100">
-                    {!plan.displayPrice && <span className="text-sm font-semibold text-gray-400 mr-1 self-start mt-2">LKR</span>}
-                    <span className="text-4xl font-extrabold text-[#0e3b5e]">
-                      {plan.displayPrice ? plan.displayPrice : (isYearly ? (plan.price * 12 * 0.8).toLocaleString() : plan.price.toLocaleString())}
-                    </span>
-                    {!plan.displayPrice && <span className="text-gray-400 ml-2 font-medium">/{isYearly ? 'year' : 'mo'}</span>}
+                  <div className="flex flex-col mb-8 pb-8 border-b border-gray-100 min-h-[140px] justify-center">
+                    <div className="flex justify-center items-baseline">
+                      {!plan.displayPrice && <span className="text-sm font-semibold text-gray-400 mr-1 self-start mt-2">LKR</span>}
+                      <span className="text-4xl font-extrabold text-[#0e3b5e]">
+                        {plan.displayPrice ? plan.displayPrice : (
+                          isYearly
+                            ? (plan.price * 12 * 0.9).toLocaleString(undefined, { maximumFractionDigits: 0 })
+                            : (plan.promoPrice ? plan.promoPrice.toLocaleString() : plan.price.toLocaleString())
+                        )}
+                      </span>
+                      {!plan.displayPrice && <span className="text-gray-400 ml-2 font-medium">/{isYearly ? 'year' : 'mo'}</span>}
+                    </div>
+
+                    {/* Monthly Promo Text */}
+                    {!isYearly && plan.promoPrice && !plan.displayPrice && (
+                      <div className="mt-2 text-center">
+                        <p className="text-xs text-[#00cba9] font-bold uppercase tracking-wide">{plan.promoText}</p>
+                        <p className="text-xs text-gray-400 mt-0.5">Regular: LKR {plan.price.toLocaleString()}</p>
+                      </div>
+                    )}
+
+                    {/* Yearly Savings */}
+                    {isYearly && !plan.displayPrice && (
+                      <div className="mt-2 text-xs text-[#00cba9] font-bold flex items-center justify-center gap-1">
+                        <FaCheck /> Save {(plan.price * 12 * 0.1).toLocaleString(undefined, { maximumFractionDigits: 0 })} LKR/yr
+                      </div>
+                    )}
                   </div>
 
                   <div className="space-y-4 mb-8 flex-grow">
@@ -296,6 +334,42 @@ const Pricing = () => {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Add On Modules Section */}
+          <div className="mt-24 mb-20">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-extrabold text-[#0e3b5e] mb-4">Powerful Add-On Modules</h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">Customize your experience with these specialized modules designed for specific business needs.</p>
+              <p className="text-sm text-[#00cba9] font-bold mt-4 uppercase tracking-wider">Call for pricing for custom implementation</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {addOns.map((addon, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div className="w-12 h-12 bg-[#e5f9f6] rounded-xl flex items-center justify-center text-[#00cba9] text-2xl mb-4 group-hover:scale-110 transition-transform">
+                    {addon.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-[#0e3b5e] mb-2">{addon.title}</h3>
+                  <p className="text-gray-500 text-sm mb-4 min-h-[40px]">{addon.description}</p>
+                  <div className="pt-4 border-t border-gray-100">
+                    <span className={`text-xs font-bold px-2 py-1 rounded-md ${addon.availability.includes("All Plans") ? "bg-green-100 text-green-700" :
+                      addon.availability.includes("Call") ? "bg-blue-100 text-blue-700" :
+                        "bg-yellow-100 text-yellow-700"
+                      }`}>
+                      {addon.availability}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           {/* Additional "Why Choose" Section */}

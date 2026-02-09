@@ -127,8 +127,8 @@ const SmartAccounting = () => {
                   />
                   <FeatureCard
                      icon={<FaRegClock className="text-blue-500" />}
-                     title="Automated Invoicing"
-                     desc="Set up recurring invoices that send themselves. Bloom can even automatically follow up on overdue payments so you don't have to."
+                     title="Report Generation"
+                     desc="Set up recurring reports that send themselves. Bloom can even automatically follow up on overdue payments reminding you of missed payments."
                   />
                </div>
             </div>

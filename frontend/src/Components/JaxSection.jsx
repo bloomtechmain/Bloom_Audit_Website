@@ -24,27 +24,27 @@ const JaxSection = () => {
         <span className="text-[#00cba9] font-bold tracking-widest text-sm uppercase mb-4 block">Who we are</span>
 
         <h2 className="text-4xl md:text-5xl font-extrabold text-[#0b2441] mb-6 leading-tight">
-          Accounting by the Book.<br />
-          Perform with Trust.
+          Precision in the Numbers.<br />
+          Confidence in the Growth.
         </h2>
 
         <p className="text-lg text-gray-500 mb-10 leading-relaxed max-w-xl">
-          We provide comprehensive financial solutions tailored to your business needs. Our expert team ensures accuracy, compliance, and strategic growth for your company.
+          We deliver end-to-end financial strategies built for your unique business landscape. Our experts handle the complexities of compliance and accuracy so you can focus on scaling with total peace of mind.
         </p>
 
         <ul className="flex flex-col gap-8 mb-8">
           {[
             {
-              title: "Audit & Assurance",
-              desc: "Ensure your financial statements are accurate and compliant with our rigorous audit processes."
+              title: "Audit & Reporting",
+              desc: "Eliminate the guesswork. Our rigorous audit processes ensure your financial statements are airtight, compliant, and ready for any stakeholder."
             },
             {
-              title: "Advisory",
-              desc: "Get strategic insights and expert advice to guide your business decisions and growth."
+              title: "Strategic Advisory",
+              desc: "Turn data into direction. We translate your financial metrics into actionable insights that fuel smarter decision-making and long-term expansion."
             },
             {
               title: "Management Services",
-              desc: "Streamline your operations with our effective management solutions and financial oversight."
+              desc: "Regain control of your operations. From contract oversight to project-specific financial management, we provide the clarity and stability you need to lead"
             }
           ].map((item, index) => (
             <motion.li

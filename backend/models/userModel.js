@@ -68,6 +68,21 @@ const getAllUsers = async () => {
 };
 
 const deleteUser = async (userId) => {
+  // First delete related upgrade requests manually (since no ON DELETE CASCADE)
+  try {
+    await db.query('DELETE FROM upgrade_requests WHERE user_id = $1', [userId]);
+  } catch (err) {
+    console.log(`Warning: Could not delete upgrade_requests for user ${userId}: ${err.message}`);
+  }
+
+  // Also delete messages manually to be safe (in case ON DELETE CASCADE is missing)
+  try {
+    await db.query('DELETE FROM messages WHERE user_id = $1', [userId]);
+  } catch (err) {
+    console.log(`Warning: Could not delete messages for user ${userId}: ${err.message}`);
+  }
+
+  // Then delete the user
   const queryText = 'DELETE FROM users WHERE id = $1 RETURNING id';
   const { rows } = await db.query(queryText, [userId]);
   return rows[0];

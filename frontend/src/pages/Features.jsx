@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaUniversity, FaFileInvoiceDollar, FaTasks, FaBoxes, FaBuilding, FaChartLine, FaMoneyBillWave, FaChartBar, FaChevronDown } from 'react-icons/fa';
+import { FaUniversity, FaFileInvoiceDollar, FaTasks, FaBoxes, FaBuilding, FaChartLine, FaMoneyBillWave, FaChartBar, FaChevronDown, FaUsers, FaCalendarAlt, FaClock, FaFileAlt, FaFileContract } from 'react-icons/fa';
 import { BsArrowUpRight } from 'react-icons/bs';
 
 const FeatureCard = ({ feature, index }) => {
@@ -239,14 +239,43 @@ const Features = () => {
           >
             <h2 className="text-4xl md:text-5xl font-bold text-[#0e3b5e] mb-6">Powerful Features</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              From streamlined bank connections to intuitive online invoicing, Bloom ERP's features empower you to prioritize business growth.
+              From streamlined Reports and Analytics to intuitive Employee Access Portal, BloomAudit's features empower you to prioritize business growth.
             </p>
           </motion.div>
 
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-auto">
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-auto mb-24">
             {features.map((feature, index) => (
               <FeatureCard key={index} feature={feature} index={index} />
             ))}
+          </motion.div>
+
+          {/* Modules Coming Soon Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <div className="inline-block bg-[#00cba9]/10 text-[#00cba9] font-bold px-4 py-2 rounded-full mb-6">
+              ROADMAP
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0e3b5e] mb-12">Modules Coming Soon</h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {comingSoonModules.map((module, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ y: -5 }}
+                  className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-center gap-4"
+                >
+                  <div className="p-3 bg-gray-50 rounded-lg text-[#0e3b5e]">
+                    {module.icon}
+                  </div>
+                  <span className="font-bold text-gray-700 text-lg">{module.title}</span>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
@@ -258,9 +287,9 @@ const Features = () => {
 
 const features = [
   {
-    title: "Bank connections",
-    description: "Access bank data from 21,000+ global institutions in Bloom ERP. Save time with bank feeds.",
-    icon: <FaUniversity />
+    title: "Employee Access Portal",
+    description: "Empower your team with a dedicated portal. Employees can view payslips, request leave, and update their details securely.",
+    icon: <FaUsers />
   },
   {
     title: "Reporting",
@@ -273,9 +302,9 @@ const features = [
     icon: <FaTasks />
   },
   {
-    title: "Inventory",
-    description: "Manage inventory efficiently. Keep track of stock levels, values, and profitability with real-time updates.",
-    icon: <FaBoxes />
+    title: "Monthly Subscriptions Tracker",
+    description: "Never miss a renewal. Track all your business subscriptions and recurring payments in one dashboard.",
+    icon: <FaCalendarAlt />
   },
   {
     title: "Assets management",
@@ -291,12 +320,16 @@ const features = [
     title: "Payroll",
     description: "Pay your employees securely and on time. Automate tax calculations and filings with fully integrated payroll.",
     icon: <FaMoneyBillWave />
-  },
-  {
-    title: "Online Invoicing",
-    description: "Efficiently manage invoices with Bloom ERP's intuitive software. Send invoices, automate reminders.",
-    icon: <FaFileInvoiceDollar />
   }
+];
+
+const comingSoonModules = [
+  { title: "Online Invoicing", icon: <FaFileInvoiceDollar /> },
+  { title: "Vacation Time Manager", icon: <FaClock /> },
+  { title: "EPF/ETF Reporter", icon: <FaFileAlt /> },
+  { title: "Document Bank", icon: <FaBoxes /> },
+  { title: "Quote Generator", icon: <FaFileContract /> },
+  { title: "Inventory Manager", icon: <FaBoxes /> }
 ];
 
 export default Features;

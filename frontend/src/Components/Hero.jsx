@@ -63,8 +63,12 @@ const Hero = () => {
               </span>
             </h1>
 
+            <h2 className="text-xl md:text-2xl font-bold text-blue-200 mb-6">
+              We deliver end-to-end financial strategies built for your unique business landscape.
+            </h2>
+
             <p className="text-lg md:text-xl text-blue-100 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              Stop drowning in spreadsheets. Bloom ERP brings enterprise-grade clarity to your small business finances with AI-driven insights and automated workflows.
+              Audit & Reporting • Strategic Advisory • Management Services
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">

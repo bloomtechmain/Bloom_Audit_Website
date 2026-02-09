@@ -44,7 +44,7 @@ const DataSecurity = () => {
          <Navbar solid />
 
          {/* Hero Section - Dark & Techy */}
-         <section className="relative min-h-screen grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-6 md:px-12 lg:px-20 pt-24 overflow-hidden bg-[#0e3b5e]">
+         <section className="relative min-h-screen flex items-center pt-32 pb-20 px-6 md:px-12 lg:px-20 overflow-hidden bg-[#0e3b5e]">
             {/* Background Elements */}
             <div className="absolute inset-0 z-0">
                {/* Background Image */}
@@ -63,84 +63,82 @@ const DataSecurity = () => {
                </div>
             </div>
 
-            <div className="max-w-xl relative z-10 text-white">
-               <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00cba9]/10 border border-[#00cba9]/30 text-[#00cba9] font-bold text-sm mb-8 tracking-wide uppercase backdrop-blur-md"
-               >
-                  <FaShieldAlt /> Security Trust Center
-               </motion.div>
-               <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="text-5xl md:text-7xl font-extrabold leading-tight mb-8"
-               >
-                  Uncompromising <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00cba9] to-blue-400">
-                     Security & Privacy
-                  </span>
-               </motion.h1>
-               <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1, duration: 0.6 }}
-                  className="text-xl text-blue-100/80 mb-12 max-w-3xl leading-relaxed"
-               >
-                  We treat your data with the same level of security as a financial institution.
-                  Sleep soundly knowing your business intelligence is protected by industry-leading protocols.
-               </motion.p>
-
-
-
-
-            </div>
-
-            {/* 3D Hero Visual */}
-            <div className="relative flex items-center justify-center perspective-1000 z-10">
-               <motion.div
-                  initial={{ opacity: 0, rotateY: 15, rotateX: 5, scale: 0.9 }}
-                  animate={{ opacity: 1, rotateY: 0, rotateX: 0, scale: 1 }}
-                  transition={{ duration: 1, delay: 0.2 }}
-                  className="relative w-[400px] h-[500px]"
-               >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl flex flex-col items-center justify-center text-center">
-                     <div className="w-32 h-32 bg-[#00cba9]/20 rounded-full flex items-center justify-center mb-6 shadow-[0_0_50px_rgba(0,203,169,0.3)] border border-[#00cba9]/30">
-                        <FaLock className="text-6xl text-[#00cba9]" />
-                     </div>
-                     <h3 className="text-2xl font-bold text-white mb-2">AES-256 Encryption</h3>
-                     <p className="text-blue-200 text-sm mb-6">Bank-grade security for your data.</p>
-
-                     <div className="w-full bg-black/20 rounded-xl p-4 text-left border border-white/5">
-                        <div className="flex items-center gap-3 mb-2">
-                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                           <span className="text-xs text-green-400 font-mono">SYSTEM SECURE</span>
-                        </div>
-                        <div className="space-y-2">
-                           <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                              <motion.div
-                                 animate={{ x: [-100, 300] }}
-                                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                                 className="h-full w-1/3 bg-[#00cba9]"
-                              />
-                           </div>
-                           <p className="text-[10px] text-gray-400 font-mono">Scanning threats...</p>
-                        </div>
-                     </div>
-                  </div>
-
-                  {/* Orbiting Elements */}
+            <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+               <div className="text-white">
                   <motion.div
-                     animate={{ rotate: 360 }}
-                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                     className="absolute inset-0 rounded-full border border-white/5 pointer-events-none"
+                     initial={{ opacity: 0, y: -20 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00cba9]/10 border border-[#00cba9]/30 text-[#00cba9] font-bold text-sm mb-8 tracking-wide uppercase backdrop-blur-md"
                   >
-                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 w-8 h-8 bg-[#1c3bd8] rounded-full blur-md"></div>
+                     <FaShieldAlt /> Security Trust Center
                   </motion.div>
-               </motion.div>
+                  <motion.h1
+                     initial={{ opacity: 0, y: 20 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     viewport={{ once: true }}
+                     transition={{ duration: 0.6 }}
+                     className="text-5xl md:text-7xl font-extrabold leading-tight mb-8"
+                  >
+                     Uncompromising <br />
+                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00cba9] to-blue-400">
+                        Security & Privacy
+                     </span>
+                  </motion.h1>
+                  <motion.p
+                     initial={{ opacity: 0, y: 20 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     viewport={{ once: true }}
+                     transition={{ delay: 0.1, duration: 0.6 }}
+                     className="text-xl text-blue-100/80 mb-12 max-w-3xl leading-relaxed"
+                  >
+                     We treat your data with the same level of security as a financial institution.
+                     Sleep soundly knowing your business intelligence is protected by industry-leading protocols.
+                  </motion.p>
+               </div>
+
+               {/* 3D Hero Visual */}
+               <div className="flex items-center justify-center perspective-1000">
+                  <motion.div
+                     initial={{ opacity: 0, rotateY: 15, rotateX: 5, scale: 0.9 }}
+                     animate={{ opacity: 1, rotateY: 0, rotateX: 0, scale: 1 }}
+                     transition={{ duration: 1, delay: 0.2 }}
+                     className="relative w-[400px] h-[500px]"
+                  >
+                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl flex flex-col items-center justify-center text-center">
+                        <div className="w-32 h-32 bg-[#00cba9]/20 rounded-full flex items-center justify-center mb-6 shadow-[0_0_50px_rgba(0,203,169,0.3)] border border-[#00cba9]/30">
+                           <FaLock className="text-6xl text-[#00cba9]" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">AES-256 Encryption</h3>
+                        <p className="text-blue-200 text-sm mb-6">Bank-grade security for your data.</p>
+
+                        <div className="w-full bg-black/20 rounded-xl p-4 text-left border border-white/5">
+                           <div className="flex items-center gap-3 mb-2">
+                              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                              <span className="text-xs text-green-400 font-mono">SYSTEM SECURE</span>
+                           </div>
+                           <div className="space-y-2">
+                              <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                                 <motion.div
+                                    animate={{ x: [-100, 300] }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                    className="h-full w-1/3 bg-[#00cba9]"
+                                 />
+                              </div>
+                              <p className="text-[10px] text-gray-400 font-mono">Scanning threats...</p>
+                           </div>
+                        </div>
+                     </div>
+
+                     {/* Orbiting Elements */}
+                     <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 rounded-full border border-white/5 pointer-events-none"
+                     >
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 w-8 h-8 bg-[#1c3bd8] rounded-full blur-md"></div>
+                     </motion.div>
+                  </motion.div>
+               </div>
             </div>
          </section>
 

@@ -173,6 +173,15 @@ const SmallPricing = () => {
                             Yearly
                         </span>
                     </div>
+
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                        className="text-sm md:text-base text-[#00cba9] font-bold mt-[-20px] mb-12"
+                    >
+                        If you pay for the yearly subscription you pay 10% less through the whole price range
+                    </motion.p>
                 </div>
             </section>
 
@@ -200,7 +209,16 @@ const SmallPricing = () => {
                                         {plan.icon}
                                     </div>
                                 </div>
-                                {plan.popular && (
+
+                                {/* Current Plan Badge */}
+                                {user && user.package_name === plan.name && (
+                                    <div className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-extrabold px-3 py-1 rounded-bl-xl uppercase tracking-widest shadow-sm z-20">
+                                        Current Plan
+                                    </div>
+                                )}
+
+                                {/* Popular Badge (only if not current plan) */}
+                                {!user?.package_name?.includes(plan.name) && plan.popular && (
                                     <div className="absolute top-0 right-0 bg-yellow-400 text-[#0e3b5e] text-[10px] font-extrabold px-3 py-1 rounded-bl-xl uppercase tracking-widest shadow-sm z-20">
                                         Most Popular
                                     </div>
@@ -209,18 +227,34 @@ const SmallPricing = () => {
 
                             <div className="p-6 flex-grow flex flex-col">
                                 <div className="mb-6 pb-6 border-b border-gray-100">
-                                    <div className="flex items-baseline">
-                                        {!plan.displayPrice && <span className="text-sm font-semibold text-gray-400 mr-1">LKR</span>}
-                                        <span className="text-4xl font-extrabold text-[#0e3b5e]">
-                                            {plan.displayPrice ? plan.displayPrice : (isYearly ? (plan.price * 12 * 0.8).toLocaleString() : plan.price.toLocaleString())}
-                                        </span>
-                                        {!plan.displayPrice && <span className="text-gray-400 ml-1 font-medium text-sm">/{isYearly ? 'yr' : 'mo'}</span>}
-                                    </div>
-                                    {isYearly && !plan.displayPrice && (
-                                        <div className="mt-2 text-xs text-[#00cba9] font-bold flex items-center gap-1">
-                                            <FaTags /> Save {(plan.price * 12 * 0.2).toLocaleString()} LKR/yr
+                                    <div className="flex flex-col">
+                                        <div className="flex items-baseline">
+                                            {!plan.displayPrice && <span className="text-sm font-semibold text-gray-400 mr-1">LKR</span>}
+                                            <span className="text-4xl font-extrabold text-[#0e3b5e]">
+                                                {plan.displayPrice ? plan.displayPrice : (
+                                                    isYearly
+                                                        ? (plan.price * 12 * 0.9).toLocaleString(undefined, { maximumFractionDigits: 0 })
+                                                        : (plan.promoPrice ? plan.promoPrice.toLocaleString() : plan.price.toLocaleString())
+                                                )}
+                                            </span>
+                                            {!plan.displayPrice && <span className="text-gray-400 ml-1 font-medium text-sm">/{isYearly ? 'yr' : 'mo'}</span>}
                                         </div>
-                                    )}
+
+                                        {/* Monthly Promo Text */}
+                                        {!isYearly && plan.promoPrice && !plan.displayPrice && (
+                                            <div className="mt-2">
+                                                <p className="text-xs text-[#00cba9] font-bold uppercase tracking-wide">{plan.promoText}</p>
+                                                <p className="text-xs text-gray-400 mt-0.5">Regular price: LKR {plan.price.toLocaleString()}</p>
+                                            </div>
+                                        )}
+
+                                        {/* Yearly Savings */}
+                                        {isYearly && !plan.displayPrice && (
+                                            <div className="mt-2 text-xs text-[#00cba9] font-bold flex items-center gap-1">
+                                                <FaTags /> Save {(plan.price * 12 * 0.1).toLocaleString(undefined, { maximumFractionDigits: 0 })} LKR/yr
+                                            </div>
+                                        )}
+                                    </div>
                                     <div className="mt-4 text-xs text-gray-500 font-medium bg-gray-50 p-2 rounded-lg inline-block">
                                         {plan.features[0]} {/* Usually User Count */}
                                     </div>

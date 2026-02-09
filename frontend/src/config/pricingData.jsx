@@ -1,11 +1,13 @@
 import React from 'react';
-import { FaPaperPlane, FaRocket, FaGem, FaSeedling, FaStore, FaChartPie } from 'react-icons/fa';
+import { FaPaperPlane, FaRocket, FaGem, FaSeedling, FaStore, FaChartPie, FaFileInvoiceDollar, FaCalendarAlt, FaFileAlt, FaBoxes, FaCalculator, FaUserTie } from 'react-icons/fa';
 
 export const plans = [
     {
         name: "Basic",
         tagline: "For individuals",
-        price: 7499,
+        price: 9499,
+        promoPrice: 7499,
+        promoText: "for the first 3 months",
         icon: <FaSeedling className="text-2xl" />,
         headerBg: "bg-gradient-to-r from-green-400 to-teal-500",
         headerColor: "bg-gradient-to-br from-green-400 to-teal-500",
@@ -13,22 +15,20 @@ export const plans = [
         cta: "Select Plan",
         features: [
             "1 User",
-            "Send invoices and quotes",
+            "Advance Accounting Modules",
+            "Advance Analytics",
             "Expense tracking",
-            "Bank reconciliation (Manual)",
-            "Basic reports"
+            "Bank Reconciliation (Manually)",
+            "Basic Report generation"
         ],
-        unavailable: [
-            "Automated bank feeds",
-            "GST/VAT reports",
-            "Inventory management",
-            "Payroll"
-        ]
+        unavailable: []
     },
     {
         name: "Starter",
         tagline: "For small teams",
-        price: 14499,
+        price: 19499,
+        promoPrice: 14999,
+        promoText: "for the first 3 months",
         icon: <FaPaperPlane className="text-2xl" />,
         headerBg: "bg-gradient-to-r from-blue-400 to-blue-600",
         headerColor: "bg-gradient-to-br from-blue-400 to-blue-600",
@@ -37,20 +37,19 @@ export const plans = [
         features: [
             "3 Users",
             "Everything in Basic",
-            "Automated bank feeds",
-            "GST/VAT reports",
-            "Inventory (Basic)"
+            "Employee Data Management",
+            "Vendor Data Management",
+            "Project and Contract Tracking",
+            "Advance Report generation"
         ],
-        unavailable: [
-            "Payroll",
-            "Advanced Analytics",
-            "Multi-currency"
-        ]
+        unavailable: []
     },
     {
         name: "Standard",
         tagline: "For growing businesses",
-        price: 25499,
+        price: 29499,
+        promoPrice: 25499,
+        promoText: "for the first 3 months",
         popular: true,
         recommended: true,
         icon: <FaRocket className="text-2xl" />,
@@ -60,21 +59,20 @@ export const plans = [
         cta: "Select Plan",
         features: [
             "5 Users",
-            "Everything in Starter",
-            "Bulk reconcile transactions",
-            "Manage multiple currencies",
-            "Short-term cash flow"
+            "Everything in Basic + Starter",
+            "Asset Management",
+            "Basic Payroll Management",
+            "Inventory management",
+            "Document bank"
         ],
-        unavailable: [
-            "Project tracking",
-            "Advanced Analytics",
-            "Payroll"
-        ]
+        unavailable: []
     },
     {
         name: "Premium",
         tagline: "For established companies",
-        price: 39499,
+        price: 47499,
+        promoPrice: 39499,
+        promoText: "for the first 3 months",
         icon: <FaGem className="text-2xl" />,
         headerBg: "bg-gradient-to-r from-purple-500 to-indigo-600",
         headerColor: "bg-gradient-to-br from-purple-500 to-indigo-600",
@@ -82,10 +80,11 @@ export const plans = [
         cta: "Select Plan",
         features: [
             "20 Users",
-            "Everything in Standard",
-            "Project tracking",
-            "Advanced Analytics",
-            "Payroll for 5 employees",
+            "Everything in Basic + Standard + Starter",
+            "Employee Access Portal",
+            "Vacation time tracking",
+            "EPF/ETF tracking",
+            "Quote generation",
             "Priority support"
         ]
     },
@@ -93,7 +92,7 @@ export const plans = [
         name: "Enterprise",
         tagline: "For large scale operations",
         price: 0, // 0 indicates custom pricing
-        displayPrice: "Custom",
+        displayPrice: "Contact us",
         icon: <FaStore className="text-2xl" />,
         headerBg: "bg-gradient-to-r from-gray-700 to-gray-900",
         headerColor: "bg-gradient-to-br from-gray-700 to-gray-900",
@@ -101,11 +100,64 @@ export const plans = [
         cta: "Contact Us",
         features: [
             "Unlimited Users",
-            "Custom implementation",
+            "Custom workflow design",
+            "Financial Forecasting with custom AI technology",
+            "Backup and Recovery features",
             "Dedicated account manager",
             "SLA support",
             "Custom integrations"
         ]
+    }
+];
+
+export const addOns = [
+    {
+        title: "Quote Generator",
+        description: "Generate professional quotes instantly.",
+        availability: "Only available for Starter, Standard",
+        icon: <FaFileInvoiceDollar />
+    },
+    {
+        title: "Monthly Subscriptions Tracker",
+        description: "Track recurring payments.",
+        availability: "All Plans",
+        icon: <FaCalendarAlt />
+    },
+    {
+        title: "Document Bank",
+        description: "Securely store and manage documents.",
+        availability: "Only available for Starter, Standard",
+        icon: <FaFileAlt />
+    },
+    {
+        title: "Asset Management and Depreciation",
+        description: "Track assets and calculate depreciation.",
+        availability: "Only available for Starter, Standard",
+        icon: <FaBoxes />
+    },
+    {
+        title: "Custom Estimate Generator",
+        description: "Create detailed estimates.",
+        availability: "Call for pricing",
+        icon: <FaCalculator />
+    },
+    {
+        title: "Custom Management",
+        description: "Tailored management solutions.",
+        availability: "Call for pricing",
+        icon: <FaUserTie />
+    },
+    {
+        title: "Leads Management",
+        description: "Track and nurture leads.",
+        availability: "Call for pricing",
+        icon: <FaChartPie />
+    },
+    {
+        title: "Proposal Tracker",
+        description: "Monitor sent proposals.",
+        availability: "Call for pricing",
+        icon: <FaPaperPlane />
     }
 ];
 

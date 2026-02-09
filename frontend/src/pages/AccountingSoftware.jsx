@@ -181,16 +181,15 @@ const AccountingSoftware = () => {
           <div className="order-1 lg:order-2">
             <h3 className="text-3xl font-extrabold text-[#0e3b5e]">All your small business accounting in one place</h3>
             <p className="text-gray-600 mt-4">
-              Manage cash flow, track expenses, accept payments, and much more without leaving Bloom ERP.
+              Manage cash flow, track expenses, accept payments, and much more without leaving BloomAudit.
             </p>
             <ul className="mt-6 space-y-3">
               {[
                 'Automate invoicing and reporting',
-                'Up‑to‑date financial data for a full picture',
-                'Simplified tax returns aligned to Sri Lankan regulations',
+                'Up-to-date financial data for a full picture Project and contract tracking designed to keep you in the budget',
               ].map((t, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <FaCheck className="text-[#00cba9] mt-1" />
+                  <FaCheck className="text-[#00cba9] mt-1 shrink-0" />
                   <span className="text-gray-700">{t}</span>
                 </li>
               ))}
@@ -209,12 +208,12 @@ const AccountingSoftware = () => {
             </p>
             <ul className="mt-6 space-y-3">
               {[
-                'Access the same up‑to‑date financial information',
+                'Access the same up-to-date financial information',
                 'Discuss business insights in real time',
-                'Submit expenses, manage leave, and send invoices',
+                'Submit expenses, manage leave (Download Reports anywhere in the world)',
               ].map((t, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <FaCheck className="text-[#00cba9] mt-1" />
+                  <FaCheck className="text-[#00cba9] mt-1 shrink-0" />
                   <span className="text-gray-700">{t}</span>
                 </li>
               ))}

@@ -287,11 +287,6 @@ const Navbar = ({ solid = false }) => {
                     <FaUsers className="text-[#00cba9]" />
                     <span className="font-semibold">Onboarding Support</span>
                   </Link>
-
-                  <Link to="/resources/blog" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/20">
-                    <FaBook className="text-[#00cba9]" />
-                    <span className="font-semibold">Bloom Blog</span>
-                  </Link>
                 </div>
               </div>
             </div>
