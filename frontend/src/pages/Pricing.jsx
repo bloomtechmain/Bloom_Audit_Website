@@ -276,7 +276,7 @@ const Pricing = () => {
                     {/* Yearly Savings */}
                     {isYearly && !plan.displayPrice && (
                       <div className="mt-2 text-xs text-[#00cba9] font-bold flex items-center justify-center gap-1">
-                        <FaCheck /> Save {(plan.price * 12 * 0.1).toLocaleString(undefined, { maximumFractionDigits: 0 })} LKR/yr
+                        <FaCheck /> Save LKR {(plan.price * 12 * 0.1).toLocaleString(undefined, { maximumFractionDigits: 0 })} per year
                       </div>
                     )}
                   </div>
@@ -337,38 +337,73 @@ const Pricing = () => {
           </div>
 
           {/* Add On Modules Section */}
-          <div className="mt-24 mb-20">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-extrabold text-[#0e3b5e] mb-4">Powerful Add-On Modules</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">Customize your experience with these specialized modules designed for specific business needs.</p>
-              <p className="text-sm text-[#00cba9] font-bold mt-4 uppercase tracking-wider">Call for pricing for custom implementation</p>
+          <div className="mt-24 mb-0 -mx-4 md:-mx-8 lg:-mx-12 px-4 md:px-8 lg:px-12 py-24 relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, #0e3b5e 0%, #0a2a44 50%, #0e3b5e 100%)' }}
+          >
+            {/* Background decorations */}
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00cba9]/10 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="absolute inset-0 opacity-5 pointer-events-none"
+              style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {addOns.map((addon, index) => (
+            <div className="max-w-7xl mx-auto relative z-10">
+              <div className="text-center mb-16">
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="inline-block px-4 py-1.5 rounded-full bg-[#00cba9]/10 border border-[#00cba9] text-[#00cba9] font-bold text-sm tracking-wider mb-6"
+                >
+                  ADD-ON MODULES
+                </motion.div>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">Powerful Add-On Modules</h2>
+                <p className="text-xl text-blue-200 max-w-2xl mx-auto">Customize your experience with these specialized modules designed for specific business needs.</p>
+
+                {/* Call for pricing banner */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+                  className="inline-flex items-center gap-3 mt-8 px-6 py-3 rounded-2xl border border-[#00cba9]/40 bg-[#00cba9]/10 backdrop-blur-md"
                 >
-                  <div className="w-12 h-12 bg-[#e5f9f6] rounded-xl flex items-center justify-center text-[#00cba9] text-2xl mb-4 group-hover:scale-110 transition-transform">
-                    {addon.icon}
-                  </div>
-                  <h3 className="text-lg font-bold text-[#0e3b5e] mb-2">{addon.title}</h3>
-                  <p className="text-gray-500 text-sm mb-4 min-h-[40px]">{addon.description}</p>
-                  <div className="pt-4 border-t border-gray-100">
-                    <span className={`text-xs font-bold px-2 py-1 rounded-md ${addon.availability.includes("All Plans") ? "bg-green-100 text-green-700" :
-                      addon.availability.includes("Call") ? "bg-blue-100 text-blue-700" :
-                        "bg-yellow-100 text-yellow-700"
-                      }`}>
-                      {addon.availability}
-                    </span>
-                  </div>
+                  <div className="w-2 h-2 rounded-full bg-[#00cba9] animate-pulse"></div>
+                  <span className="text-[#00cba9] font-bold text-sm uppercase tracking-wider">Call for pricing for custom implementation</span>
+                  <div className="w-2 h-2 rounded-full bg-[#00cba9] animate-pulse"></div>
                 </motion.div>
-              ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {addOns.map((addon, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    whileHover={{ y: -6 }}
+                    className="relative bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:border-[#00cba9]/50 hover:shadow-[0_0_30px_rgba(0,203,169,0.15)] transition-all duration-300 group flex flex-col"
+                  >
+                    {/* Top accent border */}
+                    <div className="absolute top-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-[#00cba9] to-transparent rounded-full"></div>
+
+                    <div className="w-12 h-12 bg-[#00cba9]/15 rounded-xl flex items-center justify-center text-[#00cba9] text-2xl mb-4 group-hover:scale-110 group-hover:bg-[#00cba9]/25 transition-all duration-300">
+                      {addon.icon}
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2">{addon.title}</h3>
+                    <p className="text-blue-200 text-sm mb-4 min-h-[40px] flex-grow">{addon.description}</p>
+                    <div className="pt-4 border-t border-white/10">
+                      <span className={`text-xs font-bold px-2 py-1 rounded-md ${
+                        addon.availability.includes("All Plans") ? "bg-green-500/20 text-green-300 border border-green-500/30" :
+                        addon.availability.includes("Call") ? "bg-blue-500/20 text-blue-300 border border-blue-500/30" :
+                        "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30"
+                      }`}>
+                        {addon.availability}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
 
