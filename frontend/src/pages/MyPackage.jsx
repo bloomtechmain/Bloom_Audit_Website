@@ -24,7 +24,7 @@ const MyPackage = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/auth/me', {
+      const response = await fetch(`${API_URL}/api/auth/me`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -49,7 +49,7 @@ const MyPackage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/user/update-package', {
+      const response = await fetch(`${API_URL}/api/user/update-package`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

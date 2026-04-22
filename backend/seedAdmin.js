@@ -13,7 +13,7 @@ const seedAdmin = async () => {
       const hashedPassword = await bcrypt.hash(adminPassword, salt);
 
       await db.query(
-        `INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4)`,
+        `INSERT INTO users (name, email, password_hash, role) VALUES ($1, $2, $3, $4)`,
         ['Admin', adminEmail, hashedPassword, 'admin']
       );
       console.log('Admin user created');

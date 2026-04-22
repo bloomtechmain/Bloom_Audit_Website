@@ -24,10 +24,9 @@ const checkExpiringPackages = async () => {
 
     for (const user of users) {
       const subject = 'Your Bloom Audit Package is Expiring Soon!';
-      const text = `Hello ${user.name},\n\nYour subscription to the ${user.package_name} package is expiring on ${new Date(user.package_end_date).toDateString()}. Please renew or upgrade your plan to avoid interruption.\n\nBest regards,\nBloom Audit Team`;
+      const text = `Hello ${user.name},\n\nYour subscription to the ${user.package_name} package is expiring on ${new Date(user.subscription_end_date).toDateString()}. Please renew or upgrade your plan to avoid interruption.\n\nBest regards,\nBloom Audit Team`;
       
       await sendEmail(user.email, subject, text);
-      await userModel.markWarningSent(user.id);
     }
   } catch (error) {
     console.error('Error checking expiring packages:', error);

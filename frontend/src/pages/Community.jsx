@@ -28,7 +28,7 @@ const Community = () => {
     }
 
     // Connect to Socket.io
-    socketRef.current = io('http://localhost:5000');
+    socketRef.current = io(`${API_URL}`);
 
     // Listen for initial messages
     socketRef.current.on('initial_messages', (initialMessages) => {

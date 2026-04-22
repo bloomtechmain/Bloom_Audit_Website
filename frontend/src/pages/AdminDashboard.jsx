@@ -25,7 +25,7 @@ const AdminDashboard = () => {
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/stats', {
+      const response = await fetch(`${API_URL}/api/admin/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -47,7 +47,7 @@ const AdminDashboard = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/admin/users', {
+      const response = await fetch(`${API_URL}/api/admin/users`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
   const confirmPackage = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/confirm-package', {
+      const response = await fetch(`${API_URL}/api/admin/confirm-package`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ const AdminDashboard = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/users/${userId}`, {
+      const response = await fetch(`${API_URL}/api/admin/users/${userId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -124,7 +124,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/users/${editingUser.id}`, {
+      const response = await fetch(`${API_URL}/api/admin/users/${editingUser.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

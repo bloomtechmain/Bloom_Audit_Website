@@ -39,7 +39,7 @@ const Register = () => {
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        const response = await fetch('http://localhost:5000/api/auth/google-login', {
+        const response = await fetch(`${API_URL}/api/auth/google-login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

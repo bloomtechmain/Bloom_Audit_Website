@@ -18,7 +18,7 @@ const AdminUpgradeRequests = ({ onUpdate }) => {
     const fetchRequests = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/api/upgrades', {
+            const response = await fetch(`${API_URL}/api/upgrades`, {
                 headers: {
                     'Authorization': `Bearer ${token}` // In case we add auth middleware later
                 }
@@ -58,7 +58,7 @@ const AdminUpgradeRequests = ({ onUpdate }) => {
             const token = localStorage.getItem('token');
 
             // 1. Update the request status
-            const response = await fetch(`http://localhost:5000/api/upgrades/${id}/status`, {
+            const response = await fetch(`${API_URL}/api/upgrades/${id}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const AdminUpgradeRequests = ({ onUpdate }) => {
                     // Use priceOverride if provided (for Enterprise), otherwise fallback to plan price, then to 'Custom'
                     const newPrice = priceOverride || (planDetails ? planDetails.price : 'Custom');
 
-                    await fetch('http://localhost:5000/api/admin/update-package', {
+                    await fetch(`${API_URL}/api/admin/update-package`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

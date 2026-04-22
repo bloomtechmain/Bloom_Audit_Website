@@ -47,7 +47,7 @@ const SmallPricing = () => {
         setIsSubmittingUpgrade(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/api/upgrades/request', {
+            const response = await fetch(`${API_URL}/api/upgrades/request`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

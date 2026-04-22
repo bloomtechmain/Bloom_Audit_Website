@@ -38,11 +38,11 @@ const EnterpriseInquiryModal = ({ isOpen, onClose, user }) => {
         setSubmitStatus(null);
 
         try {
-            let url = 'http://localhost:5000/api/inquiries/enterprise';
+            let url = `${API_URL}/api/inquiries/enterprise`;
             let body = formData;
 
             if (user) {
-                url = 'http://localhost:5000/api/upgrades/request';
+                url = `${API_URL}/api/upgrades/request`;
                 body = {
                     userId: user.id,
                     userName: user.name,
