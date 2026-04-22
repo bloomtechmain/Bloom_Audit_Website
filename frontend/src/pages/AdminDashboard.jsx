@@ -4,6 +4,7 @@ import AdminSidebar from '../Components/AdminSidebar';
 import AdminUpgradeRequests from '../Components/AdminUpgradeRequests';
 import { FaUserCircle, FaCheck, FaClock, FaUsers, FaExclamationCircle, FaChartLine, FaBars } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import API_URL from '../api';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);

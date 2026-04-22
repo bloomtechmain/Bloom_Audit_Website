@@ -5,6 +5,7 @@ import Footer from '../Components/Footer';
 import { smallBizPlans, plans } from '../config/pricingData';
 import { FaBoxOpen, FaCheckCircle, FaHourglassHalf, FaEdit, FaCheck, FaArrowLeft, FaExclamationTriangle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import API_URL from '../api';
 
 const MyPackage = () => {
   const [user, setUser] = useState(null);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaPaperPlane, FaBuilding, FaUser, FaEnvelope, FaPhone, FaClipboardList } from 'react-icons/fa';
+import API_URL from '../api';
 
 const EnterpriseInquiryModal = ({ isOpen, onClose, user }) => {
     const [formData, setFormData] = useState({

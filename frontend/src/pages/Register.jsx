@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { FaCheck, FaTimes, FaGoogle } from 'react-icons/fa';
 import { useGoogleLogin } from '@react-oauth/google';
 import logo from '../assets/bloomlogo.png';
+import API_URL from '../api';
 
 const Register = () => {
   const [step, setStep] = useState(1);

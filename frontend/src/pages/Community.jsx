@@ -5,6 +5,7 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { Link } from 'react-router-dom';
 import { FaPaperPlane, FaUserCircle, FaLock, FaHashtag, FaUsers, FaSearch, FaEllipsisV, FaCircle } from 'react-icons/fa';
+import API_URL from '../api';
 
 const Community = () => {
   const [messages, setMessages] = useState([]);

@@ -7,6 +7,7 @@ import { FaCheck, FaTimes, FaStar, FaPaperPlane, FaRocket, FaGem } from 'react-i
 import { plans, addOns } from '../config/pricingData';
 import EnterpriseInquiryModal from '../Components/EnterpriseInquiryModal';
 import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
+import API_URL from '../api';
 
 const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);

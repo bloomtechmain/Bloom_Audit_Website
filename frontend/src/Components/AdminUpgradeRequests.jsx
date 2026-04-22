@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheck, FaTimes, FaSpinner, FaArrowUp, FaMoneyBillWave } from 'react-icons/fa';
 import { plans } from '../config/pricingData';
+import API_URL from '../api';
 
 const AdminUpgradeRequests = ({ onUpdate }) => {
     const [requests, setRequests] = useState([]);

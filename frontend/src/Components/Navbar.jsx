@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaChevronDown, FaChartLine, FaShieldAlt, FaLightbulb, FaRobot, FaBriefcase, FaUniversity, FaUsers, FaBook, FaGlobe, FaTag, FaFileAlt, FaGraduationCap, FaHeadset, FaChalkboardTeacher, FaCertificate, FaComments, FaBookOpen, FaSortAlphaDown, FaCalculator, FaUserCircle, FaSignOutAlt, FaTachometerAlt, FaBoxOpen, FaBars, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/bloomlogo.png';
+import API_URL from '../api';
 
 const Navbar = ({ solid = false }) => {
   const [isScrolled, setIsScrolled] = useState(false);

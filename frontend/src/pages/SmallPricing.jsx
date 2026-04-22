@@ -7,6 +7,7 @@ import { FaCheck, FaTimes, FaRocket, FaGem, FaSeedling, FaStore, FaChartPie, FaT
 import { smallBizPlans } from '../config/pricingData';
 import EnterpriseInquiryModal from '../Components/EnterpriseInquiryModal';
 import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
+import API_URL from '../api';
 
 const SmallPricing = () => {
     const [isYearly, setIsYearly] = useState(false);

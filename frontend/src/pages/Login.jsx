@@ -5,6 +5,7 @@ import { FaGoogle } from 'react-icons/fa';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import logo from '../assets/bloomlogo.png';
+import API_URL from '../api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
