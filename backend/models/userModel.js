@@ -19,8 +19,8 @@ const findPackageByName = async (packageName) => {
 const createUser = async (name, email, password, company_type = null, package_name = null) => {
   const packageId = await findPackageByName(package_name);
   const queryText = `
-    INSERT INTO users (name, email, password_hash, company_type, package_id)
-    VALUES ($1, $2, $3, $4, $5)
+    INSERT INTO users (name, email, password_hash, company_type, package_id, source)
+    VALUES ($1, $2, $3, $4, $5, 'marketing_site')
     RETURNING id, name, email, role, created_at;
   `;
   const { rows } = await db.query(queryText, [name, email, password, company_type, packageId]);

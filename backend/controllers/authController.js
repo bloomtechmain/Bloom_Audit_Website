@@ -20,6 +20,31 @@ const register = async (req, res) => {
 
     const newUser = await userModel.createUser(name, email, hashedPassword, company_type, package_name);
 
+    // Assign Super Admin role in the shared ERP database so the user has
+    // full access the first time they log into the ERP application.
+    try {
+      const db = require('../config/db');
+
+      // Ensure the Super Admin role exists
+      const roleResult = await db.query(`
+        INSERT INTO public.roles (name, description, is_system_role)
+        VALUES ('Super Admin', 'Full unrestricted system access', TRUE)
+        ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name
+        RETURNING id
+      `);
+      const superAdminRoleId = roleResult.rows[0].id;
+
+      // Link the new user to Super Admin
+      await db.query(`
+        INSERT INTO public.user_roles (user_id, role_id)
+        VALUES ($1, $2)
+        ON CONFLICT (user_id, role_id) DO NOTHING
+      `, [newUser.id, superAdminRoleId]);
+    } catch (roleErr) {
+      console.error('Warning: Could not assign Super Admin role to new user:', roleErr.message);
+      // Non-fatal — ERP will provision on first login as fallback
+    }
+
     const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET || 'secret', {
       expiresIn: '30d',
     });
