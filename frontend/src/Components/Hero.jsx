@@ -73,9 +73,9 @@ const Hero = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <Link
-                to="/register"
+                to="/register?plan=starter"
                 className="px-8 py-4 bg-[#00cba9] text-white rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:bg-[#00b596] transition-all transform hover:-translate-y-1 flex items-center gap-2 group">
-                Get started <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                Start with Starter — $29/mo <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
 

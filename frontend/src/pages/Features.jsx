@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaUniversity, FaFileInvoiceDollar, FaTasks, FaBoxes, FaBuilding, FaChartLine, FaMoneyBillWave, FaChartBar, FaChevronDown, FaUsers, FaCalendarAlt, FaClock, FaFileAlt, FaFileContract } from 'react-icons/fa';
+import { FaUniversity, FaFileInvoiceDollar, FaTasks, FaBoxes, FaBuilding, FaChartLine, FaMoneyBillWave, FaChartBar, FaChevronDown, FaUsers, FaCalendarAlt, FaClock, FaFileAlt, FaFileContract, FaCheck, FaTimes } from 'react-icons/fa';
 import { BsArrowUpRight } from 'react-icons/bs';
 
 const FeatureCard = ({ feature, index }) => {
@@ -249,32 +249,63 @@ const Features = () => {
             ))}
           </motion.div>
 
-          {/* Modules Coming Soon Section */}
+          {/* Plan Comparison Table */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center"
           >
-            <div className="inline-block bg-[#00cba9]/10 text-[#00cba9] font-bold px-4 py-2 rounded-full mb-6">
-              ROADMAP
+            <div className="text-center mb-12">
+              <div className="inline-block bg-[#00cba9]/10 text-[#00cba9] font-bold px-4 py-2 rounded-full mb-4">
+                PLAN COMPARISON
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#0e3b5e] mb-4">All Plans, Side by Side</h2>
+              <p className="text-gray-500 max-w-2xl mx-auto">Every feature across all four plans. ✓ = included, — = not included.</p>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0e3b5e] mb-12">Modules Coming Soon</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {comingSoonModules.map((module, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ y: -5 }}
-                  className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex items-center gap-4"
-                >
-                  <div className="p-3 bg-gray-50 rounded-lg text-[#0e3b5e]">
-                    {module.icon}
-                  </div>
-                  <span className="font-bold text-gray-700 text-lg">{module.title}</span>
-                </motion.div>
-              ))}
+            <div className="overflow-x-auto rounded-2xl shadow-xl border border-gray-100">
+              <table className="w-full min-w-[700px] text-sm">
+                <thead>
+                  <tr className="bg-[#0e3b5e] text-white">
+                    <th className="text-left py-5 px-6 font-bold text-base w-2/5">Feature</th>
+                    {['Starter', 'Growth', 'Business', 'Enterprise'].map((p) => (
+                      <th key={p} className={`py-5 px-4 font-bold text-center ${p === 'Growth' ? 'bg-[#00cba9] text-white' : ''}`}>
+                        {p}
+                        {p === 'Growth' && <div className="text-[10px] font-normal opacity-80 mt-0.5">Most Popular</div>}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonData.map((section, si) => (
+                    <React.Fragment key={si}>
+                      <tr className="bg-gray-50">
+                        <td colSpan={5} className="py-3 px-6 text-xs font-extrabold text-[#0e3b5e] uppercase tracking-wider">{section.category}</td>
+                      </tr>
+                      {section.features.map((feat, fi) => (
+                        <tr key={fi} className={fi % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                          <td className="py-3 px-6 text-gray-700 font-medium">{feat.name}</td>
+                          {['starter', 'growth', 'business', 'enterprise'].map((slug) => (
+                            <td key={slug} className={`py-3 px-4 text-center ${slug === 'growth' ? 'bg-[#00cba9]/5' : ''}`}>
+                              {feat[slug]
+                                ? <FaCheck className="text-[#00cba9] mx-auto" size={14} />
+                                : <span className="text-gray-300 font-bold mx-auto block text-center">—</span>}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link to="/pricing"
+                className="inline-block bg-[#00cba9] hover:bg-[#00b596] text-white font-bold py-4 px-10 rounded-full text-lg shadow-lg transition-all hover:scale-105">
+                View Pricing & Get Started
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -323,13 +354,80 @@ const features = [
   }
 ];
 
-const comingSoonModules = [
-  { title: "Online Invoicing", icon: <FaFileInvoiceDollar /> },
-  { title: "Vacation Time Manager", icon: <FaClock /> },
-  { title: "EPF/ETF Reporter", icon: <FaFileAlt /> },
-  { title: "Document Bank", icon: <FaBoxes /> },
-  { title: "Quote Generator", icon: <FaFileContract /> },
-  { title: "Inventory Manager", icon: <FaBoxes /> }
+const comparisonData = [
+  {
+    category: "Core Accounting",
+    features: [
+      { name: "Chart of Accounts (system + custom)", starter: true, growth: true, business: true, enterprise: true },
+      { name: "General Ledger", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Journal Entries (draft, post & reverse)", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Invoice Management (partial payments, credit notes, aging)", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Customer Database", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Receivables Tracking & Aging Reports", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Bill Management (full AP workflow)", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Vendor Database", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Payables Tracking & Aging Reports", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Tax Management (VAT / GST / WHT)", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Financial Statements (P&L, Balance Sheet, Cash Flow, Trial Balance)", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Document Bank (file storage + audit trail)", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Bulk Import / Export", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Analytics Dashboard (financial KPIs)", starter: true, growth: true, business: true, enterprise: true },
+      { name: "App Settings, RBAC & Company Branding", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Notes & Todos", starter: true, growth: true, business: true, enterprise: true },
+      { name: "Users", starter: "5", growth: "25", business: "100", enterprise: "Unlimited" },
+    ],
+  },
+  {
+    category: "Sales & Purchasing",
+    features: [
+      { name: "Quotes & Quote Generator (follow-up reminders)", starter: false, growth: true, business: true, enterprise: true },
+      { name: "Sales Orders (linked to invoices, fulfilment tracking)", starter: false, growth: true, business: true, enterprise: true },
+      { name: "Purchase Orders (approval workflow)", starter: false, growth: true, business: true, enterprise: true },
+      { name: "Petty Cash", starter: false, growth: true, business: true, enterprise: true },
+      { name: "Subscriptions (recurring vendor payments)", starter: false, growth: true, business: true, enterprise: true },
+      { name: "Bank Accounts + Bank Reconciliation", starter: false, growth: true, business: true, enterprise: true },
+      { name: "Stripe Payment Integration + Payment Links", starter: false, growth: true, business: true, enterprise: true },
+    ],
+  },
+  {
+    category: "HR & Payroll",
+    features: [
+      { name: "Employee Directory (records, departments, contacts)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Payroll (salary calculation, payslips, digital signatures)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "PTO / Time Off (requests, approval, balance tracking)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Attendance Management (marking, shifts, reports)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Employee Onboarding (new hire workflow)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Performance Reviews (review cycles, goals, ratings)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Employee Self-Service Portal (payslips, PTO, profile)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Expense Claims (reimbursement workflow + GL posting)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Time Tracking (billable / non-billable)", starter: false, growth: false, business: true, enterprise: true },
+    ],
+  },
+  {
+    category: "Operations",
+    features: [
+      { name: "Inventory Management (stock, SKU, COGS posting)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Projects (3-level: Project → Contract → Items)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Job Costing (cost accumulation, margin tracking)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Assets Management (fixed assets + depreciation)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Loans", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Multi-Currency (FX rates, gain/loss tracking)", starter: false, growth: false, business: true, enterprise: true },
+      { name: "Budget Planning & Variance Analysis", starter: false, growth: false, business: true, enterprise: true },
+    ],
+  },
+  {
+    category: "Enterprise",
+    features: [
+      { name: "Advanced Analytics v2 + Custom KPI Dashboards", starter: false, growth: false, business: false, enterprise: true },
+      { name: "Custom Report Builder + Historical Analysis", starter: false, growth: false, business: false, enterprise: true },
+      { name: "Compliance & Audit Logging (RBAC trail)", starter: false, growth: false, business: false, enterprise: true },
+      { name: "REST API v1 + API Key Management", starter: false, growth: false, business: false, enterprise: true },
+      { name: "Incoming Webhooks", starter: false, growth: false, business: false, enterprise: true },
+      { name: "Vendor Self-Service Portal", starter: false, growth: false, business: false, enterprise: true },
+      { name: "Debit Card Management", starter: false, growth: false, business: false, enterprise: true },
+      { name: "Advanced Import / Export (all modules)", starter: false, growth: false, business: false, enterprise: true },
+    ],
+  },
 ];
 
 export default Features;

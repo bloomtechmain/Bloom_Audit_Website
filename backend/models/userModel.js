@@ -1,37 +1,66 @@
 const db = require('../config/db');
 
+const NO_OF_USERS_MAP = { starter: 5, growth: 25, business: 100, enterprise: -1 };
+
 const createUsersTable = async () => {
   // users table already exists on Railway — only ensure app-specific columns are present
-  try {
-    await db.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS company_type VARCHAR(50)`);
-    console.log('User schema verified');
-  } catch (error) {
-    console.error('Error verifying users table:', error);
+  const alterStatements = [
+    `ALTER TABLE public.users ADD COLUMN IF NOT EXISTS company_type VARCHAR(50)`,
+    `ALTER TABLE public.users ADD COLUMN IF NOT EXISTS package_name VARCHAR(100)`,
+    `ALTER TABLE public.users ADD COLUMN IF NOT EXISTS package_price NUMERIC(10,2)`,
+    `ALTER TABLE public.users ADD COLUMN IF NOT EXISTS plan_type VARCHAR(20)`,
+    `ALTER TABLE public.users ADD COLUMN IF NOT EXISTS no_of_users INTEGER`,
+    `ALTER TABLE public.users ADD COLUMN IF NOT EXISTS account_status VARCHAR(20) DEFAULT 'active'`,
+    `ALTER TABLE public.users ADD COLUMN IF NOT EXISTS purchase_date DATE`,
+  ];
+  for (const stmt of alterStatements) {
+    try {
+      await db.query(stmt);
+    } catch (err) {
+      // Column likely already exists — non-fatal
+    }
   }
+  console.log('User schema verified');
 };
 
-const findPackageByName = async (packageName) => {
-  if (!packageName) return null;
-  const { rows } = await db.query('SELECT id FROM packages WHERE name = $1', [packageName]);
-  return rows[0] ? rows[0].id : null;
+const findPackageByName = async (planName) => {
+  if (!planName) return null;
+  const { rows } = await db.query('SELECT * FROM public.packages WHERE name = $1', [planName.toLowerCase()]);
+  return rows[0] || null;
 };
 
-const createUser = async (name, email, password, company_type = null, package_name = null) => {
-  const packageId = await findPackageByName(package_name);
+const createUser = async (name, email, password, company_type = null, plan = null, billing_cycle = 'monthly') => {
+  const pkg = await findPackageByName(plan);
+  const packageId = pkg ? pkg.id : null;
+  const packageDisplayName = pkg ? (pkg.display_name || (plan ? plan.charAt(0).toUpperCase() + plan.slice(1) : null)) : null;
+  const packagePrice = pkg
+    ? (billing_cycle === 'yearly' ? parseFloat(pkg.price_yearly) : parseFloat(pkg.price_monthly))
+    : null;
+  const noOfUsers = NO_OF_USERS_MAP[plan?.toLowerCase()] ?? null;
+
   const queryText = `
-    INSERT INTO users (name, email, password_hash, company_type, package_id, source)
-    VALUES ($1, $2, $3, $4, $5, 'marketing_site')
+    INSERT INTO public.users (
+      name, email, password_hash, role, source, account_status,
+      package_id, package_status, package_name, package_price, plan_type,
+      no_of_users, purchase_date, company_type
+    )
+    VALUES ($1, $2, $3, 'user', 'marketing_site', 'active', $4, 'active', $5, $6, $7, $8, CURRENT_DATE, $9)
     RETURNING id, name, email, role, created_at;
   `;
-  const { rows } = await db.query(queryText, [name, email, password, company_type, packageId]);
+  const { rows } = await db.query(queryText, [
+    name, email, password, packageId, packageDisplayName,
+    packagePrice, billing_cycle, noOfUsers, company_type,
+  ]);
   return rows[0];
 };
 
 const findUserByEmail = async (email) => {
   const queryText = `
-    SELECT u.*, p.name AS package_name, p.price_monthly AS package_price
-    FROM users u
-    LEFT JOIN packages p ON u.package_id = p.id
+    SELECT u.*,
+      COALESCE(u.package_name, p.display_name, p.name) AS package_name,
+      COALESCE(u.package_price, p.price_monthly) AS package_price
+    FROM public.users u
+    LEFT JOIN public.packages p ON u.package_id = p.id
     WHERE u.email = $1
   `;
   const { rows } = await db.query(queryText, [email]);

@@ -4,7 +4,7 @@ import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaCheck, FaTimes, FaRocket, FaGem, FaSeedling, FaStore, FaChartPie, FaTags, FaArrowRight } from 'react-icons/fa';
-import { smallBizPlans } from '../config/pricingData';
+import { plans } from '../config/pricingData';
 import EnterpriseInquiryModal from '../Components/EnterpriseInquiryModal';
 import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
 import API_URL from '../api';
@@ -181,7 +181,7 @@ const SmallPricing = () => {
                         transition={{ delay: 0.6 }}
                         className="text-sm md:text-base text-[#00cba9] font-bold mt-[-20px] mb-12"
                     >
-                        If you pay for the yearly subscription you pay 10% less through the whole price range
+                        Pay annually and save ~17% — that's 2 months free every year.
                     </motion.p>
                 </div>
             </section>
@@ -189,7 +189,7 @@ const SmallPricing = () => {
             {/* Pricing Cards */}
             <section className="py-20 px-4 -mt-20 relative z-20">
                 <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-8 items-start">
-                    {smallBizPlans.map((plan, index) => (
+                    {plans.slice(0, 3).map((plan, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 50 }}
@@ -230,39 +230,33 @@ const SmallPricing = () => {
                                 <div className="mb-6 pb-6 border-b border-gray-100">
                                     <div className="flex flex-col">
                                         <div className="flex items-baseline">
-                                            {!plan.displayPrice && <span className="text-sm font-semibold text-gray-400 mr-1">LKR</span>}
+                                            <span className="text-sm font-semibold text-gray-400 mr-1">$</span>
                                             <span className="text-4xl font-extrabold text-[#0e3b5e]">
-                                                {plan.displayPrice ? plan.displayPrice : (
-                                                    isYearly
-                                                        ? (plan.price * 12 * 0.9).toLocaleString(undefined, { maximumFractionDigits: 0 })
-                                                        : (plan.promoPrice ? plan.promoPrice.toLocaleString() : plan.price.toLocaleString())
-                                                )}
+                                                {isYearly ? plan.priceYearly : plan.priceMonthly}
                                             </span>
-                                            {!plan.displayPrice && <span className="text-gray-400 ml-1 font-medium text-sm">/{isYearly ? 'yr' : 'mo'}</span>}
+                                            <span className="text-gray-400 ml-1 font-medium text-sm">/{isYearly ? 'yr' : 'mo'}</span>
                                         </div>
 
-                                        {/* Monthly Promo Text */}
-                                        {!isYearly && plan.promoPrice && !plan.displayPrice && (
-                                            <div className="mt-2">
-                                                <p className="text-xs text-[#00cba9] font-bold uppercase tracking-wide">{plan.promoText}</p>
-                                                <p className="text-xs text-gray-400 mt-0.5">Regular price: LKR {plan.price.toLocaleString()}</p>
-                                            </div>
-                                        )}
-
-                                        {/* Yearly Savings */}
-                                        {isYearly && !plan.displayPrice && (
+                                        {isYearly ? (
                                             <div className="mt-2 text-xs text-[#00cba9] font-bold flex items-center gap-1">
-                                                <FaTags /> Save {(plan.price * 12 * 0.1).toLocaleString(undefined, { maximumFractionDigits: 0 })} LKR/yr
+                                                <FaTags /> Save 17% — billed annually
+                                            </div>
+                                        ) : (
+                                            <div className="mt-2 text-xs text-gray-400">
+                                                ${plan.priceYearly}/yr billed annually
                                             </div>
                                         )}
                                     </div>
                                     <div className="mt-4 text-xs text-gray-500 font-medium bg-gray-50 p-2 rounded-lg inline-block">
-                                        {plan.features[0]} {/* Usually User Count */}
+                                        {plan.maxUsersLabel}
                                     </div>
                                 </div>
 
                                 <div className="space-y-3 mb-8 flex-grow">
-                                    {plan.features.slice(1).map((feature, i) => ( // Skip first feature as it's shown above
+                                    {plan.prevPlanName && (
+                                        <p className="text-xs text-gray-500 font-semibold mb-2">Everything in {plan.prevPlanName}, plus:</p>
+                                    )}
+                                    {plan.tierFeatures.slice(0, 6).map((feature, i) => (
                                         <div key={i} className="flex items-start">
                                             <div className="bg-[#e5f9f6] p-1 rounded-full mr-3 flex-shrink-0 mt-0.5">
                                                 <FaCheck className="text-[#00cba9]" size={10} />
@@ -270,6 +264,9 @@ const SmallPricing = () => {
                                             <span className="text-gray-600 text-sm font-medium">{feature}</span>
                                         </div>
                                     ))}
+                                    {plan.tierFeatures.length > 6 && (
+                                        <p className="text-xs text-gray-400 ml-5">+{plan.tierFeatures.length - 6} more features</p>
+                                    )}
                                     {plan.unavailable?.map((feature, i) => (
                                         <div key={i} className="flex items-start opacity-40">
                                             <div className="bg-gray-100 p-1 rounded-full mr-3 flex-shrink-0 mt-0.5">
@@ -305,7 +302,7 @@ const SmallPricing = () => {
                                     </button>
                                 ) : (
                                     <Link
-                                        to="/register"
+                                        to={`/register?plan=${plan.slug}`}
                                         className={`w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 mt-auto ${plan.popular
                                             ? 'bg-[#00cba9] text-white hover:bg-[#00b596] shadow-lg hover:shadow-[#00cba9]/40'
                                             : 'bg-[#0e3b5e] text-white hover:bg-[#1c4b7e] shadow-lg'
@@ -331,7 +328,7 @@ const SmallPricing = () => {
                         </div>
                         <div className="p-6 bg-gray-50 rounded-2xl">
                             <h4 className="font-bold text-lg mb-2 text-[#0e3b5e]">Is support included?</h4>
-                            <p className="text-gray-600">Yes! All plans come with email support. Standard and Premium plans get priority response times.</p>
+                            <p className="text-gray-600">Yes! All plans include email support. Business and Enterprise plans receive priority response times.</p>
                         </div>
                         <div className="p-6 bg-gray-50 rounded-2xl">
                             <h4 className="font-bold text-lg mb-2 text-[#0e3b5e]">Do I need to install anything?</h4>

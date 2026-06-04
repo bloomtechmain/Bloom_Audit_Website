@@ -1,164 +1,302 @@
 import React from 'react';
-import { FaPaperPlane, FaRocket, FaGem, FaSeedling, FaStore, FaChartPie, FaFileInvoiceDollar, FaCalendarAlt, FaFileAlt, FaBoxes, FaCalculator, FaUserTie } from 'react-icons/fa';
+import {
+  FaSeedling, FaRocket, FaBuilding, FaGem,
+  FaUniversity, FaShoppingCart, FaMoneyBillWave, FaUsers, FaPaypal, FaClock,
+  FaStar, FaReceipt, FaUserShield, FaBoxes, FaTasks,
+  FaGlobe, FaChartBar, FaCode, FaShieldAlt, FaHandshake, FaFileContract
+} from 'react-icons/fa';
+
+// Tier-specific (new) features per plan
+const starterFeatures = [
+  "Chart of Accounts (system + custom accounts)",
+  "General Ledger",
+  "Journal Entries (draft, post & reverse)",
+  "Send invoices with partial payments, credit notes & aging",
+  "Customer Database",
+  "Receivables tracking & aging reports",
+  "Bill Management (full AP workflow)",
+  "Vendor Database",
+  "Payables tracking & aging reports",
+  "Tax Management (VAT / GST / WHT)",
+  "Financial Statements (P&L, Balance Sheet, Cash Flow, Trial Balance)",
+  "Document Bank (file storage + audit trail)",
+  "Bulk Import / Export (invoices, bills, customers, vendors)",
+  "Analytics Dashboard (financial KPIs)",
+  "App Settings, RBAC & Company Branding",
+  "Notes & Todos",
+];
+
+const growthFeatures = [
+  "Quotes & Quote Generator (follow-up reminders)",
+  "Sales Orders (linked to invoices, fulfilment tracking)",
+  "Purchase Orders (approval workflow + email notifications)",
+  "Petty Cash",
+  "Subscriptions (recurring vendor payments)",
+  "Bank Accounts + Bank Reconciliation",
+  "Stripe Payment Integration + Payment Links on Invoices",
+];
+
+const businessFeatures = [
+  "Employee Directory (records, departments, contacts)",
+  "Payroll (salary calculation, payslips, digital signatures)",
+  "PTO / Time Off (requests, approval, balance tracking)",
+  "Attendance Management (marking, shifts, reports)",
+  "Employee Onboarding (new hire workflow)",
+  "Performance Reviews (review cycles, goals, ratings)",
+  "Employee Self-Service Portal (payslips, PTO, profile)",
+  "Expense Claims (reimbursement workflow + GL posting)",
+  "Time Tracking (billable / non-billable, timer support)",
+  "Inventory Management (stock, SKU, COGS posting)",
+  "Projects (3-level: Project → Contract → Items)",
+  "Job Costing (cost accumulation, margin tracking, variance reports)",
+  "Assets Management (fixed assets + depreciation)",
+  "Loans",
+  "Multi-Currency (FX rates, gain/loss tracking)",
+  "Budget Planning & Variance Analysis",
+];
+
+const enterpriseFeatures = [
+  "Advanced Analytics v2 + Custom KPI Dashboards",
+  "Custom Report Builder + Historical Analysis",
+  "Compliance & Audit Logging (RBAC trail + compliance reports)",
+  "REST API v1 + API Key Management",
+  "Incoming Webhooks",
+  "Vendor Self-Service Portal (POs, invoice submission, payment status)",
+  "Debit Card Management",
+  "Advanced Import / Export (all modules)",
+];
 
 export const plans = [
-    {
-        name: "Basic",
-        tagline: "For individuals",
-        price: 9499,
-        promoPrice: 7499,
-        promoText: "for the first 3 months",
-        icon: <FaSeedling className="text-2xl" />,
-        headerBg: "bg-gradient-to-r from-green-400 to-teal-500",
-        headerColor: "bg-gradient-to-br from-green-400 to-teal-500",
-        backgroundImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2026&auto=format&fit=crop",
-        cta: "Select Plan",
-        features: [
-            "1 User",
-            "Advance Accounting Modules",
-            "Advance Analytics",
-            "Expense tracking",
-            "Bank Reconciliation (Manually)",
-            "Basic Report generation"
-        ],
-        unavailable: []
-    },
-    {
-        name: "Starter",
-        tagline: "For small teams",
-        price: 19499,
-        promoPrice: 14999,
-        promoText: "for the first 3 months",
-        icon: <FaPaperPlane className="text-2xl" />,
-        headerBg: "bg-gradient-to-r from-blue-400 to-blue-600",
-        headerColor: "bg-gradient-to-br from-blue-400 to-blue-600",
-        backgroundImage: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        cta: "Select Plan",
-        features: [
-            "3 Users",
-            "Everything in Basic",
-            "Employee Data Management",
-            "Vendor Data Management",
-            "Project and Contract Tracking",
-            "Advance Report generation"
-        ],
-        unavailable: []
-    },
-    {
-        name: "Standard",
-        tagline: "For growing businesses",
-        price: 29499,
-        promoPrice: 25499,
-        promoText: "for the first 3 months",
-        popular: true,
-        recommended: true,
-        icon: <FaRocket className="text-2xl" />,
-        headerBg: "bg-gradient-to-r from-[#00cba9] to-[#008f7a]",
-        headerColor: "bg-gradient-to-br from-[#00cba9] to-[#008f7a]",
-        backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        cta: "Select Plan",
-        features: [
-            "5 Users",
-            "Everything in Basic + Starter",
-            "Asset Management",
-            "Basic Payroll Management",
-            "Inventory management",
-            "Document bank"
-        ],
-        unavailable: []
-    },
-    {
-        name: "Premium",
-        tagline: "For established companies",
-        price: 47499,
-        promoPrice: 39499,
-        promoText: "for the first 3 months",
-        icon: <FaGem className="text-2xl" />,
-        headerBg: "bg-gradient-to-r from-purple-500 to-indigo-600",
-        headerColor: "bg-gradient-to-br from-purple-500 to-indigo-600",
-        backgroundImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        cta: "Select Plan",
-        features: [
-            "20 Users",
-            "Everything in Basic + Standard + Starter",
-            "Employee Access Portal",
-            "Vacation time tracking",
-            "EPF/ETF tracking",
-            "Quote generation",
-            "Priority support"
-        ]
-    },
-    {
-        name: "Enterprise",
-        tagline: "For large scale operations",
-        price: 0, // 0 indicates custom pricing
-        displayPrice: "Contact us",
-        icon: <FaStore className="text-2xl" />,
-        headerBg: "bg-gradient-to-r from-gray-700 to-gray-900",
-        headerColor: "bg-gradient-to-br from-gray-700 to-gray-900",
-        backgroundImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        cta: "Contact Us",
-        features: [
-            "Unlimited Users",
-            "Custom workflow design",
-            "Financial Forecasting with custom AI technology",
-            "Backup and Recovery features",
-            "Dedicated account manager",
-            "SLA support",
-            "Custom integrations"
-        ]
-    }
+  {
+    name: "Starter",
+    slug: "starter",
+    tagline: "For freelancers & micro-businesses",
+    description: "Core double-entry accounting for freelancers, sole traders, and micro-businesses.",
+    priceMonthly: 29,
+    priceYearly: 290,
+    maxUsers: 5,
+    maxUsersLabel: "Up to 5 users",
+    popular: false,
+    isEnterprise: false,
+    cta: "Get Started",
+    icon: <FaSeedling className="text-2xl" />,
+    headerColor: "bg-gradient-to-br from-teal-500 to-cyan-600",
+    backgroundImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2026&auto=format&fit=crop",
+    tierFeatures: starterFeatures,
+    prevPlanName: null,
+  },
+  {
+    name: "Growth",
+    slug: "growth",
+    tagline: "For growing SMBs",
+    description: "Sales pipeline, purchasing & banking for growing SMBs.",
+    priceMonthly: 79,
+    priceYearly: 790,
+    maxUsers: 25,
+    maxUsersLabel: "Up to 25 users",
+    popular: true,
+    isEnterprise: false,
+    cta: "Get Started",
+    icon: <FaRocket className="text-2xl" />,
+    headerColor: "bg-gradient-to-br from-[#00cba9] to-[#008f7a]",
+    backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    tierFeatures: growthFeatures,
+    prevPlanName: "Starter",
+  },
+  {
+    name: "Business",
+    slug: "business",
+    tagline: "For mid-size businesses",
+    description: "Full HR, payroll, inventory & project management for mid-size businesses.",
+    priceMonthly: 149,
+    priceYearly: 1490,
+    maxUsers: 100,
+    maxUsersLabel: "Up to 100 users",
+    popular: false,
+    isEnterprise: false,
+    cta: "Get Started",
+    icon: <FaBuilding className="text-2xl" />,
+    headerColor: "bg-gradient-to-br from-blue-500 to-indigo-600",
+    backgroundImage: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    tierFeatures: businessFeatures,
+    prevPlanName: "Growth",
+  },
+  {
+    name: "Enterprise",
+    slug: "enterprise",
+    tagline: "For large enterprises",
+    description: "Integrations, compliance & vendor self-service for large enterprises.",
+    priceMonthly: 299,
+    priceYearly: 2990,
+    maxUsers: -1,
+    maxUsersLabel: "Unlimited users",
+    popular: false,
+    isEnterprise: true,
+    cta: "Contact Sales",
+    icon: <FaGem className="text-2xl" />,
+    headerColor: "bg-gradient-to-br from-gray-700 to-gray-900",
+    backgroundImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    tierFeatures: enterpriseFeatures,
+    prevPlanName: "Business",
+  },
 ];
 
 export const addOns = [
-    {
-        title: "Quote Generator",
-        description: "Generate professional quotes instantly.",
-        availability: "Only available for Starter, Standard",
-        icon: <FaFileInvoiceDollar />
-    },
-    {
-        title: "Monthly Subscriptions Tracker",
-        description: "Track recurring payments.",
-        availability: "All Plans",
-        icon: <FaCalendarAlt />
-    },
-    {
-        title: "Document Bank",
-        description: "Securely store and manage documents.",
-        availability: "Only available for Starter, Standard",
-        icon: <FaFileAlt />
-    },
-    {
-        title: "Asset Management and Depreciation",
-        description: "Track assets and calculate depreciation.",
-        availability: "Only available for Starter, Standard",
-        icon: <FaBoxes />
-    },
-    {
-        title: "Custom Estimate Generator",
-        description: "Create detailed estimates.",
-        availability: "Call for pricing",
-        icon: <FaCalculator />
-    },
-    {
-        title: "Custom Management",
-        description: "Tailored management solutions.",
-        availability: "Call for pricing",
-        icon: <FaUserTie />
-    },
-    {
-        title: "Leads Management",
-        description: "Track and nurture leads.",
-        availability: "Call for pricing",
-        icon: <FaChartPie />
-    },
-    {
-        title: "Proposal Tracker",
-        description: "Monitor sent proposals.",
-        availability: "Call for pricing",
-        icon: <FaPaperPlane />
-    }
+  {
+    title: "Stripe Payments",
+    price: 15,
+    description: "Accept payments via Stripe and add payment links to invoices.",
+    modules: ["stripe_payments"],
+    icon: <FaPaypal />,
+    requires: null,
+  },
+  {
+    title: "Bank Reconciliation",
+    price: 20,
+    description: "Connect bank accounts and reconcile transactions automatically.",
+    modules: ["bank_reconciliation"],
+    icon: <FaUniversity />,
+    requires: null,
+  },
+  {
+    title: "Quotes & Sales Pipeline",
+    price: 20,
+    description: "Generate quotes, follow up on leads, and track sales orders.",
+    modules: ["quotes", "sales_orders"],
+    icon: <FaFileContract />,
+    requires: null,
+  },
+  {
+    title: "Purchase Orders",
+    price: 20,
+    description: "Approval workflow for vendor purchase orders with email notifications.",
+    modules: ["purchase_orders"],
+    icon: <FaShoppingCart />,
+    requires: null,
+  },
+  {
+    title: "Petty Cash & Subscriptions",
+    price: 10,
+    description: "Track petty cash and manage recurring vendor payments.",
+    modules: ["petty_cash", "subscriptions"],
+    icon: <FaMoneyBillWave />,
+    requires: null,
+  },
+  {
+    title: "HR Core",
+    price: 35,
+    description: "Employee directory with payroll, salary calculation, and digital payslips.",
+    modules: ["employees", "payroll"],
+    icon: <FaUsers />,
+    requires: null,
+    note: "Bundled",
+  },
+  {
+    title: "Time Off & Attendance",
+    price: 15,
+    description: "Manage leave requests, approvals, balance tracking, and attendance shifts.",
+    modules: ["pto", "attendance"],
+    icon: <FaClock />,
+    requires: "HR Core",
+  },
+  {
+    title: "Performance Reviews",
+    price: 10,
+    description: "Review cycles, goal tracking, and performance ratings for your team.",
+    modules: ["performance_reviews"],
+    icon: <FaStar />,
+    requires: "HR Core",
+  },
+  {
+    title: "Expense Claims",
+    price: 10,
+    description: "Reimbursement workflow with automatic GL posting.",
+    modules: ["expense_claims"],
+    icon: <FaReceipt />,
+    requires: "HR Core",
+  },
+  {
+    title: "Employee Self-Service Portal",
+    price: 10,
+    description: "Let employees view payslips, request PTO, and update their profile.",
+    modules: ["employee_portal"],
+    icon: <FaUserShield />,
+    requires: "HR Core",
+  },
+  {
+    title: "Inventory Management",
+    price: 20,
+    description: "Track stock by SKU and auto-post COGS to the general ledger.",
+    modules: ["inventory"],
+    icon: <FaBoxes />,
+    requires: null,
+  },
+  {
+    title: "Projects & Job Costing",
+    price: 25,
+    description: "3-level project tracking, time logging, and job margin reports.",
+    modules: ["projects", "job_costing", "time_tracking"],
+    icon: <FaTasks />,
+    requires: null,
+    note: "Bundled",
+  },
+  {
+    title: "Assets & Loans",
+    price: 15,
+    description: "Track fixed assets with depreciation schedules and manage loans.",
+    modules: ["assets", "loans"],
+    icon: <FaBuilding />,
+    requires: null,
+  },
+  {
+    title: "Multi-Currency",
+    price: 15,
+    description: "FX rates, multi-currency transactions, and gain/loss tracking.",
+    modules: ["currency"],
+    icon: <FaGlobe />,
+    requires: null,
+  },
+  {
+    title: "Budget Planning",
+    price: 15,
+    description: "Set budgets and compare against actuals with variance reports.",
+    modules: ["budgets"],
+    icon: <FaChartBar />,
+    requires: null,
+  },
+  {
+    title: "Advanced Analytics",
+    price: 25,
+    description: "Custom KPI dashboards and historical financial analysis.",
+    modules: ["advanced_analytics"],
+    icon: <FaChartBar />,
+    requires: null,
+  },
+  {
+    title: "API & Webhooks",
+    price: 30,
+    description: "REST API v1 with API key management and incoming webhooks.",
+    modules: ["api_webhooks"],
+    icon: <FaCode />,
+    requires: null,
+  },
+  {
+    title: "Compliance Audit Log",
+    price: 20,
+    description: "RBAC audit trail and compliance reports for regulatory needs.",
+    modules: ["audit_log"],
+    icon: <FaShieldAlt />,
+    requires: null,
+  },
+  {
+    title: "Vendor Self-Service Portal",
+    price: 15,
+    description: "Let vendors view POs, submit invoices, and check payment status.",
+    modules: ["vendor_portal"],
+    icon: <FaHandshake />,
+    requires: "Purchase Orders",
+  },
 ];
 
-export const smallBizPlans = plans.filter(plan => ['Basic', 'Starter', 'Standard'].includes(plan.name));
+// Backward-compatible alias used in SmallPricing
+export const smallBizPlans = plans.slice(0, 3);

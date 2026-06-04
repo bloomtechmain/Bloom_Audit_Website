@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import { smallBizPlans, plans } from '../config/pricingData';
+import { plans } from '../config/pricingData';
 import { FaBoxOpen, FaCheckCircle, FaHourglassHalf, FaEdit, FaCheck, FaArrowLeft, FaExclamationTriangle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import API_URL from '../api';
@@ -58,7 +58,7 @@ const MyPackage = () => {
         },
         body: JSON.stringify({
           package_name: plan.name,
-          package_price: plan.price
+          package_price: plan.priceMonthly
         })
       });
 
@@ -83,7 +83,7 @@ const MyPackage = () => {
     </div>
   );
 
-  const availablePlans = user?.company_type === 'small_business' ? smallBizPlans : plans;
+  const availablePlans = plans;
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -147,16 +147,16 @@ const MyPackage = () => {
                       <div className="text-3xl font-bold text-gray-800 mt-1">{user.package_name || 'No Package Selected'}</div>
                     </div>
                     <div className="pb-6 border-b border-gray-100">
-                      <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Monthly Price</label>
-                      <div className="text-2xl text-gray-700 mt-1">LKR {user.package_price ? user.package_price.toLocaleString() : '0'} <span className="text-sm text-gray-400">/mo</span></div>
+                      <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Price</label>
+                      <div className="text-2xl text-gray-700 mt-1">${user.package_price ? Number(user.package_price).toLocaleString() : '0'} <span className="text-sm text-gray-400">/mo</span></div>
                     </div>
                     <div>
                       <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Business Category</label>
                       <div className="text-xl text-gray-700 mt-1 capitalize flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                        {['Premium', 'Enterprise'].includes(user.package_name)
+                        {user.package_name === 'Enterprise'
                           ? 'Enterprise'
-                          : user.company_type?.replace('_', ' ')}
+                          : user.company_type?.replace(/_/g, ' ')}
                       </div>
                     </div>
                   </div>
@@ -207,7 +207,8 @@ const MyPackage = () => {
                       <div className="relative z-10">
                         <h3 className="text-2xl font-bold mb-1">{plan.name}</h3>
                         <div className="mt-4 flex items-baseline">
-                          <span className="text-4xl font-bold">LKR {plan.price.toLocaleString()}</span>
+                          <span className="text-sm opacity-80 mr-0.5">$</span>
+                          <span className="text-4xl font-bold">{plan.priceMonthly}</span>
                           <span className="text-sm opacity-80 ml-1">/mo</span>
                         </div>
                       </div>
@@ -215,8 +216,11 @@ const MyPackage = () => {
                       <div className="absolute bottom-0 left-0 w-24 h-24 bg-black opacity-10 rounded-full -ml-12 -mb-12"></div>
                     </div>
                     <div className="p-8 flex-grow flex flex-col">
-                      <ul className="space-y-4 mb-8 flex-grow">
-                        {plan.features.slice(0, 6).map((feature, i) => (
+                      <ul className="space-y-3 mb-8 flex-grow">
+                        {plan.prevPlanName && (
+                          <li className="text-xs text-white/70 font-semibold">Everything in {plan.prevPlanName}, plus:</li>
+                        )}
+                        {plan.tierFeatures.slice(0, 5).map((feature, i) => (
                           <li key={i} className="flex items-start text-sm text-gray-600">
                             <FaCheck className="text-[#00cba9] mt-1 mr-3 flex-shrink-0" />
                             <span className="leading-relaxed">{feature}</span>

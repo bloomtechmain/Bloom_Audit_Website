@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../models/userModel');
 
 const register = async (req, res) => {
-  const { name, email, password, company_type, package_name } = req.body;
+  const { name, email, password, company_type, plan, billing_cycle } = req.body;
 
   if (!name || !email || !password) {
     return res.status(400).json({ message: 'Please provide all required fields' });
@@ -12,13 +12,13 @@ const register = async (req, res) => {
   try {
     const existingUser = await userModel.findUserByEmail(email);
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: 'email_taken', error: 'email_taken' });
     }
 
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = await userModel.createUser(name, email, hashedPassword, company_type, package_name);
+    const newUser = await userModel.createUser(name, email, hashedPassword, company_type, plan, billing_cycle || 'monthly');
 
     // Assign Super Admin role in the shared ERP database so the user has
     // full access the first time they log into the ERP application.
