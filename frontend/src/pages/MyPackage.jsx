@@ -5,12 +5,15 @@ import Footer from '../Components/Footer';
 import { plans } from '../config/pricingData';
 import { FaBoxOpen, FaCheckCircle, FaHourglassHalf, FaEdit, FaCheck, FaArrowLeft, FaExclamationTriangle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import PayHereCheckout from '../Components/PayHereCheckout';
 import API_URL from '../api';
 
 const MyPackage = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [pendingPlan, setPendingPlan] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,36 +48,14 @@ const MyPackage = () => {
     }
   };
 
-  const handleUpdatePackage = async (plan) => {
-    if (!window.confirm(`Are you sure you want to switch to the ${plan.name} plan?`)) return;
+  const handleSelectPlan = (plan) => {
+    setPendingPlan(plan);
+    setCheckoutOpen(true);
+  };
 
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/api/user/update-package`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          package_name: plan.name,
-          package_price: plan.priceMonthly
-        })
-      });
-
-      if (response.ok) {
-        const updatedUser = await response.json();
-        setUser(updatedUser); // Update local state
-        setIsEditing(false);
-        // Force a re-fetch or manual update to ensure status is pending if backend didn't return it perfectly
-        // But backend returns rows[0] which should be correct.
-        alert('Package updated successfully! Please wait for admin confirmation.');
-      } else {
-        alert('Failed to update package');
-      }
-    } catch (err) {
-      alert('Network error');
-    }
+  const handleUpgradeSuccess = (updatedUser) => {
+    setUser(updatedUser);
+    setIsEditing(false);
   };
 
   if (loading) return (
@@ -169,7 +150,7 @@ const MyPackage = () => {
                     <p className="text-gray-600 text-sm">Unlock more features and capabilities by upgrading your plan today.</p>
 
                     <button
-                      onClick={() => navigate('/pricing')}
+                      onClick={() => setIsEditing(true)}
                       className="mt-4 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-bold hover:shadow-lg hover:scale-105 transition-all w-full"
                     >
                       Change Plan
@@ -233,7 +214,7 @@ const MyPackage = () => {
                         </div>
                       ) : (
                         <button
-                          onClick={() => handleUpdatePackage(plan)}
+                          onClick={() => handleSelectPlan(plan)}
                           className="w-full py-3 rounded-xl font-bold bg-gray-900 text-white hover:bg-blue-600 transition-colors shadow-md"
                         >
                           Switch to {plan.name}
@@ -248,6 +229,12 @@ const MyPackage = () => {
         </AnimatePresence>
       </div>
       <Footer />
+      <PayHereCheckout
+        isOpen={checkoutOpen}
+        onClose={() => { setCheckoutOpen(false); setPendingPlan(null); }}
+        plan={pendingPlan}
+        onSuccess={handleUpgradeSuccess}
+      />
     </div>
   );
 };
