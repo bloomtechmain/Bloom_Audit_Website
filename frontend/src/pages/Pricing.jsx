@@ -307,66 +307,65 @@ const Pricing = () => {
       {/* Plan Comparison */}
       <PlanComparison />
 
-      <div className="bg-gradient-to-b from-gray-50 to-white py-0 px-4 md:px-8 lg:px-12">
-        <div className="max-w-7xl mx-auto">
-          {/* Add-Ons Section */}
-          <div className="mt-0 mb-0 -mx-4 md:-mx-8 lg:-mx-12 px-4 md:px-8 lg:px-12 py-24 relative overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, #0e3b5e 0%, #0a2a44 50%, #0e3b5e 100%)' }}>
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00cba9]/10 rounded-full blur-[100px] pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-            <div className="absolute inset-0 opacity-5 pointer-events-none"
-              style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+      {/* Add-Ons Section */}
+      <div className="w-full py-24 relative overflow-hidden" style={{ backgroundColor: '#0e3b5e' }}>
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00cba9]/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute inset-0 opacity-5 pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
-            <div className="max-w-7xl mx-auto relative z-10">
-              <div className="text-center mb-16">
-                <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-                  className="inline-block px-4 py-1.5 rounded-full bg-[#00cba9]/10 border border-[#00cba9] text-[#00cba9] font-bold text-sm tracking-wider mb-6">
-                  ADD-ON STORE
-                </motion.div>
-                <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">Extend Any Plan with Add-Ons</h2>
-                <p className="text-xl text-blue-200 max-w-2xl mx-auto">
-                  Pick only what you need. Each add-on charges a fixed monthly fee on top of your base plan.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                {addOns.map((addon, index) => (
-                  <motion.div key={index}
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ delay: index * 0.03 }}
-                    whileHover={{ y: -6 }}
-                    className="relative bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl hover:border-[#00cba9]/50 hover:shadow-[0_0_30px_rgba(0,203,169,0.15)] transition-all duration-300 group flex flex-col">
-                    <div className="absolute top-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-[#00cba9] to-transparent rounded-full"></div>
-
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="w-10 h-10 bg-[#00cba9]/15 rounded-xl flex items-center justify-center text-[#00cba9] text-xl group-hover:scale-110 group-hover:bg-[#00cba9]/25 transition-all duration-300">
-                        {addon.icon}
-                      </div>
-                      <span className="text-[#00cba9] font-extrabold text-lg">${addon.price}<span className="text-xs font-normal text-gray-400">/mo</span></span>
-                    </div>
-
-                    <h3 className="text-base font-bold text-white mb-1">{addon.title}</h3>
-                    <p className="text-blue-200 text-xs mb-3 flex-grow">{addon.description}</p>
-
-                    <div className="pt-3 border-t border-white/10 space-y-1">
-                      {addon.note && (
-                        <span className="inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 mr-1">
-                          {addon.note}
-                        </span>
-                      )}
-                      {addon.requires && (
-                        <span className="inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
-                          Requires {addon.requires}
-                        </span>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 relative z-10">
+          <div className="text-center mb-16">
+            <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
+              className="inline-block px-4 py-1.5 rounded-full bg-[#00cba9]/10 border border-[#00cba9] text-[#00cba9] font-bold text-sm tracking-wider mb-6">
+              MODULAR ADD-ONS
+            </motion.div>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">Extend Any Plan — Pay Only for What You Need</h2>
+            <p className="text-xl text-blue-200 max-w-2xl mx-auto">
+              Every BloomAudit plan can be extended with individual feature add-ons at a fixed monthly charge. Available on any plan — no forced upgrades.
+            </p>
           </div>
 
-          {/* Why Choose Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {addOns.map((addon, index) => (
+              <motion.div key={index}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }} transition={{ delay: index * 0.03 }}
+                whileHover={{ y: -6 }}
+                className="relative bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl hover:border-[#00cba9]/50 hover:shadow-[0_0_30px_rgba(0,203,169,0.15)] transition-all duration-300 group flex flex-col">
+                <div className="absolute top-0 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-[#00cba9] to-transparent rounded-full"></div>
+
+                <div className="flex justify-between items-start mb-3">
+                  <div className="w-10 h-10 bg-[#00cba9]/15 rounded-xl flex items-center justify-center text-[#00cba9] text-xl group-hover:scale-110 group-hover:bg-[#00cba9]/25 transition-all duration-300">
+                    {addon.icon}
+                  </div>
+                  <span className="text-[#00cba9] font-extrabold text-lg">${addon.price}<span className="text-xs font-normal text-gray-400">/mo</span></span>
+                </div>
+
+                <h3 className="text-base font-bold text-white mb-1">{addon.title}</h3>
+                <p className="text-blue-200 text-xs mb-3 flex-grow">{addon.description}</p>
+
+                <div className="pt-3 border-t border-white/10 space-y-1">
+                  {addon.note && (
+                    <span className="inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 mr-1">
+                      {addon.note}
+                    </span>
+                  )}
+                  {addon.requires && (
+                    <span className="inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
+                      Requires {addon.requires}
+                    </span>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Why Choose Section */}
+      <div className="bg-gradient-to-b from-gray-50 to-white py-0 px-4 md:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto">
           <div className="mt-32 flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/2">
               <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80"

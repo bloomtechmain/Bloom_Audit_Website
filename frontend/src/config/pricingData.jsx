@@ -145,7 +145,7 @@ export const addOns = [
   {
     title: "Stripe Payments",
     price: 15,
-    description: "Accept payments via Stripe and add payment links to invoices.",
+    description: "Accept online payments on invoices via Stripe. Generates shareable payment links and auto-records payments in the GL.",
     modules: ["stripe_payments"],
     icon: <FaPaypal />,
     requires: null,
@@ -153,7 +153,7 @@ export const addOns = [
   {
     title: "Bank Reconciliation",
     price: 20,
-    description: "Connect bank accounts and reconcile transactions automatically.",
+    description: "Add bank accounts and reconcile bank statements against your General Ledger with auto-matching.",
     modules: ["bank_reconciliation"],
     icon: <FaUniversity />,
     requires: null,
@@ -161,7 +161,7 @@ export const addOns = [
   {
     title: "Quotes & Sales Pipeline",
     price: 20,
-    description: "Generate quotes, follow up on leads, and track sales orders.",
+    description: "Create professional quotes, convert to sales orders, and track receivables with automated follow-up reminders.",
     modules: ["quotes", "sales_orders"],
     icon: <FaFileContract />,
     requires: null,
@@ -169,7 +169,7 @@ export const addOns = [
   {
     title: "Purchase Orders",
     price: 20,
-    description: "Approval workflow for vendor purchase orders with email notifications.",
+    description: "Full PO workflow with approval routing, receipt uploads, and email notifications to vendors.",
     modules: ["purchase_orders"],
     icon: <FaShoppingCart />,
     requires: null,
@@ -177,15 +177,15 @@ export const addOns = [
   {
     title: "Petty Cash & Subscriptions",
     price: 10,
-    description: "Track petty cash and manage recurring vendor payments.",
+    description: "Track small cash disbursements and manage recurring vendor subscription payments with GL posting.",
     modules: ["petty_cash", "subscriptions"],
     icon: <FaMoneyBillWave />,
     requires: null,
   },
   {
-    title: "HR Core",
+    title: "HR Core (Directory + Payroll)",
     price: 35,
-    description: "Employee directory with payroll, salary calculation, and digital payslips.",
+    description: "Employee Directory + full Payroll with payslips, salary calculations, and digital signatures. Bundled.",
     modules: ["employees", "payroll"],
     icon: <FaUsers />,
     requires: null,
@@ -194,7 +194,7 @@ export const addOns = [
   {
     title: "Time Off & Attendance",
     price: 15,
-    description: "Manage leave requests, approvals, balance tracking, and attendance shifts.",
+    description: "PTO request and approval workflow, attendance marking, shift tracking, and monthly reports.",
     modules: ["pto", "attendance"],
     icon: <FaClock />,
     requires: "HR Core",
@@ -202,7 +202,7 @@ export const addOns = [
   {
     title: "Performance Reviews",
     price: 10,
-    description: "Review cycles, goal tracking, and performance ratings for your team.",
+    description: "Run employee review cycles, set measurable goals, and track ratings with self & manager reviews.",
     modules: ["performance_reviews"],
     icon: <FaStar />,
     requires: "HR Core",
@@ -210,7 +210,7 @@ export const addOns = [
   {
     title: "Expense Claims",
     price: 10,
-    description: "Reimbursement workflow with automatic GL posting.",
+    description: "Employee reimbursement workflow with manager approval, receipt attachment, and automatic GL posting.",
     modules: ["expense_claims"],
     icon: <FaReceipt />,
     requires: "HR Core",
@@ -218,7 +218,7 @@ export const addOns = [
   {
     title: "Employee Self-Service Portal",
     price: 10,
-    description: "Let employees view payslips, request PTO, and update their profile.",
+    description: "Employees can view payslips, submit PTO requests, log time, and update their profile independently.",
     modules: ["employee_portal"],
     icon: <FaUserShield />,
     requires: "HR Core",
@@ -226,7 +226,7 @@ export const addOns = [
   {
     title: "Inventory Management",
     price: 20,
-    description: "Track stock by SKU and auto-post COGS to the general ledger.",
+    description: "Track stock levels by SKU across warehouses, manage adjustments, transfers, and auto-post COGS to GL.",
     modules: ["inventory"],
     icon: <FaBoxes />,
     requires: null,
@@ -234,7 +234,7 @@ export const addOns = [
   {
     title: "Projects & Job Costing",
     price: 25,
-    description: "3-level project tracking, time logging, and job margin reports.",
+    description: "3-level project hierarchy, billable time tracking, and job cost / variance reports. Bundled.",
     modules: ["projects", "job_costing", "time_tracking"],
     icon: <FaTasks />,
     requires: null,
@@ -243,7 +243,7 @@ export const addOns = [
   {
     title: "Assets & Loans",
     price: 15,
-    description: "Track fixed assets with depreciation schedules and manage loans.",
+    description: "Track fixed assets with depreciation schedules and manage loan repayment records with GL posting.",
     modules: ["assets", "loans"],
     icon: <FaBuilding />,
     requires: null,
@@ -251,7 +251,7 @@ export const addOns = [
   {
     title: "Multi-Currency",
     price: 15,
-    description: "FX rates, multi-currency transactions, and gain/loss tracking.",
+    description: "Transact in multiple currencies with live exchange rates and automatic FX gain/loss journal entries.",
     modules: ["currency"],
     icon: <FaGlobe />,
     requires: null,
@@ -259,7 +259,7 @@ export const addOns = [
   {
     title: "Budget Planning",
     price: 15,
-    description: "Set budgets and compare against actuals with variance reports.",
+    description: "Create annual and quarterly budgets, track actuals, and generate variance analysis reports by cost centre.",
     modules: ["budgets"],
     icon: <FaChartBar />,
     requires: null,
@@ -267,7 +267,7 @@ export const addOns = [
   {
     title: "Advanced Analytics",
     price: 25,
-    description: "Custom KPI dashboards and historical financial analysis.",
+    description: "Custom KPI dashboards, revenue trend analysis, burn rate monitoring, and historical performance reports.",
     modules: ["advanced_analytics"],
     icon: <FaChartBar />,
     requires: null,
@@ -275,7 +275,7 @@ export const addOns = [
   {
     title: "API & Webhooks",
     price: 30,
-    description: "REST API v1 with API key management and incoming webhooks.",
+    description: "Full REST API v1 with API key management and incoming webhooks for real-time event-driven integrations.",
     modules: ["api_webhooks"],
     icon: <FaCode />,
     requires: null,
@@ -283,7 +283,7 @@ export const addOns = [
   {
     title: "Compliance Audit Log",
     price: 20,
-    description: "RBAC audit trail and compliance reports for regulatory needs.",
+    description: "Full RBAC action audit trail, user activity reports, payroll compliance summaries, and GL extracts.",
     modules: ["audit_log"],
     icon: <FaShieldAlt />,
     requires: null,
@@ -291,7 +291,7 @@ export const addOns = [
   {
     title: "Vendor Self-Service Portal",
     price: 15,
-    description: "Let vendors view POs, submit invoices, and check payment status.",
+    description: "Give vendors a dedicated portal to view POs, submit invoices, and track payment status independently.",
     modules: ["vendor_portal"],
     icon: <FaHandshake />,
     requires: "Purchase Orders",
