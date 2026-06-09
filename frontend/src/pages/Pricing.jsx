@@ -5,6 +5,7 @@ import Footer from '../Components/Footer';
 import { motion } from 'framer-motion';
 import { FaCheck, FaTimes, FaGem, FaPhoneAlt } from 'react-icons/fa';
 import { plans, addOns } from '../config/pricingData';
+import PlanComparison from '../Components/PlanComparison';
 import EnterpriseInquiryModal from '../Components/EnterpriseInquiryModal';
 import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
 import API_URL from '../api';
@@ -300,8 +301,16 @@ const Pricing = () => {
             ))}
           </div>
 
+        </div>
+      </div>
+
+      {/* Plan Comparison */}
+      <PlanComparison />
+
+      <div className="bg-gradient-to-b from-gray-50 to-white py-0 px-4 md:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto">
           {/* Add-Ons Section */}
-          <div className="mt-24 mb-0 -mx-4 md:-mx-8 lg:-mx-12 px-4 md:px-8 lg:px-12 py-24 relative overflow-hidden"
+          <div className="mt-0 mb-0 -mx-4 md:-mx-8 lg:-mx-12 px-4 md:px-8 lg:px-12 py-24 relative overflow-hidden"
             style={{ background: 'linear-gradient(135deg, #0e3b5e 0%, #0a2a44 50%, #0e3b5e 100%)' }}>
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00cba9]/10 rounded-full blur-[100px] pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
