@@ -5,12 +5,16 @@ import Footer from '../Components/Footer';
 import { plans } from '../config/pricingData';
 import { FaBoxOpen, FaCheckCircle, FaHourglassHalf, FaEdit, FaCheck, FaArrowLeft, FaExclamationTriangle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
 import API_URL from '../api';
 
 const MyPackage = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const [pendingPlan, setPendingPlan] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,35 +49,43 @@ const MyPackage = () => {
     }
   };
 
-  const handleUpdatePackage = async (plan) => {
-    if (!window.confirm(`Are you sure you want to switch to the ${plan.name} plan?`)) return;
+  const handleSelectPlan = (plan) => {
+    setPendingPlan(plan);
+    setUpgradeModalOpen(true);
+  };
 
+  const handleConfirmUpgrade = async () => {
+    if (!pendingPlan || !user) return;
+    setSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/api/user/update-package`, {
+      const response = await fetch(`${API_URL}/api/upgrades/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          package_name: plan.name,
-          package_price: plan.priceMonthly
-        })
+          userId: user.id,
+          userName: user.name,
+          userEmail: user.email,
+          currentPlan: user.package_name || 'None',
+          requestedPlan: pendingPlan.name,
+        }),
       });
 
       if (response.ok) {
-        const updatedUser = await response.json();
-        setUser(updatedUser); // Update local state
+        setUpgradeModalOpen(false);
         setIsEditing(false);
-        // Force a re-fetch or manual update to ensure status is pending if backend didn't return it perfectly
-        // But backend returns rows[0] which should be correct.
-        alert('Package updated successfully! Please wait for admin confirmation.');
+        alert(`Upgrade request for ${pendingPlan.name} submitted! Our team will review and confirm shortly.`);
       } else {
-        alert('Failed to update package');
+        alert('Failed to submit upgrade request. Please try again.');
       }
     } catch (err) {
-      alert('Network error');
+      alert('Network error. Please try again.');
+    } finally {
+      setSubmitting(false);
+      setPendingPlan(null);
     }
   };
 
@@ -169,7 +181,7 @@ const MyPackage = () => {
                     <p className="text-gray-600 text-sm">Unlock more features and capabilities by upgrading your plan today.</p>
 
                     <button
-                      onClick={() => navigate('/pricing')}
+                      onClick={() => setIsEditing(true)}
                       className="mt-4 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-bold hover:shadow-lg hover:scale-105 transition-all w-full"
                     >
                       Change Plan
@@ -233,7 +245,7 @@ const MyPackage = () => {
                         </div>
                       ) : (
                         <button
-                          onClick={() => handleUpdatePackage(plan)}
+                          onClick={() => handleSelectPlan(plan)}
                           className="w-full py-3 rounded-xl font-bold bg-gray-900 text-white hover:bg-blue-600 transition-colors shadow-md"
                         >
                           Switch to {plan.name}
@@ -248,6 +260,13 @@ const MyPackage = () => {
         </AnimatePresence>
       </div>
       <Footer />
+      <UpgradeConfirmationModal
+        isOpen={upgradeModalOpen}
+        onClose={() => { setUpgradeModalOpen(false); setPendingPlan(null); }}
+        onConfirm={handleConfirmUpgrade}
+        planName={pendingPlan?.name}
+        loading={submitting}
+      />
     </div>
   );
 };

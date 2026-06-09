@@ -87,7 +87,7 @@ const Pricing = () => {
         onClose={() => setIsUpgradeModalOpen(false)}
         onConfirm={handleUpgradeConfirm}
         planName={selectedUpgradePlan}
-        isSubmitting={isSubmittingUpgrade}
+        loading={isSubmittingUpgrade}
       />
 
       {/* Hero */}
