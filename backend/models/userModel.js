@@ -148,6 +148,36 @@ const confirmUserPackage = async (userId, startDate, endDate) => {
   return rows[0];
 };
 
+const activateUpgrade = async (userId, packageName, packagePrice, billingCycle) => {
+  const pkg = await findPackageByName(packageName);
+  const packageId = pkg ? pkg.id : null;
+  const displayName = pkg
+    ? (pkg.display_name || packageName.charAt(0).toUpperCase() + packageName.slice(1))
+    : packageName;
+  const noOfUsers = NO_OF_USERS_MAP[packageName.toLowerCase()] ?? null;
+  const intervalDays = billingCycle === 'yearly' ? 365 : 30;
+
+  const queryText = `
+    UPDATE users
+    SET package_id        = $1,
+        package_name      = $2,
+        package_price     = $3,
+        package_status    = 'confirmed',
+        plan_type         = $4,
+        no_of_users       = $5,
+        purchase_date     = CURRENT_DATE,
+        subscription_end_date = CURRENT_DATE + ($6 * INTERVAL '1 day')
+    WHERE id = $7
+    RETURNING id, name, email, role, company_type,
+              package_name, package_price, package_status,
+              plan_type, no_of_users, purchase_date, subscription_end_date
+  `;
+  const { rows } = await db.query(queryText, [
+    packageId, displayName, packagePrice, billingCycle, noOfUsers, intervalDays, userId,
+  ]);
+  return rows[0];
+};
+
 const countPendingUsers = async () => {
   const { rows } = await db.query("SELECT COUNT(*) FROM users WHERE package_status = 'pending'");
   return parseInt(rows[0].count);
@@ -195,6 +225,7 @@ module.exports = {
   updateUserPackage,
   updateUserPackageByAdmin,
   confirmUserPackage,
+  activateUpgrade,
   countPendingUsers,
   getExpiringUsers,
   getExpiredUsers,

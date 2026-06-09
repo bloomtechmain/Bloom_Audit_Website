@@ -5,16 +5,15 @@ import Footer from '../Components/Footer';
 import { plans } from '../config/pricingData';
 import { FaBoxOpen, FaCheckCircle, FaHourglassHalf, FaEdit, FaCheck, FaArrowLeft, FaExclamationTriangle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import UpgradeConfirmationModal from '../Components/UpgradeConfirmationModal';
+import PayHereCheckout from '../Components/PayHereCheckout';
 import API_URL from '../api';
 
 const MyPackage = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [pendingPlan, setPendingPlan] = useState(null);
-  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,42 +50,12 @@ const MyPackage = () => {
 
   const handleSelectPlan = (plan) => {
     setPendingPlan(plan);
-    setUpgradeModalOpen(true);
+    setCheckoutOpen(true);
   };
 
-  const handleConfirmUpgrade = async () => {
-    if (!pendingPlan || !user) return;
-    setSubmitting(true);
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/api/upgrades/request`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          userName: user.name,
-          userEmail: user.email,
-          currentPlan: user.package_name || 'None',
-          requestedPlan: pendingPlan.name,
-        }),
-      });
-
-      if (response.ok) {
-        setUpgradeModalOpen(false);
-        setIsEditing(false);
-        alert(`Upgrade request for ${pendingPlan.name} submitted! Our team will review and confirm shortly.`);
-      } else {
-        alert('Failed to submit upgrade request. Please try again.');
-      }
-    } catch (err) {
-      alert('Network error. Please try again.');
-    } finally {
-      setSubmitting(false);
-      setPendingPlan(null);
-    }
+  const handleUpgradeSuccess = (updatedUser) => {
+    setUser(updatedUser);
+    setIsEditing(false);
   };
 
   if (loading) return (
@@ -260,12 +229,11 @@ const MyPackage = () => {
         </AnimatePresence>
       </div>
       <Footer />
-      <UpgradeConfirmationModal
-        isOpen={upgradeModalOpen}
-        onClose={() => { setUpgradeModalOpen(false); setPendingPlan(null); }}
-        onConfirm={handleConfirmUpgrade}
-        planName={pendingPlan?.name}
-        loading={submitting}
+      <PayHereCheckout
+        isOpen={checkoutOpen}
+        onClose={() => { setCheckoutOpen(false); setPendingPlan(null); }}
+        plan={pendingPlan}
+        onSuccess={handleUpgradeSuccess}
       />
     </div>
   );
