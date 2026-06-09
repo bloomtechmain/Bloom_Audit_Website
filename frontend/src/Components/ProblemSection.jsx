@@ -48,7 +48,7 @@ const ProblemSection = () => {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-28 px-6"
+      className="relative overflow-hidden pt-10 pb-28 px-6"
       style={{ background: 'linear-gradient(170deg, #07111f 0%, #0b1d34 55%, #07111f 100%)' }}
     >
       {/* Background photo */}
