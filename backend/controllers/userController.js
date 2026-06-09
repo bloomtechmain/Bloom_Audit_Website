@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel');
 const db = require('../config/db');
+const { sendPackageUpdateEmail } = require('../utils/resendEmailService');
 
 const activateUpgrade = async (req, res) => {
     const { packageName, packagePrice, billingCycle } = req.body;
@@ -22,6 +23,14 @@ const activateUpgrade = async (req, res) => {
         } catch (auditErr) {
             console.warn('Could not write upgrade audit record:', auditErr.message);
         }
+
+        sendPackageUpdateEmail({
+            name: req.user.name,
+            email: req.user.email,
+            newPlan: packageName,
+            oldPlan: req.user.package_name || null,
+            billingCycle,
+        }).catch(err => console.error('Package update email error:', err.message));
 
         res.json(updatedUser);
     } catch (error) {

@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel');
 const upgradeRequestModel = require('../models/upgradeRequestModel');
+const { sendPackageUpdateEmail } = require('../utils/resendEmailService');
 
 const getUsers = async (req, res) => {
   try {
@@ -24,6 +25,17 @@ const confirmPackage = async (req, res) => {
     endDate.setDate(startDate.getDate() + 30); // Default to 30 days expiration
 
     const updatedUser = await userModel.confirmUserPackage(userId, startDate, endDate);
+
+    if (updatedUser && updatedUser.email) {
+      sendPackageUpdateEmail({
+        name: updatedUser.name,
+        email: updatedUser.email,
+        newPlan: updatedUser.package_name || 'starter',
+        oldPlan: null,
+        billingCycle: updatedUser.plan_type || 'monthly',
+      }).catch(err => console.error('confirmPackage email error:', err.message));
+    }
+
     res.json(updatedUser);
   } catch (error) {
     console.error(error);
@@ -70,6 +82,17 @@ const updatePackage = async (req, res) => {
 
   try {
     const updatedUser = await userModel.updateUserPackageByAdmin(userId, newPackage, newPrice);
+
+    if (updatedUser && updatedUser.email) {
+      sendPackageUpdateEmail({
+        name: updatedUser.name,
+        email: updatedUser.email,
+        newPlan: newPackage,
+        oldPlan: null,
+        billingCycle: updatedUser.plan_type || 'monthly',
+      }).catch(err => console.error('admin updatePackage email error:', err.message));
+    }
+
     res.json(updatedUser);
   } catch (error) {
     console.error(error);

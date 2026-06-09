@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/userModel');
+const { sendWelcomeEmail } = require('../utils/resendEmailService');
 
 const register = async (req, res) => {
   const { name, email, password, company_type, plan, billing_cycle } = req.body;
@@ -48,6 +49,15 @@ const register = async (req, res) => {
     const token = jwt.sign({ id: newUser.id, role: newUser.role }, process.env.JWT_SECRET || 'secret', {
       expiresIn: '30d',
     });
+
+    // Send welcome email — non-blocking, errors are caught inside
+    sendWelcomeEmail({
+      name: newUser.name,
+      email: newUser.email,
+      plan: plan || 'starter',
+      billingCycle: billing_cycle || 'monthly',
+      companyType: company_type || null,
+    }).catch(err => console.error('Welcome email error:', err.message));
 
     res.status(201).json({
       id: newUser.id,
