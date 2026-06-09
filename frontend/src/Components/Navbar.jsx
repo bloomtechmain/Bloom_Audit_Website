@@ -103,6 +103,11 @@ const Navbar = ({ solid = false }) => {
               Pricing
             </Link>
           </li>
+          <li className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor}`}>
+            <Link to="/why-choose-us" className="text-inherit no-underline">
+              Why Choose Us
+            </Link>
+          </li>
           <li
             className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor} relative h-full py-4`}
             onMouseEnter={() => setActiveDropdown('small-business')}
@@ -472,6 +477,7 @@ const Navbar = ({ solid = false }) => {
             <div className="p-6 flex flex-col gap-6 text-white">
               <Link to="/features" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium no-underline text-white">Features</Link>
               <Link to="/pricing" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium no-underline text-white">Pricing</Link>
+              <Link to="/why-choose-us" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium no-underline text-white">Why Choose Us</Link>
 
               {/* Accordion for Small Business */}
               <div>

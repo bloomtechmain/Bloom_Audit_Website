@@ -56,22 +56,23 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="lg:w-1/2 text-center lg:text-left"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-              Master Your <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00cba9] to-blue-300">
-                Financial Destiny
-              </span>
-            </h1>
-
-            <h2 className="text-xl md:text-2xl font-bold text-blue-200 mb-6">
-              We deliver end-to-end financial strategies built for your unique business landscape.
-            </h2>
-
-            <p className="text-lg md:text-xl text-blue-100 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              Audit & Reporting • Strategic Advisory • Management Services
+            <p className="text-xs md:text-sm font-bold tracking-[0.3em] text-[#00cba9] uppercase mb-4">
+              C O M P L E T E &nbsp; B U S I N E S S &nbsp; E R P
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
+              The Smarter Way <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00cba9] to-blue-300">
+                to Run Your
+              </span>
+              <br />Business Finances
+            </h1>
+
+            <p className="text-lg md:text-xl text-blue-100 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              From freelancers to enterprises — one platform for accounting, HR, payroll, inventory, projects, and more. At a fraction of the cost of legacy ERP solutions.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
               <Link
                 to="/register?plan=starter"
                 className="px-8 py-4 bg-[#00cba9] text-white rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(0,203,169,0.4)] hover:shadow-[0_0_30px_rgba(0,203,169,0.6)] hover:bg-[#00b596] transition-all transform hover:-translate-y-1 flex items-center gap-2 group">
@@ -79,6 +80,26 @@ const Hero = () => {
               </Link>
             </div>
 
+            {/* Stats Row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {[
+                { value: '4', label: 'Flexible Plans' },
+                { value: '46+', label: 'ERP Modules' },
+                { value: '19', label: 'Add-On Features' },
+                { value: '$29', label: 'Starting / Month' },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
+                  className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 text-center"
+                >
+                  <p className="text-2xl md:text-3xl font-extrabold text-[#00cba9]">{stat.value}</p>
+                  <p className="text-blue-200 text-xs mt-1">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
 
           </motion.div>
 

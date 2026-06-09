@@ -25,6 +25,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import MyPackage from './pages/MyPackage';
 import Community from './pages/Community';
 import Guides from './pages/Guides';
+import WhyChooseUs from './pages/WhyChooseUs';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Route path="/support/get-support" element={<BloomGetSupport />} />
         <Route path="/support/community" element={<Community />} />
         <Route path="/resources/guides" element={<Guides />} />
+        <Route path="/why-choose-us" element={<WhyChooseUs />} />
       </Routes>
     </Router>
   );
