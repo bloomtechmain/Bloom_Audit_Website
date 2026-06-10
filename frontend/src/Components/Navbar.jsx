@@ -89,8 +89,8 @@ const Navbar = ({ solid = false }) => {
     >
       <div className="flex items-center gap-8">
         <Link to="/" className="flex items-center gap-2 no-underline">
-          <img src={logo} alt="Bloom ERP" className="h-12 w-auto object-contain" />
-          <span className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${logoColor}`}>Bloom ERP</span>
+          <img src={logo} alt="Bloom Audit" className="h-12 w-auto object-contain" />
+          <span className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${logoColor}`}>Bloom Audit</span>
         </Link>
         <ul className="hidden lg:flex gap-6 list-none m-0 p-0 h-full items-center">
           <li className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor}`}>
@@ -120,11 +120,11 @@ const Navbar = ({ solid = false }) => {
           >
             For accountants & bookkeepers <FaChevronDown size={10} />
           </li>
-          <li className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor}`}>
+          {/* <li className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor}`}>
             <Link to="/cyber-security" className="text-inherit no-underline">
               Cyber Security Management
             </Link>
-          </li>
+          </li> */}
           <li
             className={`flex items-center gap-1 text-sm cursor-pointer font-medium hover:opacity-80 transition-colors duration-300 ${textColor} relative h-full py-4`}
             onMouseEnter={() => setActiveDropdown('support')}
@@ -230,7 +230,7 @@ const Navbar = ({ solid = false }) => {
                   Empowering Small Businesses
                 </h3>
                 <p className="text-blue-200 mb-8 leading-relaxed">
-                  Discover how Bloom ERP simplifies your financial world, giving you more time to focus on what you love.
+                  Discover how Bloom Audit simplifies your financial world, giving you more time to focus on what you love.
                 </p>
                 <ul className="space-y-2">
                   <li>
@@ -251,7 +251,7 @@ const Navbar = ({ solid = false }) => {
               {/* Column 2: Features (4 cols) */}
               <div className="md:col-span-4 bg-white/5 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-colors">
                 <h4 className="text-sm font-bold uppercase tracking-wider mb-6 text-[#00cba9] flex items-center gap-2">
-                  <span className="w-8 h-[1px] bg-[#00cba9]"></span> Why Bloom ERP
+                  <span className="w-8 h-[1px] bg-[#00cba9]"></span> Why Bloom Audit
                 </h4>
                 <ul className="space-y-4">
                   <li>
@@ -322,14 +322,14 @@ const Navbar = ({ solid = false }) => {
               {/* Column 1: Main Focus (6 cols) */}
               <div className="md:col-span-6 flex flex-col justify-center">
                 <h3 className="text-3xl font-extrabold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
-                  See what Bloom ERP can do for accountants and bookkeepers
+                  See what Bloom Audit can do for accountants and bookkeepers
                 </h3>
                 <ul className="space-y-4">
                   <li>
                     <Link to="/accountants/hq" className={menuLinkStyle}>
                       <div className={iconStyle}><FaBriefcase size={16} /></div>
                       <div className="flex flex-col">
-                        <span className="font-semibold text-lg">Bloom ERP HQ</span>
+                        <span className="font-semibold text-lg">Bloom Audit HQ</span>
                         <span className="text-sm text-blue-200/70">Manage clients and staff</span>
                       </div>
                     </Link>
@@ -338,7 +338,7 @@ const Navbar = ({ solid = false }) => {
                     <Link to="/accountants/practice-manager" className={menuLinkStyle}>
                       <div className={iconStyle}><FaUsers size={16} /></div>
                       <div className="flex flex-col">
-                        <span className="font-semibold text-lg">Bloom ERP Practice Manager</span>
+                        <span className="font-semibold text-lg">Bloom Audit Practice Manager</span>
                         <span className="text-sm text-blue-200/70">Manage your practice efficiently</span>
                       </div>
                     </Link>
@@ -356,7 +356,7 @@ const Navbar = ({ solid = false }) => {
                     <Link to="/accountants/cashbook-ledger" className="flex items-start gap-4 group hover:translate-x-2 transition-transform duration-300">
                       <FaBook className="mt-1 text-blue-300 group-hover:text-[#00cba9] transition-colors" />
                       <div>
-                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Bloom ERP Cashbook, Bloom Ledger</span>
+                        <span className="block font-bold text-lg group-hover:text-[#00cba9] transition-colors">Bloom Audit Cashbook, Bloom Ledger</span>
                         <span className="text-sm text-blue-200/70">Starter plans for smaller clients</span>
                       </div>
                     </Link>
@@ -465,8 +465,8 @@ const Navbar = ({ solid = false }) => {
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 no-underline">
-                <img src={logo} alt="Bloom ERP" className="h-10 w-auto bg-white rounded-lg p-1" />
-                <span className="text-xl font-bold text-white">Bloom ERP</span>
+                <img src={logo} alt="Bloom Audit" className="h-10 w-auto bg-white rounded-lg p-1" />
+                <span className="text-xl font-bold text-white">Bloom Audit</span>
               </Link>
               <button onClick={() => setMobileMenuOpen(false)} className="text-white p-2">
                 <FaTimes size={24} />
@@ -521,7 +521,7 @@ const Navbar = ({ solid = false }) => {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden pl-4 flex flex-col gap-4 mt-4 border-l-2 border-[#00cba9]/30"
                     >
-                      <Link to="/accountants/hq" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Bloom ERP HQ</Link>
+                      <Link to="/accountants/hq" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Bloom Audit HQ</Link>
                       <Link to="/accountants/practice-manager" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Practice Manager</Link>
                       <Link to="/accountants/workpapers" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Workpapers</Link>
                       <Link to="/accountants/cashbook-ledger" onClick={() => setMobileMenuOpen(false)} className="text-blue-200 block no-underline">Cashbook & Ledger</Link>
@@ -533,7 +533,7 @@ const Navbar = ({ solid = false }) => {
 
               {/* Accordion for Support */}
               <div>
-                <Link to="/cyber-security" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium no-underline text-white block mb-6">Cyber Security Management</Link>
+                {/* <Link to="/cyber-security" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium no-underline text-white block mb-6">Cyber Security Management</Link> */}
                 <button
                   onClick={() => setActiveMobileDropdown(activeMobileDropdown === 'support' ? null : 'support')}
                   className="flex items-center justify-between w-full text-lg font-medium bg-transparent border-none text-white p-0"
