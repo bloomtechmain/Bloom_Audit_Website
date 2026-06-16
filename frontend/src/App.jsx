@@ -26,6 +26,8 @@ import MyPackage from './pages/MyPackage';
 import Community from './pages/Community';
 import Guides from './pages/Guides';
 import WhyChooseUs from './pages/WhyChooseUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
 
 function App() {
   return (
@@ -57,6 +59,8 @@ function App() {
         <Route path="/support/community" element={<Community />} />
         <Route path="/resources/guides" element={<Guides />} />
         <Route path="/why-choose-us" element={<WhyChooseUs />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
     </Router>
   );

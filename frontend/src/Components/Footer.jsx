@@ -95,8 +95,8 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
           <p>Copyright © 2026 Bloom ERP, All rights reserved. Powered by Bloom Tech.</p>
           <div className="flex gap-6">
-            <Link to="#" className="hover:text-white transition-colors">Term of use</Link>
-            <Link to="#" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms-and-conditions" className="hover:text-white transition-colors">Term of use</Link>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="#" className="hover:text-white transition-colors">Cookie Policy</Link>
           </div>
         </div>
